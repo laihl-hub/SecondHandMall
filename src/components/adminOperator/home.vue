@@ -1,8 +1,10 @@
 <template>
   <div>
-    <div class="header">
+    <div class="header" >
       <img src="static/img/admin.png" width="55px" height="55px">
-      <span>校园二手交易系统后台管理</span></div>
+      <span>校园二手交易系统后台管理</span>
+      <Icon type="log-out" style="float: right;margin-right: 50px;margin-top: 15px" @click="checkout"></Icon>
+    </div>
     <Row type="flex">
       <i-col span="5" class="layout-menu-left">
         <Menu active-name="1-2" theme="dark" width="auto" :open-names="['1']" @on-select="selected">
@@ -73,6 +75,11 @@ export default{
       this.activeTitle = this.bar[name];
       this.$router.push(`/adminOperator/${name}`);
       console.log(this.$route);
+    },
+    checkout(){
+      console.log(Cookies.get('adminId'))
+      Cookies.remove('adminId')
+      this.$router.push('/adminLogin')
     }
   }
 };

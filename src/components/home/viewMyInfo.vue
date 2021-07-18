@@ -6,8 +6,8 @@
       </div>
       <div class="add-box">
         <Form :model="formData" label-position="left" :label-width="100" :rules="ruleInline">
-          <FormItem label="姓名" prop="uname">
-            <i-input v-model="formData.uname" size="large"></i-input>
+          <FormItem label="姓名" prop="uname" >
+            <i-input v-model="formData.uname" size="large" :disabled="true"></i-input>
           </FormItem>
           <FormItem label="手机号码" prop="uphonenum">
             <i-input v-model="formData.uphonenum" size="large"></i-input>
