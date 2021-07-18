@@ -1,8 +1,6 @@
 <template>
   <div>
     <Search></Search>
-    <ShopHeader></ShopHeader>
-    <GoodsDetailNav></GoodsDetailNav>
     <div class="shop-item-path">
       <div class="shop-nav-container">
         <Breadcrumb>
@@ -15,7 +13,7 @@
     <!-- 商品信息展示 -->
     <ShowGoods></ShowGoods>
     <!-- 商品详细展示 -->
-    <ShowGoodsDetail></ShowGoodsDetail>
+    <ShowGoodsDetail ></ShowGoodsDetail>
     <Spin size="large" fix v-if="isLoading"></Spin>
   </div>
 </template>
@@ -28,6 +26,8 @@ import ShowGoods from '@/components/goodsDetail/ShowGoods';
 import ShowGoodsDetail from '@/components/goodsDetail/ShowGoodsDetail';
 import store from '@/vuex/store';
 import { mapState, mapActions } from 'vuex';
+import axios from 'axios';
+import api from '../../static/js/api';
 export default {
   name: 'GoodsDetail',
   beforeRouteEnter (to, from, next) {
@@ -36,10 +36,13 @@ export default {
   },
   created () {
     this.loadGoodsInfo();
+
   },
   data () {
     return {
-      tagsColor: [ 'blue', 'green', 'red', 'yellow' ]
+      tagsColor: [ 'blue', 'green', 'red', 'yellow' ],
+      pid:0,
+
     };
   },
   methods: {

@@ -2,92 +2,114 @@
   <div>
     <div class="item-detail-show">
       <div class="item-detail-left">
+<!--        大照片显示-->
         <div class="item-detail-big-img">
-          <img :src="goodsInfo.goodsImg[imgIndex]" alt="">
+          <img :src="'../../static/img/goodsList/'+productInfo.pimg" alt="">
         </div>
+<!--        -->
         <div class="item-detail-img-row">
-          <div class="item-detail-img-small" v-for="(item, index) in goodsInfo.goodsImg" :key="index" @mouseover="showBigImg(index)">
-            <img :src="item" alt="">
+          <div class="item-detail-img-small">
+            <img :src="'../../static/img/goodsList/'+productInfo.pimg" alt="">
           </div>
         </div>
       </div>
+
       <div class="item-detail-right">
-        <div class="item-detail-title">
+        <Card style="width:700px">
+        <div class="item-detail-title" style="padding-bottom: 5px">
           <p>
-            <span class="item-detail-express">校园配送</span> {{goodsInfo.title}}</p>
+            <span class="item-detail-express">官方担保交易</span> {{productInfo.pname}}</p>
         </div>
-        <div class="item-detail-tag">
+        <div class="item-detail-tag" style="padding-bottom: 25px">
           <p>
-            <span v-for="(item,index) in goodsInfo.tags" :key="index">【{{item}}】</span>
+            <span>一口价</span>
+            <span>不退款</span>
+            <span>当天发货</span>
           </p>
         </div>
-        <div class="item-detail-price-row">
-          <div class="item-price-left">
-            <div class="item-price-row">
-              <p>
-                <span class="item-price-title">B I T 价</span>
-                <span class="item-price">￥{{price.toFixed(2)}}</span>
-              </p>
-            </div>
-            <div class="item-price-row">
-              <p>
-                <span class="item-price-title">优 惠 价</span>
-                <span class="item-price-full-cut" v-for="(item,index) in goodsInfo.discount" :key="index">{{item}}</span>
-              </p>
-            </div>
-            <div class="item-price-row">
-              <p>
-                <span class="item-price-title">促&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销</span>
-                <span class="item-price-full-cut" v-for="(item,index) in goodsInfo.promotion" :key="index">{{item}}</span>
-              </p>
-            </div>
-          </div>
-          <div class="item-price-right">
-            <div class="item-remarks-sum">
-              <p>累计评价</p>
-              <p>
-                <span class="item-remarks-num">{{goodsInfo.remarksNum}} 条</span>
-              </p>
-            </div>
-          </div>
-        </div>
-        <!-- 选择颜色 -->
-        <div class="item-select">
-          <div class="item-select-title">
-            <p>选择颜色</p>
-          </div>
-          <div class="item-select-column">
-            <div class="item-select-row" v-for="(items, index) in goodsInfo.setMeal" :key="index">
-              <div class="item-select-box" v-for="(item, index1) in items" :key="index1" @click="select(index, index1)" :class="{'item-select-box-active': ((index * 3) + index1) === selectBoxIndex}">
-                <div class="item-select-img">
-                  <img :src="item.img" alt="">
-                </div>
-                <div class="item-select-intro">
-                  <p>{{item.intro}}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- 白条分期 -->
-        <div class="item-select">
-          <div class="item-select-title">
-            <p>白条分期</p>
-          </div>
-          <div class="item-select-row">
-            <div class="item-select-class" v-for="(item,index) in hirePurchase" :key="index">
-              <Tooltip :content="item.tooltip" placement="top-start">
-                <span>{{item.type}}</span>
-              </Tooltip>
-            </div>
-          </div>
-        </div>
+
+
+          <Col span="24">
+
+            <Row style="padding-bottom: 10px">
+              <Col span="10" >
+                <Tooltip content="商品卖家" style="padding-right: 5px">
+                  <Icon type="ios-person" size="22"></Icon>
+                </Tooltip>
+                <span class=" " style="">卖家名称:</span>
+                <span class=" " style="">{{productInfo.uname}}</span>
+              </Col>
+            </Row>
+
+            <Row style="padding-bottom: 10px"> <Tooltip content="卖家地址" style="padding-right: 5px">
+              <Icon type="location" size="22" style="padding-left: 3px"></Icon>
+            </Tooltip>
+              <span>卖家学校:</span>
+              <span class=" " style="">{{productInfo.uschool}}</span>
+            </Row>
+
+            <Row style="padding-bottom: 10px"> <Tooltip content="卖家联系方式" style="padding-right: 5px">
+              <Icon type="ios-chatbubble" size="20"></Icon>
+            </Tooltip>
+              <span>卖家联系方式:</span>
+              <span class=" " style="">{{productInfo.uphoneNum}}</span>
+            </Row>
+
+            <Row style="padding-bottom: 10px"> <Tooltip content="商品标签" style="padding-right: 5px">
+              <Icon type="bookmark" size="22" style="padding-right: 10px;padding-left: 2px"></Icon>
+              <Tag color="red">99新</Tag>
+              <Tag color="red">卖家包邮</Tag>
+              <Tag color="red">正品保证</Tag>
+
+            </Tooltip>
+
+
+            </Row>
+
+            <Row style="padding-bottom: 10px"> <Tooltip content="商品描述" style="padding-right: 5px">
+              <Icon type="ios-information"  size="18"></Icon>
+            </Tooltip>
+              <span>商品描述:</span>
+              <br>
+              <div style="margin-top: 5px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{productInfo.pintro}}</div>
+            </Row>
+
+            <Row span="" style="padding-bottom: 10px"> <Tooltip content="商品现价" style="padding-right: 5px">
+              <Icon type="pricetags" size="18"></Icon>
+            </Tooltip>
+              <span>商品价格:</span>
+              <span class="item-in-card item-detail-express"  >{{productInfo.pprice}}元</span>
+              <span style="padding-left: 50px;text-decoration:line-through">原价1000元</span>
+
+            </Row>
+
+
+          </Col>
+
+
+
+
+
+        </Card>
         <br>
+
         <div class="add-buy-car-box">
-          <div class="add-buy-car">
-            <InputNumber :min="1" v-model="count" size="large"></InputNumber>
+          <Col span="20">
+        <Row>
+          <span class="add-buy-car">
+            <Button type="error" size="large" @click="addShoppingCartBtn()">购买</Button>
+          </span>
+
+          <span class="add-buy-car">
+            <Button type="error" size="large" @click="addShoppingCartBtn()">加入收藏</Button>
+          </span>
+
+          <span class="add-buy-car">
             <Button type="error" size="large" @click="addShoppingCartBtn()">加入购物车</Button>
-          </div>
+          </span>
+        </Row>
+          </Col>
+
         </div>
       </div>
     </div>
@@ -97,6 +119,8 @@
 <script>
 import store from '@/vuex/store';
 import { mapState, mapActions } from 'vuex';
+import axios from 'axios';
+import api from '../../../static/js/api';
 export default {
   name: 'ShowGoods',
   data () {
@@ -104,39 +128,33 @@ export default {
       price: 0,
       count: 1,
       selectBoxIndex: 0,
-      imgIndex: 0
+      imgIndex: 0,
+      productInfo:{
+        cname: "",
+        pimg: "",
+        pintro: "",
+        pname: "",
+        pprice: 0,
+        pviewNum: 0,
+        uname:'',
+        uphoneNum: ''
+      }
     };
   },
+  created () {
+    if(this.$route.query.pid) {
+      const _this=this
+      axios.get(api.path_local + 'productManage/lookUpProductDetailByPid/' + _this.$route.query.pid).
+      then(function (resp){
+        _this.productInfo=resp.data.data
+      })
+    }
+
+  },
+
   computed: {
     ...mapState(['goodsInfo']),
-    hirePurchase () {
-      const three = this.price * this.count / 3;
-      const sex = this.price * this.count / 6;
-      const twelve = this.price * this.count / 12 * 1.0025;
-      const twentyFour = this.price * this.count / 24 * 1.005;
-      return [
-        {
-          tooltip: '无手续费',
-          type: '不分期'
-        },
-        {
-          tooltip: '无手续费',
-          type: `￥${three.toFixed(2)} x 3期`
-        },
-        {
-          tooltip: '无手续费',
-          type: `￥${sex.toFixed(2)} x 6期`
-        },
-        {
-          tooltip: '含手续费：费率0.25%起，￥0.1起×12期',
-          type: `￥${twelve.toFixed(2)} x 12期`
-        },
-        {
-          tooltip: '含手续费：费率0.5%起，￥0.1起×12期',
-          type: `￥${twentyFour.toFixed(2)} x 24期`
-        }
-      ];
-    }
+
   },
   methods: {
     ...mapActions(['addShoppingCart']),
@@ -230,94 +248,16 @@ export default {
   font-size: 12px;
   color: #e4393c;
 }
-/*价格详情等*/
-.item-detail-price-row {
-  padding: 5px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: #f3f3f3;
-}
-.item-price-left {
-  display: flex;
-  flex-direction: column;
-}
-.item-price-title {
-  color: #999999;
-  font-size: 14px;
-  margin-right: 15px;
-}
-.item-price-row {
-  margin: 5px 0px;
-}
-.item-price {
-  color: #e4393c;
-  font-size: 23px;
-  cursor: pointer;
-}
-.item-price-full-cut {
-  margin-right: 5px;
-  padding: 3px;
-  color: #e4393c;
-  font-size: 12px;
-  background-color: #ffdedf;
-  border: 1px dotted #e4393c;
-  cursor: pointer;
-}
-.item-remarks-sum {
-  padding-left: 8px;
-  border-left: 1px solid #ccc;
-}
+
+
+
 .item-remarks-sum p {
   color: #999999;
   font-size: 12px;
   line-height: 10px;
   text-align: center;
 }
-.item-remarks-num {
-  line-height: 18px;
-  color: #005eb7;
-}
-.item-select {
-  display: flex;
-  flex-direction: row;
-  margin-top: 15px;
-}
-.item-select-title {
-  color: #999999;
-  font-size: 14px;
-  margin-right: 15px;
-}
-.item-select-column {
-  display: flex;
-  flex-direction: column;
-}
-.item-select-row {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 8px;
-}
-.item-select-box {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.item-select-img {
-  width: 36px;
-}
-.item-select-box {
-  padding: 5px;
-  margin-right: 8px;
-  background-color: #f7f7f7;
-  border: 0.5px solid #ccc;
-  cursor: pointer;
-}
-.item-select-box:hover {
-  border: 0.5px solid #e3393c;
-}
-.item-select-box-active {
-  border: 0.5px solid #e3393c;
-}
+
 .item-select-img img {
   width: 100%;
 }
@@ -325,16 +265,12 @@ export default {
   margin: 0px;
   padding: 5px;
 }
-.item-select-class {
-  padding: 5px;
-  margin-right: 8px;
-  background-color: #f7f7f7;
-  border: 0.5px solid #ccc;
-  cursor: pointer;
+.item-in-card{
+  font-size: 25px;
+  background-color: white;
+  color: red;
 }
-.item-select-class:hover {
-  border: 0.5px solid #e3393c;
-}
+
 .add-buy-car-box {
   width: 100%;
   margin-top: 15px;
