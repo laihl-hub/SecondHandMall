@@ -197,7 +197,7 @@ export default new Router({
         {path: 'noticeInfo', name: 'NoticeInfo', component: NoticeInfo},
         {path: 'addNotice', name: 'AddNotice', component: AddNotice}
       ]
+    },
 
-    }
   ]
 });

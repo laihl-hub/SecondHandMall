@@ -52,6 +52,9 @@ export const loadSeckillsInfo = ({ commit }) => {
   });
 };
 
+
+
+
 // 获取轮播(营销)图片
 export const loadCarouselItems = ({ commit }) => {
   return new Promise((resolve, reject) => {
@@ -71,6 +74,7 @@ export const loadCarouselItems = ({ commit }) => {
     commit('SET_CAROUSELITEMS_INFO', data);
   });
 };
+
 
 // 加载电脑专栏数据
 export const loadComputer = ({ commit }) => {
@@ -110,7 +114,7 @@ export const loadComputer = ({ commit }) => {
           ]
         },
         {
-          bigImg: 'static/img/index/computer/item-computer-2-1.jpg',
+          bigImg: 'static/img/index/computer/2.jpg',
           itemFour: [
             {
               title: '平板电脑',
@@ -679,29 +683,7 @@ export const loadAddress = ({ commit }) => {
         // const address1=JSON.stringify(address)
         commit('SET_USER_ADDRESS', address);
       })
-    // console.log(address)
-    // {
-    //   addressId: '123456',
-    //   name: 'laihl',
-    //   province: '重庆市',
-    //   city: '重庆市',
-    //   area: '高新区',
-    //   address: '重庆大学虎溪校区',
-    //   phone: '152****0609',
-    //   postalcode: '000000'
-    // }
-    // {
-    //   addressId: '123458',
-    //   name: 'Kevin',
-    //   province: '上海市',
-    //   city: '上海市',
-    //   area: '浦东新区',
-    //   address: '沙新镇',
-    //   phone: '158****0888',
-    //   postalcode: '200120'
-    // }
 
-    // commit('SET_USER_ADDRESS', address);
   });
 };
 export const loadfavorite = ({ commit }) => {
@@ -717,16 +699,6 @@ export const loadfavorite = ({ commit }) => {
         phone: '152****0609',
         postalcode: '美味好喝的珍珠奶茶'
       }
-      // {
-      //   addressId: '123458',
-      //   name: 'Kevin',
-      //   province: '上海市',
-      //   city: '上海市',
-      //   area: '浦东新区',
-      //   address: '沙新镇',
-      //   phone: '158****0888',
-      //   postalcode: '200120'
-      // }
     ];
     commit('SET_USER_ADDRESS', address);
   });

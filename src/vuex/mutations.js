@@ -13,11 +13,14 @@ export const SET_LOAD_STATUS = (state, status) => {
   state.isLoading = status;
 };
 
+
 // 设置秒杀商品
 export const SET_SECKILLS_INFO = (state, seckills) => {
   state.seckills.goodsList = seckills[0];
   state.seckills.deadline = seckills[1];
 };
+
+
 
 // 设置轮播(营销)图
 export const SET_CAROUSELITEMS_INFO = (state, { carouselItems, activity }) => {
@@ -92,3 +95,5 @@ export const SET_RECOMMEND_INFO = (state, data) => {
 export const SET_USER_ADDRESS = (state, data) => {
   state.address = data;
 };
+
+

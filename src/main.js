@@ -13,6 +13,9 @@ import VueAxios from 'vue-axios';
 Vue.use(iView);
 Vue.use(ElementUI);
 Vue.use(VueAxios, axios);
+import vueWaterfallEasy from 'vue-waterfall-easy'
+Vue.use(vueWaterfallEasy)
+
 Vue.config.productionTip = false;
 
 router.beforeEach((to, from, next) => {
