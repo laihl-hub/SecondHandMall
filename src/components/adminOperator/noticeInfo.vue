@@ -53,6 +53,7 @@
 <script>
 import axios from "axios";
 import api from "../../../static/js/api";
+import Moment from "moment";
 
 export default {
   data () {
@@ -66,11 +67,21 @@ export default {
       }
     };
   },
-  created() {
-    const _this=this
-    axios.get(api.path+'boardManage/listAllBoard').then(function (response){
-      _this.tableData=response.data.data;
+  async created() {
+    const _this = this
+    await axios.get(api.path + 'boardManage/listAllBoard').then(function (response) {
+      _this.tableData = response.data.data;
+
+
     })
+    for(let i=0;i<_this.tableData.length;i++){
+      _this.tableData[i].boardTime=_this.convertTime(_this.tableData[i].boardTime,'YYYY-MM-DD HH:MM:SS')
+    }
+    // console.log(_this.tableData)
+
+    // _this.tableData.boardTime=_this.filters.convertTime('YYYY-MM-DD HH:MM:SS')
+    // console.log(_this.tableData.boardTime)
+    // console.log(_this.filters)
   },
   methods:{
     searchNotice(){
@@ -91,8 +102,11 @@ export default {
           _this.$message.error('删除失败')
         }
       })
-    }
-  }
+    },
+    convertTime: function (data, format) {
+      return Moment(data).format(format)}
+  },
+  filters: {}
 };
 </script>
 

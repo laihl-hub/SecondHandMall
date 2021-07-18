@@ -24,7 +24,7 @@
               商品管理
             </template>
             <Menu-item name="goodInfo">商品信息</Menu-item>
-<!--            <Menu-item name="2-2">选项 2</Menu-item>-->
+            <Menu-item name="goodCategory">商品类别</Menu-item>
           </Submenu>
           <Submenu name="3">
             <template slot="title">
@@ -66,15 +66,17 @@ export default{
         'userInfo': '用户信息',
         'goodInfo': '商品信息',
         'noticeInfo': '公告',
-        'addNotice': '发布公告'
+        'addNotice': '发布公告',
+        'goodCategory': '商品类别'
       }
     };
   },
+
   methods: {
     selected (name) {
       this.activeTitle = this.bar[name];
       this.$router.push(`/adminOperator/${name}`);
-      console.log(this.$route);
+      // console.log(this.$route);
     },
     checkout(){
       console.log(Cookies.get('adminId'))

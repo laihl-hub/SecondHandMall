@@ -16,8 +16,8 @@ export default {
     return {
       excludeRoutes: ['HomeIndex', 'MyAddress', 'AddAddress', 'MyOrder', 'MyShoppingCart', 'AdminLogin', 'AdminHome',
         'ViewMyInfo', 'AddMyGood', 'ViewMyGood', 'ViewMyWant', 'AddMyWant', 'MyFavorite', 'MyMessage', 'UserInfo',
-        'GoodInfo', 'NoticeInfo', 'AddNotice'],
-      adminHeader: ['AdminLogin', 'AdminHome', 'UserInfo', 'GoodInfo', 'NoticeInfo', 'AddNotice']
+        'GoodInfo', 'NoticeInfo', 'AddNotice','GoodCategory'],
+      adminHeader: ['AdminLogin', 'AdminHome', 'UserInfo', 'GoodInfo', 'NoticeInfo', 'AddNotice','GoodCategory']
     };
   },
   components: {
