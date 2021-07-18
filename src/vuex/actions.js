@@ -703,22 +703,30 @@ export const loadfavorite = ({ commit }) => {
     commit('SET_USER_ADDRESS', address);
   });
 };
-export const loadaaa = ({ commit }) => {
-  return new Promise((resolve, reject) => {
-    const address = [
-      {
-        addressId: '123456',
-        name: '冰箱',
-        province: '家用电器',
-        // city: '重庆市',
-        // area: '高新区',
-        address: '100-200rmb',
-        phone: '152****0609',
-        postalcode: '想要一台寝室用的冰箱'
 
-      }
-    ];
-    commit('SET_USER_ADDRESS', address);
+export const loadWantProduct = ({ commit }) => {
+  return new Promise(async (resolve, reject) => {
+    await axios.get(api.path + 'wantingInfoManage/lookUpBuyInfoByUserId/' + Cookies.get('userid'))
+      .then(function (response) {
+        let wantProduct = response.data.data;
+        console.log(response.data.data)
+        console.log(wantProduct)
+        // const address1=JSON.stringify(address)
+        commit('SET_USER_WANT', wantProduct);
+      })
+  });
+};
+
+export const loadStore = ({ commit }) => {
+  return new Promise(async (resolve, reject) => {
+    await axios.get(api.path + 'userStoreManage/lookUpStoreByUserId/' + Cookies.get('userid'))
+      .then(function (response) {
+        let store = response.data.data;
+        console.log(response.data.data)
+        console.log(store)
+        // const address1=JSON.stringify(address)
+        commit('SET_USER_STORE', store);
+      })
   });
 };
 
@@ -736,6 +744,20 @@ export const loadShoppingCart = ({ commit }) => {
   });
 };
 
+export const loadmyGood = ({ commit }) => {
+  return new Promise(async (resolve, reject) => {
+
+
+    await axios.get(api.path + 'releaseProductManage/lookUpReleasedProductByUid/' + Cookies.get('userid'))
+      .then(function (response) {
+        let address = response.data.data;
+        console.log(response.data.data)
+        console.log(address)
+        // const address1=JSON.stringify(address)
+        commit('SET_USER_ADDRESS', address);
+      })
+  });
+};
 // 添加注册用户
 export const addSignUpUser = ({ commit }, data) => {
   return new Promise((resolve, reject) => {

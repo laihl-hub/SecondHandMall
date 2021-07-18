@@ -96,4 +96,13 @@ export const SET_USER_ADDRESS = (state, data) => {
   state.address = data;
 };
 
+// 设置求购商品
+export const SET_USER_WANT = (state, data) => {
+  state.wantProduct = data;
+};
+// 设置收藏商品
+export const SET_USER_STORE = (state, data) => {
+  state.store = data;
+};
+
 
