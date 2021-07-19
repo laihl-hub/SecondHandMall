@@ -786,6 +786,7 @@ export const login = ({ commit }, data) => {
           Cookies.set('userid',resp.data.data[0].uid);
           // setCook
           commit('SET_USER_LOGIN_INFO', data); // 数据上传
+
           resolve(true);
           return true
         }

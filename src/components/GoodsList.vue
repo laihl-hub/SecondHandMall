@@ -50,11 +50,12 @@
 
             <div class="goods-show-info" v-for="(item, index) in productInfo " :key="index">
               <div class="goods-show-img"  >
-                <router-link :to="{path:'goodsDetail/',query:{
-                  pid:productInfo.pid,
-                  cname:productInfo.cname,
-                  pname:productInfo.pname
+                <router-link :to="{path:'/goodsDetail',query:{
+                  pid:item.pid,
+                  cname:item.cname,
+                  pname:item.pname
                 }
+
                 }">
                   <img :src="'../../static/img/goodsList/'+item.pimg" style="width: 100%"/>
 
@@ -62,8 +63,7 @@
               </div>
               <div class="goods-show-name">
                 <span>
-                  <Icon type="social-yen text-danger"></Icon>
-                  <span class="goods-show-seller">{{item.pname}}</span>
+                  <span class="goods-show-pname">{{item.pname}}</span>
                 </span>
               </div>
               <div class="goods-show-price">
@@ -132,18 +132,20 @@ export default {
           sellerId: 0,
           uname:''
         }
-      ]
+      ],
+      query: {
+        way:0,
+        condition:''
+      }
     };
   },
-  computed: {
-    ...mapState(['asItems', 'isLoading']),
-    ...mapGetters(['orderGoodsList'])
-  },
+computed:{
+    ...mapState(['asItems','isLoading'])
+},
   methods: {
     ...mapActions(['loadGoodsList']),
     ...mapMutations(['SET_GOODS_ORDER_BY']),
     orderBy (data, index) {
-      console.log(data);
       this.icon = [ 'arrow-down-a', 'arrow-down-a', 'arrow-down-a' ];
       this.isAction = [ false, false, false ];
       this.isAction[index] = true;
@@ -152,20 +154,52 @@ export default {
     },
     loadProductList(){
       const _this=this
-      axios.get(api.path+"productManage/lookUpProductDetail").then(function (resp){
-        console.log(resp.data.data)
-        _this.productInfo=resp.data.data
-      })
+      //way=0:查询全部，way=1按类别，way=2按价格，way=3按浏览量
+      if(this.query.way==0)
+        axios.get(api.path+"productManage/lookUpProductDetail").then(function (resp){
+          console.log(_this.productInfo)
+            _this.productInfo=resp.data.data
+
+        })
+      else if(this.query.way==1){
+        axios.get(api.path_local+"productManage/listProductByCname/"+this.query.condition).then(function (resp){
+          _this.productInfo=resp.data.data
+        })}
+
+      else if(this.query.way==2){
+        axios.get(api.path_local+"productManage/listProductByPriceRange/"+this.query.condition).then(function (resp){
+          console.log(resp.data.data)
+          _this.productInfo=resp.data.data
+        })
+      }
+
+      else if(this.query.way==3){
+        axios.get(api.path_local+"/productManage/listProductByViewNumRange/"+this.query.condition).then(function (resp){
+          _this.productInfo=resp.data.data
+        })
+      }
 
 
     }
+
   },
+
   created () {
-    this.loadGoodsList();
+    this.query.way=this.$route.query.way
+    this.query.condition=this.$route.query.condition
     this.loadProductList()
+    this.loadGoodsList();
+
+  },
+  updated () {
+    this.$nextTick(function(){
+      //在下次 DOM 更新循环结束之后执行这个回调。在修改数据之后立即使用这个方法，获取更新后的DOM.
+      this.loadProductList()
+    })
+
   },
   mounted () {
-    this.searchItem = this.$route.query.sreachData;
+
   },
   components: {
     Search,
@@ -330,6 +364,11 @@ export default {
   overflow: hidden;display: block;
   height: 300px;
   cursor: pointer;
+}
+.goods-show-pname{
+  margin-top: 5px;
+  font-size: 20px;
+
 }
 /* ---------------商品栏结束------------------- */
 </style>

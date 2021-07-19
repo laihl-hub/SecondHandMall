@@ -9,6 +9,7 @@ export const SET_USER_LOGIN_INFO = (state, data) => {
   state.userInfo = data;
   state.ifLogin=true;
   }
+
 };
 
 // 设置加载状态

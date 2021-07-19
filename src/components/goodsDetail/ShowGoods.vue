@@ -113,6 +113,7 @@
         </div>
       </div>
     </div>
+    <Spin size="large" fix v-if="isLoading"></Spin>
   </div>
 </template>
 
@@ -126,6 +127,7 @@ export default {
   data () {
     return {
       imgIndex: 0,
+      isLoading:true,
       productInfo:{
         cname: "",
         pimg: "",
@@ -143,9 +145,10 @@ export default {
   created () {
     if(this.$route.query.pid) {
       const _this=this
-      axios.get(api.path_local + 'productManage/lookUpProductDetailByPid/' + _this.$route.query.pid).
+      axios.get(api.path + 'productManage/lookUpProductDetailByPid/' + _this.$route.query.pid).
       then(function (resp){
         _this.productInfo=resp.data.data
+        _this.isLoading=false;
       })
     }
 

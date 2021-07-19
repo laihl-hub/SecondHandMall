@@ -123,7 +123,6 @@ export default {
       if (this.ifLogin) {
         axios.get(api.path + "/userShoppingManage/lookUpShoppingCarByUserId/" + Cookies.get("userid")).then(function (resp) {
           _this.shoppingCarInfo = resp.data.data
-          console.log(_this.shoppingCarInfo)
         })
       }
 

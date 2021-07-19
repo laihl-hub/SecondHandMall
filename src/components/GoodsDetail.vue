@@ -14,7 +14,7 @@
     <ShowGoods></ShowGoods>
     <!-- 商品详细展示 -->
     <ShowGoodsDetail></ShowGoodsDetail>
-    <Spin size="large" fix v-if="isLoading"></Spin>
+
   </div>
 </template>
 

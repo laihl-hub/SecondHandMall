@@ -10,7 +10,7 @@
     <Row class="item-class-group" v-for="(items, index) in tagsInfo" :key="index">
       <i-col class="item-class-name" span="3">{{ items.tagName }} : </i-col>
       <i-col class="item-class-select" span="21">
-        <span v-for="(item, subIndex) in items.tags" :key="subIndex">{{ item }}</span>
+        <span class="condition-item" v-for="(item, subIndex) in items.tags" :key="subIndex" @click="tagbtn(index,subIndex)">{{ item }}</span>
       </i-col>
     </Row>
   </div>
@@ -25,15 +25,25 @@ export default {
   created () {
     const  _this=this
     axios.get(api.path+"productManage/lookUpAllCatogory").then(function (resp) {
-      console.log(resp.data.data)
 //取对象中的某一个属性形成新数组
        let arrnew = resp.data.data.map(obj => {
             return obj.cname;
         })
       _this.tagsInfo[0].tags=arrnew
-
     })
   },
+  methods:{
+
+    tagbtn(index,subIndex){
+
+      this.$router.push({name:'GoodsList',query: {
+          way:index+1,
+          condition:this.tagsInfo[index].tags[subIndex]
+        }})
+      window.location.reload()
+    }
+  },
+
   data () {
     return {
       tagsInfo: [
@@ -43,11 +53,11 @@ export default {
         },
         {
           tagName: '按价格查询',
-          tags: [ '0-100', '100-500', '500-1000', '1000-5000', '5000-10000', '10000-15000', '15000以上' ]
+          tags: [ '0-100', '101-200', '201-300', '301-400', '401-500', '501-' ]
         },
         {
           tagName: '按浏览量查询',
-          tags: [ '0-100', '100-500', '500-1000', '1000-5000', '5000-10000', '10000-1500', '15000以上']
+          tags: [ '0-100', '101-200', '201-300', '301-400', '401-500', '501-']
         },
       ]
     };
@@ -84,5 +94,8 @@ export default {
   color: #005aa0;
   line-height: 45px;
   cursor: pointer;
+}
+.condition-item:hover{
+  color: red;
 }
 </style>

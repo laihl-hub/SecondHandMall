@@ -16,12 +16,14 @@
 
         </ul>
       </div>
+
       <div class="nav-content">
         <!-- 幻灯片 -->
         <div>
           <Carousel autoplay loop>
               <CarouselItem  v-for="(item, index) in marketing.CarouselItems" :key="index">
-                <router-link to="/goodsList">
+                <router-link :to="{path:'/goodsList',query:{ way:0
+            }}">
                   <img :src="item">
                 </router-link>
               </CarouselItem>
@@ -29,7 +31,8 @@
         </div>
         <div class="nav-show">
           <div class="nav-show-img" v-for="(item, index) in marketing.activity" :key="index">
-            <router-link to="/goodsList">
+            <router-link :to="{path:'/goodsList',query:{ way:0
+            }}">
               <img :src="item">
             </router-link>
           </div>
@@ -39,40 +42,42 @@
 
 
 
-    <transition name="fade">
-      <div class="detail-item-panel panel-1" :duration="{ enter: 100, leave: 100 }" v-show="panel1" @mouseenter="showDetail(1)" ref="itemPanel1" @mouseleave="hideDetail(1)">
-        <div class="nav-detail-item">
-          <span v-for="(item, index) in panelData1.navTags" :key="index">{{item}} > </span>
-        </div>
-        <ul>
-          <li v-for="(items, index) in panelData1.classNav" :key="index" class="detail-item-row">
-            <span class="detail-item-title">{{items.title}}
-              <span class="glyphicon glyphicon-menu-right"></span>
-            </span>
-            <router-link to="/goodsList" v-for="(item, subIndex) in items.tags" :key="subIndex">
-              <span class="detail-item">{{item}}</span>
-            </router-link>
-          </li>
-        </ul>
-      </div>
-    </transition>
-    <transition name="fade">
-      <div class="detail-item-panel panel-2" :duration="{ enter: 100, leave: 100 }" v-show="panel2" @mouseenter="showDetail(2)" ref="itemPanel2" @mouseleave="hideDetail(2)">
-        <div class="nav-detail-item">
-          <span v-for="(item, index) in panelData2.navTags" :key="index">{{item}} > </span>
-        </div>
-        <ul>
-          <li v-for="(items, index) in panelData2.classNav" :key="index" class="detail-item-row">
-            <span class="detail-item-title">{{items.title}}
-              <span class="glyphicon glyphicon-menu-right"></span>
-            </span>
-            <router-link to="/goodsList" v-for="(item, subIndex) in items.tags" :key="subIndex">
-              <span class="detail-item">{{item}}</span>
-            </router-link>
-          </li>
-        </ul>
-      </div>
-    </transition>
+<!--    <transition name="fade">-->
+<!--      <div class="detail-item-panel panel-1" :duration="{ enter: 100, leave: 100 }" v-show="panel1" @mouseenter="showDetail(1)" ref="itemPanel1" @mouseleave="hideDetail(1)">-->
+<!--        <div class="nav-detail-item">-->
+<!--          <span v-for="(item, index) in panelData1.navTags" :key="index">{{item}} > </span>-->
+<!--        </div>-->
+<!--        <ul>-->
+<!--          <li v-for="(items, index) in panelData1.classNav" :key="index" class="detail-item-row">-->
+<!--            <span class="detail-item-title">{{items.title}}-->
+<!--              <span class="glyphicon glyphicon-menu-right"></span>-->
+<!--            </span>-->
+<!--            <router-link :to="{path:'/goodsList',query:{-->
+<!--              way:0}}" v-for="(item, subIndex) in items.tags"  :key="subIndex">-->
+<!--              <span class="detail-item">{{item}}</span>-->
+<!--            </router-link>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </transition>-->
+<!--    <transition name="fade">-->
+<!--      <div class="detail-item-panel panel-2" :duration="{ enter: 100, leave: 100 }" v-show="panel2" @mouseenter="showDetail(2)" ref="itemPanel2" @mouseleave="hideDetail(2)">-->
+<!--        <div class="nav-detail-item">-->
+<!--          <span v-for="(item, index) in panelData2.navTags" :key="index">{{item}} > </span>-->
+<!--        </div>-->
+<!--        <ul>-->
+<!--          <li v-for="(items, index) in panelData2.classNav" :key="index" class="detail-item-row">-->
+<!--            <span class="detail-item-title">{{items.title}}-->
+<!--              <span class="glyphicon glyphicon-menu-right"></span>-->
+<!--            </span>-->
+<!--            <router-link :to="{path:'/goodsList',query:{ way:0-->
+<!--            }}" v-for="(item, subIndex) in items.tags" :key="subIndex">-->
+<!--              <span class="detail-item">{{item}}</span>-->
+<!--            </router-link>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </transition>-->
   </div>
 </template>
 
