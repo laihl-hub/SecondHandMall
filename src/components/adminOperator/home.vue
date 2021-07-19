@@ -1,8 +1,10 @@
 <template>
   <div>
-    <div class="header">
+    <div class="header" >
       <img src="static/img/admin.png" width="55px" height="55px">
-      <span>校园二手交易系统后台管理</span></div>
+      <span>校园二手交易系统后台管理</span>
+      <Icon type="log-out" style="float: right;margin-right: 50px;margin-top: 15px" @click="checkout"></Icon>
+    </div>
     <Row type="flex">
       <i-col span="5" class="layout-menu-left">
         <Menu active-name="1-2" theme="dark" width="auto" :open-names="['1']" @on-select="selected">
@@ -22,7 +24,7 @@
               商品管理
             </template>
             <Menu-item name="goodInfo">商品信息</Menu-item>
-<!--            <Menu-item name="2-2">选项 2</Menu-item>-->
+            <Menu-item name="goodCategory">商品类别</Menu-item>
           </Submenu>
           <Submenu name="3">
             <template slot="title">
@@ -64,15 +66,22 @@ export default{
         'userInfo': '用户信息',
         'goodInfo': '商品信息',
         'noticeInfo': '公告',
-        'addNotice': '发布公告'
+        'addNotice': '发布公告',
+        'goodCategory': '商品类别'
       }
     };
   },
+
   methods: {
     selected (name) {
       this.activeTitle = this.bar[name];
       this.$router.push(`/adminOperator/${name}`);
-      console.log(this.$route);
+      // console.log(this.$route);
+    },
+    checkout(){
+      console.log(Cookies.get('adminId'))
+      Cookies.remove('adminId')
+      this.$router.push('/adminLogin')
     }
   }
 };

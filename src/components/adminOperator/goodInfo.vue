@@ -14,35 +14,29 @@
       </div>
       <div class="layout-content-main">
         <el-table stripe style="width: 100%" :data="tableData">
-          <el-table-column label="ID" width="auto" prop="id"> </el-table-column>
-          <el-table-column label="商品名称" width="auto" prop="name">
+          <el-table-column label="ID" width="70" prop="pid"> </el-table-column>
+          <el-table-column label="商品名称" width="auto" prop="pname">
           </el-table-column>
-          <el-table-column label="卖家ID" width="auto" prop="seller_id">
+          <el-table-column label="卖家ID" width="100" prop="sellerId">
           </el-table-column>
-          <el-table-column label="商品描述" width="auto" prop="description">
+          <el-table-column label="商品描述" width="auto" prop="pintro">
           </el-table-column>
-          <el-table-column label="图片" width="auto" prop="img">
-          </el-table-column>
-          <el-table-column label="分类" width="auto" prop="kind"> </el-table-column>
+          <el-table-column label="分类" width="150" prop="cname"> </el-table-column>
           <el-table-column
             label="价格"
-            width="auto"
-            prop="price"
+            width="100"
+            prop="pprice"
           ></el-table-column>
-          <el-table-column label="状态" width="auto" prop="state"> </el-table-column>
-          <el-table-column label="发布时间" width="auto" prop="add_time"> </el-table-column>
-          <el-table-column label="操作">
+          <el-table-column label="状态" width="70" prop="pstate"> </el-table-column>
+          <el-table-column label="发布时间" width="auto" prop="ptime"> </el-table-column>
+          <el-table-column label="操作" width="70" >
             <!-- 可执行修改和删除操作 -->
-            <template slot-scope="scope">
+           <template slot-scope="scope">
               <el-button
-                type="primary"
-                icon="el-icon-edit"
-                circle
-              ></el-button
-              ><el-button
               type="danger"
               icon="el-icon-delete"
               circle
+              @click="del(scope.row)"
             ></el-button></template
             ></el-table-column>
         </el-table>
@@ -52,25 +46,42 @@
 </template>
 
 <script>
+import axios from "axios";
+import api from "../../../static/js/api";
+import Moment from "moment";
+
 export default {
-  data () {
+  data() {
     return {
-      tableData: [{
-        id: 1,
-        name: '..',
-        seller_id: 'x',
-        description: 1,
-        img: 'x',
-        kind: 'x',
-        price: 'x',
-        state: '1',
-        add_time: '1'
-      }]
+
+      tableData: null,
+      input:''
     };
   },
-  methods:{
-    searchGoods(){}
-  }
+  async created() {
+    const _this = this
+    await axios.get(api.path + 'productManage/lookUpProductDetail').then(function (response) {
+      _this.tableData = response.data.data
+    })
+    for(let i=0;i<_this.tableData.length;i++){
+      _this.tableData[i].pprice+='r'
+      _this.tableData[i].ptime=_this.convertTime(_this.tableData[i].ptime,'YYYY-MM-DD HH:MM:SS')
+    }
+  },
+  methods: {
+    searchGoods() {
+    },
+    convertTime: function (data, format) {
+      return Moment(data).format(format)
+    },
+    del(row){
+      // const _this=this
+      // axios.get()
+      this.$message.error('删除失败')
+    }
+  },
+
+
 };
 </script>
 

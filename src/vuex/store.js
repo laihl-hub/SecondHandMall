@@ -23,6 +23,21 @@ export default new Vuex.Store({
       param: [],
       remarks: []
     },
+
+
+
+
+      // {
+      //   pname: '',
+      //   pintro: '',
+      //   ptime: '',
+      //   pviewnum: 0,
+      //   uschool: '',
+      //   pprice: 0,
+      //   pimg: ''
+      // }
+
+
     userInfo: { // 用户信息
       username: '',
       userid: ''

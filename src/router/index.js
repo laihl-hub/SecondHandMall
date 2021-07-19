@@ -31,6 +31,7 @@ const adminLogin = resolve => require(['@/components/adminLogin'], resolve);
 const adminHome = resolve => require(['@/components/adminOperator/home'], resolve);
 const UserInfo = resolve => require(['@/components/adminOperator/userInfo'], resolve);
 const GoodInfo = resolve => require(['@/components/adminOperator/goodInfo'], resolve);
+const GoodCategory = resolve => require(['@/components/adminOperator/goodCategory'],resolve);
 const NoticeInfo = resolve => require(['@/components/adminOperator/noticeInfo'], resolve);
 const AddNotice = resolve => require(['@/components/adminOperator/addNotice'], resolve);
 Vue.use(Router);
@@ -40,7 +41,10 @@ export default new Router({
     {
       path: '/', // 首页
       name: 'Index',
-      component: Index
+      component: Index,
+      meta: {
+        keepAlive: true // 需要被缓存
+      }
     },
     {
       path: '/Login', // 登录
@@ -194,10 +198,11 @@ export default new Router({
       children: [
         {path: 'userInfo', name: 'UserInfo', component: UserInfo},
         {path: 'goodInfo', name: 'GoodInfo', component: GoodInfo},
+        {path: 'goodCategory',name:'GoodCategory',component:GoodCategory},
         {path: 'noticeInfo', name: 'NoticeInfo', component: NoticeInfo},
         {path: 'addNotice', name: 'AddNotice', component: AddNotice}
       ]
+    },
 
-    }
   ]
 });

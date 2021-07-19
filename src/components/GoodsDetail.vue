@@ -1,14 +1,12 @@
 <template>
   <div>
     <Search></Search>
-    <ShopHeader></ShopHeader>
-    <GoodsDetailNav></GoodsDetailNav>
     <div class="shop-item-path">
       <div class="shop-nav-container">
-        <Breadcrumb>
+        <Breadcrumb separator="<b style=' color: #ff5500;padding: 0 5px;'>/</b>">
           <BreadcrumbItem to="/">首页</BreadcrumbItem>
-          <BreadcrumbItem to="/goodsList">手机壳</BreadcrumbItem>
-          <BreadcrumbItem>手机保护套</BreadcrumbItem>
+          <BreadcrumbItem to="/goodsList">{{this.$route.query.cname}}</BreadcrumbItem>
+          <BreadcrumbItem>{{this.$route.query.pname}}</BreadcrumbItem>
         </Breadcrumb>
       </div>
     </div>
@@ -28,6 +26,8 @@ import ShowGoods from '@/components/goodsDetail/ShowGoods';
 import ShowGoodsDetail from '@/components/goodsDetail/ShowGoodsDetail';
 import store from '@/vuex/store';
 import { mapState, mapActions } from 'vuex';
+import axios from 'axios';
+import api from '../../static/js/api';
 export default {
   name: 'GoodsDetail',
   beforeRouteEnter (to, from, next) {
@@ -36,10 +36,13 @@ export default {
   },
   created () {
     this.loadGoodsInfo();
+
   },
   data () {
     return {
-      tagsColor: [ 'blue', 'green', 'red', 'yellow' ]
+      tagsColor: [ 'blue', 'green', 'red', 'yellow' ],
+      pid:0,
+
     };
   },
   methods: {
@@ -70,4 +73,6 @@ export default {
   margin: 0px auto;
   width: 80%;
 }
+
+
 </style>

@@ -52,6 +52,9 @@ export const loadSeckillsInfo = ({ commit }) => {
   });
 };
 
+
+
+
 // 获取轮播(营销)图片
 export const loadCarouselItems = ({ commit }) => {
   return new Promise((resolve, reject) => {
@@ -71,6 +74,7 @@ export const loadCarouselItems = ({ commit }) => {
     commit('SET_CAROUSELITEMS_INFO', data);
   });
 };
+
 
 // 加载电脑专栏数据
 export const loadComputer = ({ commit }) => {
@@ -110,7 +114,7 @@ export const loadComputer = ({ commit }) => {
           ]
         },
         {
-          bigImg: 'static/img/index/computer/item-computer-2-1.jpg',
+          bigImg: 'static/img/index/computer/2.jpg',
           itemFour: [
             {
               title: '平板电脑',
@@ -669,6 +673,8 @@ export const loadRecommend = ({ commit }) => {
 
 export const loadAddress = ({ commit }) => {
   return new Promise(async (resolve, reject) => {
+
+
     await axios.get(api.path + 'userAddrManage/lookUpUserAddrByUserId/' + Cookies.get('userid'))
       .then(function (response) {
         let address = response.data.data;
@@ -677,8 +683,27 @@ export const loadAddress = ({ commit }) => {
         // const address1=JSON.stringify(address)
         commit('SET_USER_ADDRESS', address);
       })
+
   });
 };
+export const loadfavorite = ({ commit }) => {
+  return new Promise((resolve, reject) => {
+    const address = [
+      {
+        addressId: '123456',
+        name: 'coco奶茶',
+        province: '零食小吃',
+        // city: '重庆市',
+        // area: '高新区',
+        address: '10rmb',
+        phone: '152****0609',
+        postalcode: '美味好喝的珍珠奶茶'
+      }
+    ];
+    commit('SET_USER_ADDRESS', address);
+  });
+};
+
 export const loadWantProduct = ({ commit }) => {
   return new Promise(async (resolve, reject) => {
     await axios.get(api.path + 'wantingInfoManage/lookUpBuyInfoByUserId/' + Cookies.get('userid'))
@@ -691,7 +716,7 @@ export const loadWantProduct = ({ commit }) => {
       })
   });
 };
-//加载收藏商品
+
 export const loadStore = ({ commit }) => {
   return new Promise(async (resolve, reject) => {
     await axios.get(api.path + 'userStoreManage/lookUpStoreByUserId/' + Cookies.get('userid'))
@@ -707,17 +732,32 @@ export const loadStore = ({ commit }) => {
 
 export const loadShoppingCart = ({ commit }) => {
   return new Promise((resolve, reject) => {
-    axios.get(api.path + 'userShoppingManage/lookUpShoppingCarByUserId/' + Cookies.get('userid'))
-    .then(function (response) {
-      let shoppingCart = response.data.data;
-      console.log(response.data.data)
-      console.log(shoppingCart)
-      // const address1=JSON.stringify(address)
-      commit('SET_SHOPPING_CART', shoppingCart);
-    })
+    const data = [{
+      goods_id: null,
+      count: null,
+      img: '',
+      package: '',
+      price: null,
+      title: ''
+    }];
+    commit('SET_SHOPPING_CART', data);
   });
 };
 
+export const loadmyGood = ({ commit }) => {
+  return new Promise(async (resolve, reject) => {
+
+
+    await axios.get(api.path + 'releaseProductManage/lookUpReleasedProductByUid/' + Cookies.get('userid'))
+      .then(function (response) {
+        let address = response.data.data;
+        console.log(response.data.data)
+        console.log(address)
+        // const address1=JSON.stringify(address)
+        commit('SET_USER_ADDRESS', address);
+      })
+  });
+};
 // 添加注册用户
 export const addSignUpUser = ({ commit }, data) => {
   return new Promise((resolve, reject) => {

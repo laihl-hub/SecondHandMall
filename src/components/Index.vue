@@ -2,178 +2,182 @@
   <div class="container">
     <Search></Search>
     <HomeNav></HomeNav>
-    <!-- 商品显示区域 -->
-    <div class="content">
-      <!-- 秒杀 -->
-<!--      <div class="seckill">-->
-<!--        &lt;!&ndash; 头部 &ndash;&gt;-->
-<!--        <div class="seckill-head">-->
-<!--          <div class="seckill-icon">-->
-<!--            <img src="static/img/index/clock.png">-->
-<!--          </div>-->
-<!--          <div class="seckill-text">-->
-<!--            <span class="seckill-title">限时秒杀</span>-->
-<!--            <span class="seckill-remarks">总有你想不到的低价</span>-->
-<!--          </div>-->
-<!--          <div class="count-down">-->
-<!--            <span class="count-down-text">当前场次</span>-->
-<!--            <span class="count-down-num count-down-hour">{{ seckillsHours }}</span>-->
-<!--            <span class="count-down-point">:</span>-->
-<!--            <span class="count-down-num count-down-minute">{{ seckillsMinutes }}</span>-->
-<!--            <span class="count-down-point">:</span>-->
-<!--            <span class="count-down-num count-down-seconds">{{ seckillsSeconds }}</span>-->
-<!--            <span class="count-down-text">后结束抢购</span>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; 内容 &ndash;&gt;-->
-<!--        <div class="seckill-content">-->
-<!--          <div class="seckill-item" v-for="(item, index) in seckills.goodsList" :key="index">-->
-<!--            <div class="seckill-item-img">-->
-<!--              <router-link to="/goodsList"><img :src="item.img"></router-link>-->
-<!--            </div>-->
-<!--            <div class="seckill-item-info">-->
-<!--              <p>{{item.intro}}</p>-->
-<!--              <p>-->
-<!--                <span class="seckill-price text-danger"><Icon type="social-yen"></Icon>{{item.price}}</span>-->
-<!--                <span class="seckill-old-price"><s>{{item.realPrice}}</s></span>-->
-<!--              </p>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-      <!-- 电脑专场 -->
-      <div class="item-class">
-        <div class="item-class-head">
-          <span class="item-class-title">{{computer.title}}</span>
-          <ul>
-            <li v-for="(item, index) in computer.link" :key="index">
-              <router-link to="/goodsList">{{item}}</router-link>
-            </li>
-          </ul>
+
+    <div class="box">
+      <div class="waterfall">
+        <vue-waterfall-easy
+          ref="waterfall"
+          :imgsArr="imgsArr"
+          :maxCols="4"
+          @scrollReachBottom="getData"
+        @click="clickFn">
+
+          <div class="info  waterfallInfo" slot-scope="props">
+            <el-row  :gutter="20"  style="margin-top: 10px;margin-bottom: 20px;">
+              <el-col :span="20" style="font-size: 24px;;color: #2c2c2c; text-align: left">
+                {{props.value.productInfo.pname}}</el-col>
+            </el-row>
+            <el-row style="margin-bottom: 10px" :gutter="20">
+            <el-col :span="12" style="font-size: 12px;color: #6e6568;"
+            >发布于:{{props.value.productInfo.ptime|convertTime('YYYY-MM-DD')}}</el-col>
+              <el-col :span="10" :offset="0" style="font-size: 12px;color: #6e6568"
+              >浏览人数:{{props.value.productInfo.pviewNum}}</el-col>
+            </el-row>
+            <el-row style="margin-bottom:20px ">
+              <el-col :span="30" :offset="1" style="font-size: 15px;color: #2c2c2c;text-align: left">
+             {{props.value.productInfo.pintro |ellipsis}} </el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :span="4" :offset="1" style="font-size: 15px;color: #e01222;">
+                <span style="">￥{{props.value.productInfo.pprice}}</span> </el-col>
+              <el-col :span="10" :offset="5" style="font-size: 15px;color: #2d8cf0;text-align: right;white-space: nowrap">
+                {{props.value.productInfo.uschool|ellipsis_uschool}} </el-col>
+            </el-row>
         </div>
-        <div class="item-class-content" v-for="(item, index) in computer.detail" :key="index">
-          <div class="item-content-top">
-            <div class="item-big-img">
-              <router-link to="/goodsList">
-                <img :src="item.bigImg" alt="">
-              </router-link>
-            </div>
-            <div class="item-four-img">
-              <div class="item-four-detail" v-for="(subItem, index) in item.itemFour" :key="index">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit">{{subItem.title}}</p>
-                  <p class="pt_bi_promo">{{subItem.intro}}</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <router-link to="/goodsList">
-                    <img :src="subItem.img" alt="">
-                  </router-link>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item-content-bottom">
-            <div class="item-content-bottom-img" v-for="(subImg, index) in item.itemContent" :key="index">
-              <router-link to="/goodsList">
-                <img :src="subImg">
-              </router-link>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- 爱吃专场 -->
-      <div class="item-class">
-        <div class="item-class-head item-class-eat-head">
-          <span class="item-class-title">{{eat.title}}</span>
-          <ul>
-            <li v-for="(item, index) in eat.link" :key="index">
-              <router-link to="/goodsList">{{item}}</router-link>
-            </li>
-          </ul>
-        </div>
-        <div class="item-class-content" v-for="(item, index) in eat.detail" :key="index">
-          <div class="item-content-top">
-            <div class="item-big-img">
-              <img :src="item.bigImg" alt="">
-            </div>
-            <div class="item-four-img">
-              <div class="item-four-detail" v-for="(subItem, index) in item.itemFour" :key="index">
-                <div class="item-four-detail-text">
-                  <p class="pt_bi_tit pt_bi_tit-eat">{{subItem.title}}</p>
-                  <p class="pt_bi_promo">{{subItem.intro}}</p>
-                </div>
-                <div class="item-four-detail-img">
-                  <router-link to="/goodsList">
-                    <img :src="subItem.img" alt="">
-                  </router-link>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item-content-bottom">
-            <div class="item-content-bottom-img" v-for="(subImg, index) in item.itemContent" :key="index">
-              <router-link to="/goodsList">
-                <img :src="subImg">
-              </router-link>
-            </div>
-          </div>
-        </div>
+        </vue-waterfall-easy>
       </div>
     </div>
+
   </div>
+
+
 </template>
 
 <script>
+import Moment from 'moment'
 import Search from '@/components/Search';
 import HomeNav from '@/components/nav/HomeNav';
 import store from '@/vuex/store';
+
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
+import vueWaterfallEasy from 'vue-waterfall-easy'
+
+import axios from 'axios';
+import api from '../../static/js/api';
 export default {
   name: 'Index',
-  created () {
+  mounted () {
+    this.getData()
+  },
+   created () {
     this.loadSeckillsInfo();
     this.loadCarouselItems();
     this.loadComputer();
     this.loadEat();
     this.loadShoppingCart();
-  },
-  mounted () {
-    const father = this;
-    this.setIntervalObj = setInterval(function () {
-      father.REDUCE_SECKILLS_TIME();
-    }, 1000);
-  },
+   },
+
+
   data () {
     return {
-      setIntervalObj: null
+      setIntervalObj: null,
+      page: 0,
+      imgsArr:[]
     };
   },
   methods: {
-    ...mapActions(['loadSeckillsInfo', 'loadCarouselItems', 'loadComputer', 'loadEat', 'loadShoppingCart']),
-    ...mapMutations(['REDUCE_SECKILLS_TIME'])
+    ...mapActions(['loadSeckillsInfo', 'loadCarouselItems', 'loadComputer', 'loadEat', 'loadShoppingCart',]),
+    ...mapMutations(['REDUCE_SECKILLS_TIME']),
+
+    clickFn(event, { index, value }) {
+      // 只有当点击到图片时才进行操作
+      if (event.target.tagName.toLowerCase() == 'img') {
+      }
+       this.$router.push({name:'GoodsDetail',query: {
+           pid:value.productInfo.pid,
+           cname:value.productInfo.cname,
+           pname:value.productInfo.pname
+         }})
+
+    },
+
+    getData () {
+      const _this=this
+      axios.get(api.path_local+'productManage/lookUpWaterfallProduct').then( function (resp) {
+        let waterfall = resp.data.data
+        let arrnew = waterfall.map((item,index) => {
+          return Object.assign({},{'src':'../../static/img/goodsList/'+item.pimg,
+              'productInfo':item
+          }
+          )
+        })
+        _this.page += 1;
+        if (_this.page == 6) {
+          _this.$refs.waterfall.waterfallOver();
+        } else {
+          _this.imgsArr = _this.imgsArr.concat(arrnew);
+        }
+      })}
+
   },
+
   computed: {
-    ...mapState([ 'seckills', 'computer', 'eat' ]),
-    ...mapGetters([ 'seckillsHours', 'seckillsMinutes', 'seckillsSeconds' ])
+    ...mapState([ 'seckills', 'computer', 'eat',]),
+    ...mapGetters([ 'seckillsHours', 'seckillsMinutes', 'seckillsSeconds', ])
   },
+
   components: {
     Search,
-    HomeNav
+    HomeNav,
+    vueWaterfallEasy
   },
+  filters:{
+    ellipsis:function (value){
+      if(!value){
+        return ''
+      }
+      if (value.length>25){
+        return value.slice(0,25)+'...'
+      }
+      else {
+        return value
+      }
+    },
+    ellipsis_uschool(value){
+      if(!value){
+        return ''
+      }
+      if (value.length>8){
+        return value.slice(0,8)+'...'
+      }
+      else {
+        return value
+      }
+    },
+
+    //引入moment.js时间格式化库
+    convertTime: function (data, format) {
+      return Moment(data).format(format)}
+  },
+
   destroyed () {
     clearInterval(this.setIntervalObj);
+  },
+  watch:{
+    waterfall(newVal){
+      return newVal
+    }
+
   },
   store
 };
 </script>
 
-<style scoped>
+
+<style lang="less" scoped>
 .container {
   background-color: #F6F6F6;
 }
 .content {
   width: 1008px;
   margin: 0px auto;
+}
+.waterfall {
+  height: 1000px;
+}
+
+.info {
+  text-align: center;
 }
 /*****************************秒杀专栏开始*****************************/
 /*秒杀专栏*/
@@ -450,4 +454,19 @@ export default {
   transition: margin-left 0.3s;
 }
 /*****************************商品专栏结束*****************************/
+
+/**************瀑布流*****************************/
+.prointro {
+  text-align: left;
+}
+.waterfallInfo{
+    cursor: pointer;
+    transition: all 0.5s; /* 所有的属性变化在0.5s的时间段内完成 */
+    opacity:0.9;
+}
+.waterfallInfo:hover{
+  transform: scale(1.02); /* 鼠标放到图片上的时候图片按比例放大1.5倍   */
+  opacity:1.0;
+
+}
 </style>

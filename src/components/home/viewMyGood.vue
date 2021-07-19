@@ -12,16 +12,16 @@
         <el-row>
           <el-col :span="6"><img src='static/img/珍珠奶茶.jpg' width="300px" height="300px"></el-col>
           <el-col :span="6"><div style="display:inline-block">
-          <p><span class="address-content-title"> 商品名称 :</span> {{item.name}}</p>
+          <p><span class="address-content-title"> 商品名称 :</span> {{item.pname}}</p>
         <p><span class="address-content-title">商品分类:</span> {{item.province}} {{item.city}} {{item.area}}</p>
-        <p><span class="address-content-title">标价:</span> {{item.address}}</p>
-        <p><span class="address-content-title">简介:</span> {{item.postalcode}}</p>
+        <p><span class="address-content-title">标价:</span> {{item.pprice}}</p>
+        <p><span class="address-content-title">简介:</span> {{item.pintro}}</p>
         </div></el-col>
         </el-row>
-        
-        
-        
-        
+
+
+
+
       </div>
     </div>
     <Modal v-model="modal" width="530">
@@ -96,9 +96,9 @@ export default {
     return {
       modal: false,
       formData: {
-        name: '',
-        address: '',
-        phone: '',
+        pname: '',
+        pprice: '',
+        pintro: '',
         options: [{
           value: '选项1',
           label: '数码产品'
@@ -114,7 +114,7 @@ export default {
         }, {
           value: '选项5',
           label: '家用电器'
-        }], 
+        }],
         fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
         postalcode: '',
         province: '重庆市',
@@ -139,22 +139,31 @@ export default {
     };
   },
   created () {
-    this.loadfavorite();
+    this.loadmyGood();
   },
   computed: {
     ...mapState(['address'])
   },
   methods: {
-    ...mapActions(['loadfavorite']),
+    ...mapActions(['loadmyGood']),
     edit (index) {
       this.modal = true;
-      this.formData.province = this.address[index].province;
-      this.formData.city = this.address[index].city;
-      this.formData.area = this.address[index].area;
-      this.formData.address = this.address[index].address;
-      this.formData.name = this.address[index].name;
-      this.formData.phone = this.address[index].phone;
-      this.formData.postalcode = this.address[index].postalcode;
+      this.editId=index;
+      // this.address1=JSON.parse(JSON.stringify(this.address[index]))
+      this.formData.pname = this.address[index].pname;
+      this.formData.pprice = this.address[index].pprice;
+      this.formData.pintro = this.address[index].pintro;
+      // this.formData.address = this.address[index].rreciveraddress;
+      // this.formData.name = this.address[index].rreceivername;
+      // this.formData.phone = this.address[index].rreceiverphone;
+      // this.formData.adr_id=this.address[index].rid;
+      // this.formData.postalcode = this.address[index].postalcode;
+
+      // console.log(this.address1)
+      // console.log(this.address1.rreceiveraddress)
+      // console.log(this.formData.phone)
+      // console.log(this.formData)
+      // console.log(typeof this.address1)
     },
     editAction () {
       this.modal = false;
@@ -171,7 +180,19 @@ export default {
           this.$Message.info('取消删除');
         }
       });
-    }
+    },
+    handleRemove(file, fileList) {
+        console.log(file, fileList);
+    },
+    handlePreview(file) {
+        console.log(file);
+    },
+      handleExceed(files, fileList) {
+        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      },
+      beforeRemove(file, fileList) {
+        return this.$confirm(`确定移除${file.name}?`);
+      }
   },
   components: {
     Distpicker

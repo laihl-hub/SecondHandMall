@@ -1,82 +1,19 @@
 <template>
   <div>
     <div class="nav-item">
-      <ul>
-<!--        <li v-for="(item,index) in nav" :key="index">-->
-<!--          <a href="#">{{item}}</a>-->
-<!--        </li>-->
-      </ul>
     </div>
     <div class="nav-body">
       <!-- 侧边导航 -->
       <div class="nav-side" ref="navSide">
+
         <ul>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">家用电器</span>
+          <li v-for="(item, index) in catogory":key="item.cid" >
+            <span class="nav-side-item">{{item.cname}}
+                 <Icon type="arrow-right-b" style=" float:right;padding-left: 50px  "></Icon>
+            </span>
+
           </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">手机</span> /
-            <span class="nav-side-item">运营商</span> /
-            <span class="nav-side-item">数码</span>
-          </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">电脑</span> /
-            <span class="nav-side-item">办公</span>
-          </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">家居</span> /
-            <span class="nav-side-item">家具</span> /
-            <span class="nav-side-item">家装</span> /
-            <span class="nav-side-item">厨具</span>
-          </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">男装</span> /
-            <span class="nav-side-item">女装</span> /
-            <span class="nav-side-item">童装</span> /
-            <span class="nav-side-item">内衣</span>
-          </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">美妆个护</span> /
-            <span class="nav-side-item">宠物</span>
-          </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">女鞋</span> /
-            <span class="nav-side-item">箱包</span> /
-            <span class="nav-side-item">钟表</span> /
-            <span class="nav-side-item">珠宝</span>
-          </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">男鞋</span> /
-            <span class="nav-side-item">运动</span> /
-            <span class="nav-side-item">户外</span>
-          </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">汽车</span> /
-            <span class="nav-side-item">汽车用品</span>
-          </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">母婴</span> /
-            <span class="nav-side-item">玩具乐器</span>
-          </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">食品</span> /
-            <span class="nav-side-item">酒类</span> /
-            <span class="nav-side-item">生鲜</span> /
-            <span class="nav-side-item">特产</span>
-          </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">礼品鲜花</span> /
-            <span class="nav-side-item">农资绿植</span>
-          </li>
-          <li @mouseenter="showDetail(1)" @mouseleave="hideDetail(1)">
-            <span class="nav-side-item">医药保健</span> /
-            <span class="nav-side-item">计生情趣</span>
-          </li>
-          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">
-            <span class="nav-side-item">图书</span> /
-            <span class="nav-side-item">音像</span> /
-            <span class="nav-side-item">电子书</span>
-          </li>
+
         </ul>
       </div>
       <div class="nav-content">
@@ -99,6 +36,9 @@
         </div>
       </div>
     </div>
+
+
+
     <transition name="fade">
       <div class="detail-item-panel panel-1" :duration="{ enter: 100, leave: 100 }" v-show="panel1" @mouseenter="showDetail(1)" ref="itemPanel1" @mouseleave="hideDetail(1)">
         <div class="nav-detail-item">
@@ -139,23 +79,14 @@
 <script>
 import store from '@/vuex/store';
 import { mapState } from 'vuex';
+import axios from 'axios';
+import api from '../../../static/js/api';
 export default {
   name: 'HomeNav',
   data () {
     return {
       panel1: false,
       panel2: false,
-      nav: [
-        '秒杀',
-        '优惠券',
-        '闪购',
-        '拍卖',
-        '服装城',
-        '超市',
-        '生鲜',
-        '全球购',
-        '金融'
-      ],
       panelData1: {
         navTags: [ '清洁用品', '美妆商城', '美妆馆', '妆比社', '全球购美妆', '宠物馆' ],
         classNav: [
@@ -253,19 +184,31 @@ export default {
             tags: [ '女士泳衣', '比基尼', '男士泳衣', '泳镜', '游泳圈', '游泳包防水包', '泳帽', '游泳配件' ]
           }
         ]
-      }
+      },
+      catogory:[]
     };
   },
   computed: {
     ...mapState(['marketing'])
+
   },
   methods: {
     showDetail (index) {
-      // index === 1 ? (this.panel1 = true) : (this.panel2 = true);
+      index === 1 ? (this.panel1 = true) : (this.panel2 = true);
     },
     hideDetail (index) {
-      // index === 1 ? (this.panel1 = false) : (this.panel2 = false);
+      index === 1 ? (this.panel1 = false) : (this.panel2 = false);
+    },
+    //获取分类信息
+    loadCatogory(){
+      let _this=this
+      axios.get(api.path+"productManage/lookUpAllCatogory").then(function (resp){
+        _this.catogory=resp.data.data
+      })
     }
+  },
+  created () {
+    this.loadCatogory()
   },
   mounted () {
     this.$refs.itemPanel1.style.left =
@@ -301,7 +244,6 @@ export default {
   float: left;
   font-size: 16px;
   font-weight: bold;
-
   margin-left: 30px;
 }
 .nav-item a {
@@ -321,10 +263,15 @@ export default {
   width: 200px;
   height: 100%;
   padding: 0px;
-  color: #fff;
+  color: hsla(0,0%,100%,.6);
   float: left;
-  background-color: #6e6568;
+  background-color: #2B333B;
+  border-radius: 15px;
+  overflow: scroll;
+  overflow-x: hidden;
+
 }
+.nav-side::-webkit-scrollbar { width: 0 !important }
 .nav-side ul {
   width: 100%;
   padding: 0px;
@@ -334,8 +281,10 @@ export default {
 .nav-side li {
   padding: 7.5px;
   padding-left: 15px;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 18px;
+  padding-top: 25px;
+  padding-bottom: 20px;
 }
 .nav-side li:hover {
   background: #999395;

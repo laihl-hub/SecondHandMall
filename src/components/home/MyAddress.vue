@@ -129,11 +129,11 @@ export default {
         "rreceivername": _this.formData.name,
         "rreceiverphone": _this.formData.phone,
         "rreciveraddress": _this.formData.address,
-        "uid": Cookies.get('userid')
-        // uid:1007
+        // "uid": Cookies.get('userid')
+        uid:1007
       }
 
-      console.log(changeVo)
+      // console.log(changeVo)
       axios.post(api.path+'userAddrManage/changeUserAddr',changeVo)
       .then(function (response){
         if(response.data.code===200){
@@ -149,7 +149,7 @@ export default {
     },
     del (index) {
       const  _this=this;
-      console.log(_this.address[index].rid)
+      // console.log(_this.address[index].rid)
       _this.$Modal.confirm({
         title: '信息提醒',
         content: '你确定删除这个收货地址',
@@ -158,7 +158,8 @@ export default {
           .then(function (response){
             if(response.data.code===200) {
               _this.$message.success('删除成功')
-              _this.$router.push('/home/myAddress')
+              window.location.reload()
+              // _this.$router.push('/home/myAddress')
             }else {
               _this.$message.error('删除失败')
             }

@@ -11,7 +11,7 @@
           </FormItem>
           <FormItem label="简介（可选）" prop="intro">
             <i-input type="textarea" :autosize="{minRows:2,maxRows:6}" v-model="formData.intro" size="large" placeholder="详细描述你的需求"></i-input>
-          </FormItem>        
+          </FormItem>
           <FormItem label="联系方式" prop="phone" >
             <i-input v-model="formData.phone" size="large" placeholder="留下你的联系方式"></i-input>
           </FormItem>
@@ -22,13 +22,13 @@
             <!-- <div>
               <div slot="tip" class="el-upload__tip">请上传jpg/png文件</div>
               <!-- action: 图片上传的API接口地址 -->
-              <!-- <el-upload 
-                action="#" 
-                list-type="picture-card" 
-                :auto-upload="false"      
-                :on-remove="handleRemove"                                      
-              >                  
-                  <i slot="default" class="el-icon-plus"></i>           
+              <!-- <el-upload
+                action="#"
+                list-type="picture-card"
+                :auto-upload="false"
+                :on-remove="handleRemove"
+              >
+                  <i slot="default" class="el-icon-plus"></i>
               </el-upload>
               <el-dialog :visible.sync="dialogVisible">
                 <img width="100%" :src="dialogImageUrl" alt="">
@@ -61,7 +61,7 @@ export default {
 
         // dialogImageUrl: '',
         // dialogVisible: false,
-        // disabled: false,   
+        // disabled: false,
       },
       ruleInline: {
         name: [
@@ -95,7 +95,7 @@ export default {
     addMyWant(){
       let _this=this
       let moment = require("moment");
-      
+
       let postData={
         'buyProductName':_this.formData.name,
         'buyIntro':_this.formData.intro,
@@ -114,7 +114,7 @@ export default {
     }
   },
   components: {
-    
+
   }
 };
 </script>

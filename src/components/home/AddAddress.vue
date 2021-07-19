@@ -9,7 +9,7 @@
           <FormItem label="收件人" prop="name">
             <i-input v-model="formData.name" size="large"></i-input>
           </FormItem>
-          <FormItem label="收件地区" prop="address">
+          <FormItem label="收件地区" prop="province,city,area">
             <Distpicker :province="formData.province" :city="formData.city" :area="formData.area" @province="getProvince" @city="getCity" @area="getArea"></Distpicker>
           </FormItem>
           <FormItem label="收件地址" prop="address">
@@ -18,9 +18,7 @@
           <FormItem label="手机号码" prop="phone">
             <i-input v-model="formData.phone" size="large"></i-input>
           </FormItem>
-          <FormItem label="邮政编码" prop="postalcode">
-            <i-input v-model="formData.postalcode" size="large"></i-input>
-          </FormItem>
+
         </Form>
       </div>
       <div class="add-submit">
@@ -42,7 +40,7 @@ export default {
         name: '',
         address: '',
         phone: '',
-        postalcode: '',
+        // postalcode: '',
         province: '重庆市',
         city: '重庆市',
         area: '高新区'
@@ -54,9 +52,7 @@ export default {
         address: [
           { required: true, message: '请输入地址', trigger: 'blur' }
         ],
-        postalcode: [
-          { required: true, message: '请输入邮政编码', trigger: 'blur' }
-        ],
+
         phone: [
           { required: true, message: '手机号不能为空', trigger: 'blur' },
           { type: 'string', pattern: /^1[3|4|5|7|8][0-9]{9}$/, message: '手机号格式出错', trigger: 'blur' }
@@ -90,7 +86,8 @@ export default {
       axios.post(api.path+'userAddrManage/addUserAddr',postData)
         .then(function (response){
           if(response.data.code==200){
-            _this.$Message.success('修改成功');
+            _this.$Message.success('添加成功成功');
+            _this.$router.push('/home/myAddress')
           }
         })
     }

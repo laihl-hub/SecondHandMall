@@ -20,7 +20,6 @@
               <FormItem label="验证码" prop="VerificationCode">
                 <i-input v-model="changeData.VerificationCode" size="large"><Button slot="append" @click="getcheckNum">获取验证码</Button>
                 </i-input>
-
               </FormItem>
               <FormItem label="新密码" prop="password">
                 <i-input v-model="changeData.password" size="large"></i-input>
