@@ -41,7 +41,10 @@ export default new Router({
     {
       path: '/', // 首页
       name: 'Index',
-      component: Index
+      component: Index,
+      meta: {
+        keepAlive: true // 需要被缓存
+      }
     },
     {
       path: '/Login', // 登录

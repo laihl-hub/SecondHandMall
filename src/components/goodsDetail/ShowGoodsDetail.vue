@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-top: 25px">
     <div class="item-intro-show">
       <div class="item-intro-recommend">
         <div class="item-recommend-title">

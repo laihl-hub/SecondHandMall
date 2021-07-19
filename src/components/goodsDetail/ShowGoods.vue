@@ -208,6 +208,7 @@ export default {
   height: 350px;
   box-shadow: 0px 0px 8px #ccc;
   cursor: pointer;
+  overflow: hidden;
 }
 .item-detail-big-img img {
   width: 100%;

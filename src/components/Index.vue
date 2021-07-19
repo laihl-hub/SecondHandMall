@@ -83,7 +83,12 @@ export default {
       // 只有当点击到图片时才进行操作
       if (event.target.tagName.toLowerCase() == 'img') {
       }
-       this.$router.push({name:'GoodsDetail',query: {pid:value.productInfo.pid}})
+       this.$router.push({name:'GoodsDetail',query: {
+           pid:value.productInfo.pid,
+           cname:value.productInfo.cname,
+           pname:value.productInfo.pname
+         }})
+
     },
 
     getData () {

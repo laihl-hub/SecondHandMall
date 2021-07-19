@@ -3,17 +3,17 @@
     <Search></Search>
     <div class="shop-item-path">
       <div class="shop-nav-container">
-        <Breadcrumb>
+        <Breadcrumb separator="<b style=' color: #ff5500;padding: 0 5px;'>/</b>">
           <BreadcrumbItem to="/">首页</BreadcrumbItem>
-          <BreadcrumbItem to="/goodsList">手机壳</BreadcrumbItem>
-          <BreadcrumbItem>手机保护套</BreadcrumbItem>
+          <BreadcrumbItem to="/goodsList">{{this.$route.query.cname}}</BreadcrumbItem>
+          <BreadcrumbItem>{{this.$route.query.pname}}</BreadcrumbItem>
         </Breadcrumb>
       </div>
     </div>
     <!-- 商品信息展示 -->
     <ShowGoods></ShowGoods>
     <!-- 商品详细展示 -->
-    <ShowGoodsDetail ></ShowGoodsDetail>
+    <ShowGoodsDetail></ShowGoodsDetail>
     <Spin size="large" fix v-if="isLoading"></Spin>
   </div>
 </template>
@@ -73,4 +73,6 @@ export default {
   margin: 0px auto;
   width: 80%;
 }
+
+
 </style>

@@ -1,21 +1,11 @@
 <template>
   <div>
     <div class="nav-item">
-      <ul>
-<!--        <li v-for="(item,index) in nav" :key="index">-->
-<!--          <a href="#">{{item}}</a>-->
-<!--        </li>-->
-      </ul>
     </div>
     <div class="nav-body">
       <!-- 侧边导航 -->
       <div class="nav-side" ref="navSide">
-<!--        <ul v-for="">-->
-<!--          <li @mouseenter="showDetail(2)" @mouseleave="hideDetail(2)">-->
-<!--            <span class="nav-side-item">图书</span>-->
 
-<!--          </li>-->
-<!--        </ul>-->
         <ul>
           <li v-for="(item, index) in catogory":key="item.cid" >
             <span class="nav-side-item">{{item.cname}}
