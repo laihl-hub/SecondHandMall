@@ -22,21 +22,21 @@
             <span>商品精选</span>
             <span>广告</span>
           </div>
-          <div class="item-as" v-for="(item,index) in asItems" :key="index">
+          <div class="item-as" v-for="(item,index) in productInfo" :key="index">
             <div class="item-as-img">
-              <img :src="item.img" alt="">
+              <img :src="'../../static/img/goodsList/'+item.pimg" alt="">
             </div>
             <div class="item-as-price">
               <span>
                 <Icon type="social-yen text-danger"></Icon>
-                <span class="seckill-price text-danger">{{item.price}}</span>
+                <span class="seckill-price text-danger">{{item.pprice}}</span>
               </span>
             </div>
             <div class="item-as-intro">
-              <span>{{item.intro}}</span>
+              <span>{{item.pintro}}</span>
             </div>
             <div class="item-as-selled">
-              已有<span>{{item.num}}</span>人评价
+              已有<span>{{item.pviewNum}}</span>人浏览
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@
                 <span>{{item.intro}}</span>
               </div>
               <div class="goods-show-num">
-                已有<span>{{item.remarks}}</span>人评价
+                已有<span>{{item.remarks}}</span>人浏览
               </div>
               <div class="goods-show-seller">
                 <span>{{item.shopName}}</span>
@@ -84,6 +84,8 @@ import GoodsListNav from '@/components/nav/GoodsListNav';
 import GoodsClassNav from '@/components/nav/GoodsClassNav';
 import store from '@/vuex/store';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
+import axios from 'axios';
+import api from '../../static/js/api';
 export default {
   name: 'GoodsList',
   beforeRouteEnter (to, from, next) {
@@ -99,6 +101,19 @@ export default {
         {title: '综合', en: 'sale'},
         {title: '评论数', en: 'remarks'},
         {title: '价格', en: 'price'}
+      ],
+      productInfo:[
+        {
+          cname: "",
+          pid: 0,
+          pintro: "",
+          pname: "",
+          pprice: 0,
+          pstate: 0,
+          ptime: "0",
+          pviewNum: 0,
+          sellerId: 0,
+        }
       ]
     };
   },
@@ -116,10 +131,20 @@ export default {
       this.isAction[index] = true;
       this.icon[index] = 'arrow-up-a';
       this.SET_GOODS_ORDER_BY(data);
+    },
+    loadProductList(){
+      const _this=this
+      axios.get(api.path_local+"productManage/lookUpProductDetail").then(function (resp){
+        console.log(resp.data.data)
+        _this.productInfo=resp.data.data
+      })
+
+
     }
   },
   created () {
     this.loadGoodsList();
+    this.loadProductList()
   },
   mounted () {
     this.searchItem = this.$route.query.sreachData;

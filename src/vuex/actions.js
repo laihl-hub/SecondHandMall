@@ -614,7 +614,9 @@ export const loadGoodsList = ({ commit }) => {
 // 添加购物车
 export const addShoppingCart = ({ commit }, data) => {
   return new Promise((resolve, reject) => {
+
     commit('ADD_SHOPPING_CART', data);
+
   });
 };
 

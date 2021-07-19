@@ -60,7 +60,6 @@
               <Tag color="red">99新</Tag>
               <Tag color="red">卖家包邮</Tag>
               <Tag color="red">正品保证</Tag>
-
             </Tooltip>
 
 
@@ -95,19 +94,20 @@
 
         <div class="add-buy-car-box">
           <Col span="20">
-        <Row>
+        <Row style="margin-bottom:5px ">
           <span class="add-buy-car">
-            <Button type="error" size="large" @click="addShoppingCartBtn()">购买</Button>
+            <Button type="error" size="large" @click="buyProductBtn()">购买</Button>
           </span>
-
+        </Row>
+            <Row>
           <span class="add-buy-car">
-            <Button type="error" size="large" @click="addShoppingCartBtn()">加入收藏</Button>
+            <Button type="error" size="large" @click="addStoreBtn()">加入收藏</Button>
           </span>
 
           <span class="add-buy-car">
             <Button type="error" size="large" @click="addShoppingCartBtn()">加入购物车</Button>
           </span>
-        </Row>
+            </Row>
           </Col>
 
         </div>
@@ -125,9 +125,6 @@ export default {
   name: 'ShowGoods',
   data () {
     return {
-      price: 0,
-      count: 1,
-      selectBoxIndex: 0,
       imgIndex: 0,
       productInfo:{
         cname: "",
@@ -137,7 +134,9 @@ export default {
         pprice: 0,
         pviewNum: 0,
         uname:'',
-        uphoneNum: ''
+        uphoneNum: '',
+        pid:0,
+        uid:0
       }
     };
   },
@@ -158,26 +157,54 @@ export default {
   },
   methods: {
     ...mapActions(['addShoppingCart']),
-    select (index1, index2) {
-      this.selectBoxIndex = index1 * 3 + index2;
-      this.price = this.goodsInfo.setMeal[index1][index2].price;
-    },
-    showBigImg (index) {
-      this.imgIndex = index;
-    },
     addShoppingCartBtn () {
-      const index1 = parseInt(this.selectBoxIndex / 3);
-      const index2 = this.selectBoxIndex % 3;
-      const date = new Date();
-      const goodsId = date.getTime();
-      const data = {
-        goods_id: goodsId,
-        title: this.goodsInfo.title,
-        count: this.count,
-        package: this.goodsInfo.setMeal[index1][index2]
-      };
-      this.addShoppingCart(data);
-      this.$router.push('/shoppingCart');
+    let postData={
+      pid:this.productInfo.pid,
+      uid:Cookies.get('userid')
+    }
+    const _this=this
+    axios.post(api.path+"userShoppingManage/addProductToShoppingCar",postData).then(
+      function (resp){
+        if(resp.data.code==200){
+          _this.$Message.success('加入购物车成功，你可以在你的个人中心查看你的购物车');
+        }
+        else{
+          _this.$Message.error('添加购物车失败，请检查网络连接');
+        }
+      }
+    )
+
+
+    },
+    addStoreBtn () {
+      // const index1 = parseInt(this.selectBoxIndex / 3);
+      // const index2 = this.selectBoxIndex % 3;
+      // const date = new Date();
+      // const goodsId = date.getTime();
+      // const data = {
+      //   goods_id: goodsId,
+      //   title: this.goodsInfo.title,
+      //   count: this.count,
+      //   package: this.goodsInfo.setMeal[index1][index2]
+      // };
+      this.$Message.success('收藏成功，你可以在你的个人中心查看你收藏的商品');
+      // this.addShoppingCart(data);
+      // this.$router.push('/shoppingCart');
+    },
+    buyProductBtn () {
+      // const index1 = parseInt(this.selectBoxIndex / 3);
+      // const index2 = this.selectBoxIndex % 3;
+      // const date = new Date();
+      // const goodsId = date.getTime();
+      // const data = {
+      //   goods_id: goodsId,
+      //   title: this.goodsInfo.title,
+      //   count: this.count,
+      //   package: this.goodsInfo.setMeal[index1][index2]
+      // };
+      this.$Message.success('正在跳转支付页面');
+      // this.addShoppingCart(data);
+      // this.$router.push('/shoppingCart');
     }
   },
   mounted () {

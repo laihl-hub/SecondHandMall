@@ -3,16 +3,11 @@
     <div class="search-nav">
       <div class="search-nav-container">
         <ul>
-          <li>全部商品分类</li>
+          <li>商品详情</li>
           <li><router-link to="/">首页</router-link></li>
-          <li><router-link to="/">服装城</router-link></li>
-          <li><router-link to="/">美妆馆</router-link></li>
-          <li><router-link to="/">BIT超市</router-link></li>
-          <li><router-link to="/">生鲜</router-link></li>
-          <li><router-link to="/">全球购</router-link></li>
-          <li><router-link to="/">闪购</router-link></li>
-          <li><router-link to="/">拍卖</router-link></li>
-          <li><router-link to="/">金融</router-link></li>
+          <li><router-link to="/">个人中心</router-link></li>
+          <li><router-link to="/">系统公告</router-link></li>
+          <li><router-link to="/">意见反馈</router-link></li>
         </ul>
       </div>
     </div>

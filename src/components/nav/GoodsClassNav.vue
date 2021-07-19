@@ -17,27 +17,38 @@
 </template>
 
 <script>
+import axios from 'axios';
+import api from '../../../static/js/api';
+
 export default {
   name: 'GoodsClassNav',
+  created () {
+    const  _this=this
+    axios.get(api.path+"productManage/lookUpAllCatogory").then(function (resp) {
+      console.log(resp.data.data)
+//取对象中的某一个属性形成新数组
+       let arrnew = resp.data.data.map(obj => {
+            return obj.cname;
+        })
+      _this.tagsInfo[0].tags=arrnew
+
+    })
+  },
   data () {
     return {
       tagsInfo: [
         {
-          tagName: '品牌',
-          tags: [ '华为(HUAWEI)', '三星(SAMSUNG)', 'MATE', '摩斯维(msvii)', 'OPPO', '莫凡(Mofi)', '耐尔金(NILLKIN)', '洛克(ROCK)', '亿色(ESR)', 'Apple', '优加' ]
+          tagName: '按类别查询',
+          tags: [ ]
         },
         {
-          tagName: '手机配件',
-          tags: [ '手机保护套', '苹果周边', '手机贴膜', '移动电源', '创意配件', '手机耳机', '手机支架' ]
+          tagName: '按价格查询',
+          tags: [ '0-100', '100-500', '500-1000', '1000-5000', '5000-10000', '10000-15000', '15000以上' ]
         },
         {
-          tagName: '款式',
-          tags: [ '软壳', '硬壳', '翻盖式', '边框', '运动臂包', '钱包式', '定制', '防水袋', '布袋', '其他' ]
+          tagName: '按浏览量查询',
+          tags: [ '0-100', '100-500', '500-1000', '1000-5000', '5000-10000', '10000-1500', '15000以上']
         },
-        {
-          tagName: '材质',
-          tags: [ '塑料/PC', '硅胶', '金属', '电镀', '真皮', '树脂', '木质', '镶钻', '液态硅胶', 'TPU' ]
-        }
       ]
     };
   }

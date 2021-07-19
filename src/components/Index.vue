@@ -102,7 +102,7 @@ export default {
           )
         })
         _this.page += 1;
-        if (_this.page == 6) {
+        if (_this.page == 5) {
           _this.$refs.waterfall.waterfallOver();
         } else {
           _this.imgsArr = _this.imgsArr.concat(arrnew);
@@ -173,7 +173,7 @@ export default {
   margin: 0px auto;
 }
 .waterfall {
-  height: 1000px;
+  height: 2000px;
 }
 
 .info {

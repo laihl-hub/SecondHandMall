@@ -2,20 +2,6 @@
   <div class="box">
     <div class="nav">
       <ul class="location">
-<!--        <li>-->
-<!--          <Dropdown  placement="bottom-start">-->
-<!--            <a href="javascript:void(0)">-->
-<!--              <Icon type="ios-location" class="icon"></Icon> {{city}}-->
-<!--            </a>-->
-<!--            <DropdownMenu slot="list">-->
-<!--              <div class="city">-->
-<!--                <p v-for="(items, index) in cityArr" :key="index">-->
-<!--                  <span v-for="(item, index) in items"  class="city-item" :key="index" @click="changeCity(item)">{{item}}</span>-->
-<!--                </p>-->
-<!--              </div>-->
-<!--            </DropdownMenu>-->
-<!--          </Dropdown>-->
-<!--        </li>-->
       </ul>
       <ul class="detail">
         <li class="first" v-show="!userInfo.username">
@@ -46,33 +32,30 @@
               <Icon type="ios-cart-outline"></Icon> 购物车
             </a>
             <DropdownMenu slot="list">
-              <div class="shopping-cart-null" v-show="shoppingCart.length <= 0">
+              <div class="shopping-cart-null" v-show="shoppingCarInfo.length <= 0">
                 <Icon type="ios-cart-outline" class="cart-null-icon"></Icon>
                 <span>你的购物车没有空空哦</span>
                 <span>赶快去添加商品吧~</span>
               </div>
-              <div class="shopping-cart-list" v-show="shoppingCart.length > 0">
-                <div class="shopping-cart-box" v-for="(item,index) in shoppingCart" :key="index">
+              <div class="shopping-cart-list" v-show="shoppingCarInfo.length > 0">
+                <div class="shopping-cart-box" v-for="(item,index) in shoppingCarInfo" :key="index">
                   <div class="shopping-cart-img">
-                    <img :src="item.img">
+                    <img :src="'../../static/img/goodsList/'+item.pimg">
                   </div>
                   <div class="shopping-cart-info">
                     <div class="shopping-cart-title">
-                      <p>{{item.title.substring(0, 22)}}...</p>
+                      <p>{{item.pname.substring(0, 10)}}...</p>
                     </div>
                     <div class="shopping-cart-detail">
                       <p>
-                        套餐:
+                        描述:
                         <span class="shopping-cart-text">
-                          {{item.package}}
+                          {{item.pintro.substring(0, 10)}}
                         </span>
-                        数量:
-                        <span class="shopping-cart-text">
-                          {{item.count}}
-                        </span>
+
                         价钱:
                         <span class="shopping-cart-text">
-                          {{item.price}}
+                          {{item.pprice}}
                         </span>
                       </p>
                     </div>
@@ -98,26 +81,22 @@
 <script >
 import store from '@/vuex/store';
 import { mapState, mapActions } from 'vuex';
+import axios from 'axios';
+import api from '../../../static/js/api';
 
 
 export default {
   name: 'M-Header',
   created () {
     this.isLogin();
-    // this.user=getCookieValue('name');
-    // console.log(this.user)
+    this.loadShoppingCarData()
   },
 
   data () {
     return {
-      city: '珠海',
-      cityArr: [
-        ['北京', '上海', '天津', '重庆', '广州'],
-        ['深圳', '河南', '辽宁', '吉林', '江苏'],
-        ['江西', '四川', '海南', '贵州', '云南'],
-        ['西藏', '陕西', '甘肃', '青海', '珠海']
-      ],
-      // user: null
+      shoppingCarInfo:[{
+
+      }]
     };
   },
   computed: {
@@ -125,9 +104,6 @@ export default {
   },
   methods: {
     ...mapActions(['signOut', 'isLogin']),
-    // changeCity (city) {
-    //   this.city = city;
-    // },
     goToPay () {
       this.$router.push('/order');
     },
@@ -135,11 +111,15 @@ export default {
       this.$router.push('/home');
     },
     signOutFun () {
-      this.signOut();
-      // setCookieValue('name','');
-      // this.user=getCookieValue('name');
-      // console.log(this.user)
+      this.signOut()
       this.$router.push('/');
+    },
+    loadShoppingCarData(){
+      const  _this=this
+      axios.get(api.path+"/userShoppingManage/lookUpShoppingCarByUserId/"+Cookies.get("userid")).then(function (resp){
+        _this.shoppingCarInfo=resp.data.data
+        console.log(_this.shoppingCarInfo)
+      })
     }
   },
   store

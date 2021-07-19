@@ -70,14 +70,15 @@ export const SET_GOODS_INFO = (state, data) => {
 // 添加购物车
 export const ADD_SHOPPING_CART = (state, data) => {
   const item = {
-    goods_id: data.goods_id,
-    count: data.count,
+    pid: data.pid,
     img: data.package.img,
     package: data.package.intro,
     price: data.package.price,
-    title: data.title
+    pname: data.pname
   };
+
   state.shoppingCart.push(item);
+  console.log(state.shoppingCart)
   state.newShoppingCart = data;
 };
 
