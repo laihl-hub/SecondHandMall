@@ -9,7 +9,7 @@
         <ul>
           <li v-for="(item, index) in catogory":key="item.cid" >
             <span class="nav-side-item">{{item.cname}}
-              <Icon type="arrow-right-b" style="padding-left: 100px"></Icon>
+                 <Icon type="arrow-right-b" style=" float:right;padding-left: 50px  "></Icon>
             </span>
 
           </li>
