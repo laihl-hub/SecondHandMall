@@ -19,7 +19,7 @@
         <p><span class="want-content-title">简介:</span> {{item.buyIntro}}</p>
         </div></el-col>
 
-        </el-row>    
+        </el-row>
         <el-row><p><span aria-setsize="1">修改时间:</span> {{item.buyTime}}</p> </el-row>
 
       </div>
@@ -38,7 +38,7 @@
           <FormItem label="简介" prop="intro">
             <i-input v-model="formData.intro" size="large"></i-input>
           </FormItem>
-          
+
           <FormItem label="商品相似图片" prop="img">
             <i-input v-model="formData.img" size="large"></i-input>
             <!-- 上传图片 -->
@@ -85,7 +85,7 @@ export default {
         name: '',
         intro: '',
         phone: '',
-        img: '',        
+        img: '',
       },
       editId:null,
       ruleInline: {
@@ -143,7 +143,7 @@ export default {
           _this.modal=false
           // _this.$router.push('/home/myAddress')
           // window.location.href=window.location.href;
-          window.location.reload()
+          // window.location.reload()
         }else {
           _this.$message.error('修改失败')
         }

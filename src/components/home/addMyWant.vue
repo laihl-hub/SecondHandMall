@@ -108,7 +108,7 @@ export default {
         .then(function (response){
           if(response.data.code==200){
             _this.$Message.success('发布成功');
-            window.location.reload()
+            _this.$router.push('/home/viewMyWant')
           }
         })
     }

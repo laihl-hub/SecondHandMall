@@ -673,8 +673,6 @@ export const loadRecommend = ({ commit }) => {
 
 export const loadAddress = ({ commit }) => {
   return new Promise(async (resolve, reject) => {
-
-
     await axios.get(api.path + 'userAddrManage/lookUpUserAddrByUserId/' + Cookies.get('userid'))
       .then(function (response) {
         let address = response.data.data;
