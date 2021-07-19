@@ -95,12 +95,15 @@ export default {
   data () {
     return {
       shoppingCarInfo:[{
-
+        pimg:'',
+        pname:'',
+        pintro:'',
+        pprice:''
       }]
     };
   },
   computed: {
-    ...mapState(['userInfo', 'shoppingCart'])
+    ...mapState(['userInfo', 'shoppingCart','ifLogin'])
   },
   methods: {
     ...mapActions(['signOut', 'isLogin']),
@@ -114,12 +117,16 @@ export default {
       this.signOut()
       this.$router.push('/');
     },
-    loadShoppingCarData(){
-      const  _this=this
-      axios.get(api.path+"/userShoppingManage/lookUpShoppingCarByUserId/"+Cookies.get("userid")).then(function (resp){
-        _this.shoppingCarInfo=resp.data.data
-        console.log(_this.shoppingCarInfo)
-      })
+    loadShoppingCarData() {
+      const _this = this
+      console.log(this.ifLogin)
+      if (this.ifLogin) {
+        axios.get(api.path + "/userShoppingManage/lookUpShoppingCarByUserId/" + Cookies.get("userid")).then(function (resp) {
+          _this.shoppingCarInfo = resp.data.data
+          console.log(_this.shoppingCarInfo)
+        })
+      }
+
     }
   },
   store

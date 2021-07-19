@@ -828,5 +828,9 @@ export const isLogin = ({ commit }) => {
     commit('SET_USER_LOGIN_INFO',userInfo );
     // console.log(state.userInfo)
   }
+  else{
+    commit('SET_USER_LOGIN_INFO',null );
+  }
+
   console.log(Cookies)
 };

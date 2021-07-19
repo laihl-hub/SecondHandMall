@@ -22,21 +22,21 @@
             <span>商品精选</span>
             <span>广告</span>
           </div>
-          <div class="item-as" v-for="(item,index) in productInfo" :key="index">
+          <div class="item-as" v-for="(item,index) in asItems" :key="index">
             <div class="item-as-img">
-              <img :src="'../../static/img/goodsList/'+item.pimg" alt="">
+              <img :src="item.img" alt="">
             </div>
             <div class="item-as-price">
               <span>
                 <Icon type="social-yen text-danger"></Icon>
-                <span class="seckill-price text-danger">{{item.pprice}}</span>
+                <span class="seckill-price text-danger">{{item.price}}</span>
               </span>
             </div>
             <div class="item-as-intro">
-              <span>{{item.pintro}}</span>
+              <span>{{item.intro}}</span>
             </div>
             <div class="item-as-selled">
-              已有<span>{{item.pviewNum}}</span>人浏览
+              已有<span>{{item.num}}</span>人浏览
             </div>
           </div>
         </div>
@@ -47,28 +47,45 @@
             </ul>
           </div>
           <div class="goods-list">
-            <div class="goods-show-info" v-for="(item, index) in orderGoodsList" :key="index">
-              <div class="goods-show-img">
-                <router-link to="/goodsDetail"><img :src="item.img"/></router-link>
+
+            <div class="goods-show-info" v-for="(item, index) in productInfo " :key="index">
+              <div class="goods-show-img"  >
+                <router-link :to="{path:'goodsDetail/',query:{
+                  pid:productInfo.pid,
+                  cname:productInfo.cname,
+                  pname:productInfo.pname
+                }
+                }">
+                  <img :src="'../../static/img/goodsList/'+item.pimg" style="width: 100%"/>
+
+                </router-link>
+              </div>
+              <div class="goods-show-name">
+                <span>
+                  <Icon type="social-yen text-danger"></Icon>
+                  <span class="goods-show-seller">{{item.pname}}</span>
+                </span>
               </div>
               <div class="goods-show-price">
                 <span>
                   <Icon type="social-yen text-danger"></Icon>
-                  <span class="seckill-price text-danger">{{item.price}}</span>
+                  <span class="seckill-price text-danger">{{item.pprice}}</span>
                 </span>
               </div>
               <div class="goods-show-detail">
-                <span>{{item.intro}}</span>
+                <span>{{item.pintro}}</span>
               </div>
               <div class="goods-show-num">
-                已有<span>{{item.remarks}}</span>人浏览
+                已有<span>{{item.pviewNum}}</span>人浏览
               </div>
               <div class="goods-show-seller">
-                <span>{{item.shopName}}</span>
+                <span>{{item.uname}}</span>
               </div>
             </div>
+
           </div>
         </div>
+
       </div>
       <div class="goods-page">
         <Page :total="100" show-sizer></Page>
@@ -113,6 +130,7 @@ export default {
           ptime: "0",
           pviewNum: 0,
           sellerId: 0,
+          uname:''
         }
       ]
     };
@@ -134,7 +152,7 @@ export default {
     },
     loadProductList(){
       const _this=this
-      axios.get(api.path_local+"productManage/lookUpProductDetail").then(function (resp){
+      axios.get(api.path+"productManage/lookUpProductDetail").then(function (resp){
         console.log(resp.data.data)
         _this.productInfo=resp.data.data
       })
@@ -264,41 +282,54 @@ export default {
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
 .goods-show-info{
-  width: 240px;
+  width: 300px;
   padding: 10px;
   margin: 15px 0px;
   border: 1px solid #fff;
   cursor: pointer;
 }
+
 .goods-show-info:hover{
   border: 1px solid #ccc;
   box-shadow: 0px 0px 15px #ccc;
 }
+
 .goods-show-price{
   margin-top: 6px;
 }
+
 .goods-show-detail{
   font-size: 12px;
   margin: 6px 0px;
 }
+
 .goods-show-num{
   font-size: 12px;
   margin-bottom: 6px;
   color: #009688;
 }
+
 .goods-show-num span{
   color: #005AA0;
   font-weight: bold;
 }
+
 .goods-show-seller{
   font-size: 12px;
   color:#E4393C;
 }
+
 .goods-page {
   margin-top: 20px;
   display: flex;
   justify-content: flex-end;
+}
+.goods-show-img{
+  overflow: hidden;display: block;
+  height: 300px;
+  cursor: pointer;
 }
 /* ---------------商品栏结束------------------- */
 </style>
