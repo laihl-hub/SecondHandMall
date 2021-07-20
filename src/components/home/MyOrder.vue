@@ -3,7 +3,7 @@
 <!--    <Header :style="{background: 'lightgrey'}">-->
 <!--      <h2>我的订单</h2>-->
 <!--    </Header>-->
-<!--    <Table border :columns="columns" :data="order" size="large" no-data-text="你还有订单，快点去购物吧"></Table>-->
+<!--    <Table border :columns="columns" :data="order" size="large" no-data-text="你还没有订单，快点去购物吧"></Table>-->
     <el-table
       :data="tableData"
       style="width: 100%">

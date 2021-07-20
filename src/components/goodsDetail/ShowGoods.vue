@@ -96,8 +96,8 @@
           <Col :span="15" >
             <span class="add-buy-car" style="display:inline-block;margin: 10px 10px">
               <Button-group shape="circle">
-              <Button type="ghost" style="background-color: peachpuff">加入购物车</Button>
-              <Button type="ghost" style="background-color: lightsteelblue">立即购买</Button>
+              <Button type="ghost" style="background-color: peachpuff" @click="addShoppingCartBtn ()">加入购物车</Button>
+              <Button type="ghost" style="background-color: lightsteelblue" >立即购买</Button>
             </Button-group>
             </span>
 

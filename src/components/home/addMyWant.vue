@@ -50,7 +50,6 @@
 
 <script>
 import Distpicker from 'v-distpicker';
-import moment from 'moment'
 import axios from "axios";
 import api from "../../../static/js/api";
 export default {
@@ -98,14 +97,12 @@ export default {
     // },
     addMyWant(){
       let _this=this
-      let moment = require("moment");
 
       let postData={
         'buyProductName':_this.formData.name,
         'buyIntro':_this.formData.intro,
         'buyPhone':_this.formData.phone,
         'buyImg':_this.formData.img,
-        'buyTime': moment,
         'buyBuyerId':Cookies.get("userid")
       }
       axios.post(api.path+'/wantingInfoManage/releaseBuyInfo',postData)

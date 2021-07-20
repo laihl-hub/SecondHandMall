@@ -14,17 +14,17 @@
       <div class="want-content">
         <el-row>
           <!-- 图片 -->
-          <el-col :span="9"><img src='static/img/bingxiang.jpg' width="300px" height="300px"></el-col>
-          <el-col :span="9"><div style="display:inline-block">
+          <el-col :span="6"><img :src="'../../../static/img/goodsList/'+item.buyImg"  width="150px" height="150px"></el-col>
+          <el-col :span="10"><div style="display:inline-block">
           <p><span class="want-content-title"> 商品名称 :</span> {{item.buyProductName}}</p>
         <!-- <p><span class="want-content-title">可接受价格:</span> {{item.address}}</p> -->
         <p><span class="want-content-title">联系方式:</span> {{item.buyPhone}}</p>
         <p><span class="want-content-title">简介:</span> {{item.buyIntro}}</p>
-        </div></el-col>
+            <p><span class="want-content-title">发布时间:</span> {{convertTime(item.buyTime,'YYYY-MM-DD HH:MM:SS')}}</p>
+
+          </div></el-col>
 
         </el-row>
-        <el-row><p><span aria-setsize="1">修改时间:</span> {{item.buyTime}}</p> </el-row>
-
       </div>
     </div>
     <!-- 修改弹框 -->
@@ -77,7 +77,7 @@ import { mapState, mapActions } from 'vuex';
 import Distpicker from 'v-distpicker';
 import axios from "axios";
 import api from "../../../static/js/api";
-import moment from 'moment'
+import Moment from "moment";
 
 export default {
   name: 'viewMyWant',
@@ -89,9 +89,10 @@ export default {
         name: '',
         intro: '',
         phone: '',
-        img: '',
+        img: ''
       },
       editId:null,
+      buyTime:"",
       ruleInline: {
         name: [
           { required: true, message: '请输入求购商品名称', trigger: 'blur' }
@@ -117,16 +118,18 @@ export default {
   },
   computed: {
     ...mapState(['wantProduct'])
+
   },
   methods: {
     ...mapActions(['loadWantProduct']),
     edit (index) {
       this.modal = true;
-      this.editId = index
+      this.editId = index;
       this.formData.name = this.wantProduct[index].buyProductName;
       this.formData.intro = this.wantProduct[index].buyIntro;
       this.formData.phone = this.wantProduct[index].buyPhone;
       this.formData.img = this.wantProduct[index].buyImg;
+      this.formData.buytime = this.wantProduct[index].buytime;
     },
     editAction (buyid) {
       const _this=this;
@@ -139,7 +142,7 @@ export default {
         "buyIntro": _this.formData.intro,
         "buyPhone": _this.formData.phone,
         "buyImg": _this.formData.img,
-        "buyTime": setTimeout,
+        "buyTime": moment,
         "buyBuyerId": Cookies.get('userid')
       }
       console.log(changeVo)
@@ -156,6 +159,7 @@ export default {
         }
       })
     },
+
     del (index) {
       const  _this=this;
       console.log(_this.wantProduct[index].buyId)
@@ -181,11 +185,17 @@ export default {
           _this.modal=false;
         }
       });
+
+    },
+    convertTime: function (data, format) {
+      return Moment(data).utcOffset(0).format(format)
     }
+
   },
   components: {
     Distpicker
   },
+  filters: {},
   store
 };
 </script>

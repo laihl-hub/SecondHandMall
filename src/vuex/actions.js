@@ -689,23 +689,6 @@ export const loadAddress = ({ commit }) => {
 
   });
 };
-export const loadfavorite = ({ commit }) => {
-  return new Promise((resolve, reject) => {
-    const address = [
-      {
-        addressId: '123456',
-        name: 'coco奶茶',
-        province: '零食小吃',
-        // city: '重庆市',
-        // area: '高新区',
-        address: '10rmb',
-        phone: '152****0609',
-        postalcode: '美味好喝的珍珠奶茶'
-      }
-    ];
-    commit('SET_USER_ADDRESS', address);
-  });
-};
 
 export const loadWantProduct = ({ commit }) => {
   return new Promise(async (resolve, reject) => {

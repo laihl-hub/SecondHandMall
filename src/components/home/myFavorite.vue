@@ -12,15 +12,15 @@
       </div>
       <div class="store-content">
         <el-row>
-          <el-col :span="9"
-            ><img src="static/img/bingxiang.jpg" width="300px" height="300px"
+          <el-col :span="6"
+            ><img :src="'../../../static/img/goodsList/'+item.pimg" width="150px" height="150px"
           /></el-col>
-          <el-col :span="9"><div style="display: inline-block">
+          <el-col :span="10"><div style="display: inline-block">
               <p><span class="store-content-title"> 商品名称 :</span>{{ item.pname }}</p>
               <p><span class="store-content-title">商品价格:</span>{{ item.pprice }}</p>
               <p><span class="store-content-title">联系方式:</span>{{ item.phone }}</p>
               <p><span class="store-content-title">简介:</span> {{ item.pintro }}</p>
-              <p><span class="store-content-title">收藏时间:</span> {{ item.storeTime }}</p>
+              <p><span class="store-content-title">收藏时间:</span> {{ convertTime(item.storeTime,'YYYY-MM-DD HH:MM:SS')}}</p>
             </div></el-col>
         </el-row>
       </div>
@@ -34,6 +34,7 @@ import { mapState, mapActions } from "vuex";
 import Distpicker from "v-distpicker";
 import axios from "axios";
 import api from "../../../static/js/api";
+import Moment from "moment";
 export default {
   name: "Mystore",
   data() {
@@ -49,6 +50,9 @@ export default {
   },
   methods: {
     ...mapActions(["loadStore"]),
+    convertTime: function (data, format) {
+      return Moment(data).utcOffset(0).format(format)
+    },
     del(index) {
       const  _this=this;
       console.log(_this.store[index].storeId)

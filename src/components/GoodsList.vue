@@ -369,7 +369,6 @@ computed:{
 .goods-show-pname{
   margin-top: 5px;
   font-size: 20px;
-
 }
 /* ---------------商品栏结束------------------- */
 </style>

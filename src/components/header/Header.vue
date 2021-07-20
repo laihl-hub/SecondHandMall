@@ -70,9 +70,9 @@
             </DropdownMenu>
           </Dropdown>
         </li>
-        <li><router-link to="/">公告栏</router-link></li>
+<!--        <li><router-link to="/">公告栏</router-link></li>-->
         <li><router-link to="/freeback"><Icon type="paper-airplane"></Icon>意见反馈</router-link></li>
-        <li><router-link to="/"><Icon type="ios-home-outline" size="22" ></Icon>商城首页</router-link></li>
+        <li><router-link to="/"><Icon type="ios-home-outline" size="18" ></Icon>商城首页</router-link></li>
       </ul>
     </div>
   </div>
