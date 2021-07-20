@@ -124,6 +124,7 @@ export default {
               if (result) {
                 this.$Message.success('登录成功');
                 father.$router.push('/');
+                window.location.reload()
               } else {
                 this.$Message.error('用户名或密码错误');
               }
