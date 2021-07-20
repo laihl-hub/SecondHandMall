@@ -1,0 +1,474 @@
+<template>
+  <div class="container">
+    <Search></Search>
+    <HomeNav></HomeNav>
+
+    <div class="box">
+      <div class="waterfall">
+        <vue-waterfall-easy
+          ref="waterfall"
+          :imgsArr="imgsArr"
+          :maxCols="4"
+          @scrollReachBottom="getData"
+        @click="clickFn">
+
+          <div class="info  waterfallInfo" slot-scope="props">
+            <el-row  :gutter="20"  style="margin-top: 10px;margin-bottom: 20px;">
+              <el-col :span="20" style="font-size: 24px;;color: #2c2c2c; text-align: left">
+                {{props.value.productInfo.pname}}</el-col>
+            </el-row>
+            <el-row style="margin-bottom: 10px" :gutter="20">
+            <el-col :span="12" style="font-size: 12px;color: #6e6568;"
+            >发布于:{{props.value.productInfo.ptime|convertTime('YYYY-MM-DD')}}</el-col>
+              <el-col :span="10" :offset="0" style="font-size: 12px;color: #6e6568"
+              >浏览人数:{{props.value.productInfo.pviewNum}}</el-col>
+            </el-row>
+            <el-row style="margin-bottom:20px ">
+              <el-col :span="30" :offset="1" style="font-size: 15px;color: #2c2c2c;text-align: left">
+             {{props.value.productInfo.pintro |ellipsis}} </el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :span="4" :offset="1" style="font-size: 15px;color: #e01222;">
+                <span style="">￥{{props.value.productInfo.pprice}}</span> </el-col>
+              <el-col :span="10" :offset="5" style="font-size: 15px;color: #2d8cf0;text-align: right;white-space: nowrap">
+                {{props.value.productInfo.uschool|ellipsis_uschool}} </el-col>
+            </el-row>
+        </div>
+        </vue-waterfall-easy>
+      </div>
+    </div>
+
+  </div>
+
+
+</template>
+
+<script>
+import Moment from 'moment'
+import Search from '@/components/Search';
+import HomeNav from '@/components/nav/HomeNav';
+import store from '@/vuex/store';
+
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
+import vueWaterfallEasy from 'vue-waterfall-easy'
+
+import axios from 'axios';
+import api from '../../static/js/api';
+export default {
+  name: 'Index',
+  mounted () {
+    this.getData()
+  },
+   created () {
+    this.loadSeckillsInfo();
+    this.loadCarouselItems();
+    this.loadComputer();
+    this.loadEat();
+    this.loadShoppingCart();
+   },
+
+
+  data () {
+    return {
+      setIntervalObj: null,
+      page: 0,
+      imgsArr:[]
+    };
+  },
+  methods: {
+    ...mapActions(['loadSeckillsInfo', 'loadCarouselItems', 'loadComputer', 'loadEat', 'loadShoppingCart',]),
+    ...mapMutations(['REDUCE_SECKILLS_TIME']),
+
+    clickFn(event, { index, value }) {
+      // 只有当点击到图片时才进行操作
+      if (event.target.tagName.toLowerCase() == 'img') {
+      }
+       this.$router.push({name:'GoodsDetail',query: {
+           pid:value.productInfo.pid,
+           cname:value.productInfo.cname,
+           pname:value.productInfo.pname
+         }})
+
+    },
+
+    getData () {
+      const _this=this
+      axios.get(api.path+'productManage/lookUpWaterfallProduct').then( function (resp) {
+        let waterfall = resp.data.data
+        let arrnew = waterfall.map((item,index) => {
+          return Object.assign({},{'src':'../../static/img/goodsList/'+item.pimg,
+              'productInfo':item
+            
+          }
+          )
+        })
+
+        _this.page += 1;
+        if (_this.page == 5) {
+          _this.$refs.waterfall.waterfallOver();
+        } else {
+          _this.imgsArr = _this.imgsArr.concat(arrnew);
+        }
+      })}
+
+  },
+
+  computed: {
+    ...mapState([ 'seckills', 'computer', 'eat',]),
+    ...mapGetters([ 'seckillsHours', 'seckillsMinutes', 'seckillsSeconds', ])
+  },
+
+  components: {
+    Search,
+    HomeNav,
+    vueWaterfallEasy
+  },
+  filters:{
+    ellipsis:function (value){
+      if(!value){
+        return ''
+      }
+      if (value.length>25){
+        return value.slice(0,25)+'...'
+      }
+      else {
+        return value
+      }
+    },
+    ellipsis_uschool(value){
+      if(!value){
+        return ''
+      }
+      if (value.length>8){
+        return value.slice(0,8)+'...'
+      }
+      else {
+        return value
+      }
+    },
+
+    //引入moment.js时间格式化库
+    convertTime: function (data, format) {
+      return Moment(data).format(format)}
+  },
+
+  destroyed () {
+    clearInterval(this.setIntervalObj);
+  },
+  watch:{
+    waterfall(newVal){
+      return newVal
+    }
+
+  },
+  store
+};
+</script>
+
+
+<style lang="less" scoped>
+.container {
+  background-color: #F6F6F6;
+}
+.content {
+  width: 1008px;
+  margin: 0px auto;
+}
+.waterfall {
+  height: 2000px;
+}
+
+.info {
+  text-align: center;
+}
+/*****************************秒杀专栏开始*****************************/
+/*秒杀专栏*/
+.seckill {
+  width: 100%;
+  height: 330px;
+  margin: 15px auto;
+  background-color: #fff;
+}
+.seckill-head {
+  width: 100%;
+  height: 50px;
+  background-color: #e01222;
+}
+.seckill-icon {
+  width: 68px;
+  height: 100%;
+  float: left;
+}
+.seckill-icon img {
+  width: 35px;
+  height: 35px;
+  margin-top: 6px;
+  margin-left: 15px;
+  animation-name: shake-clock;
+  animation-duration: 0.3s;
+  animation-iteration-count: infinite; /*设置无线循环*/
+}
+/*定义闹钟震动动画关键帧*/
+@keyframes shake-clock {
+  0% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
+  100% {
+    transform: rotate(-8deg);
+  }
+}
+.seckill-text {
+  width: 300px;
+  height: 100%;
+  float: left;
+}
+.seckill-text .seckill-title {
+  font-size: 22px;
+  line-height: 50px;
+  color: #fff;
+}
+.seckill-text .seckill-remarks {
+  margin-left: 5px;
+  font-size: 10px;
+  color: #fff;
+}
+/*倒计时*/
+.count-down {
+  height: 100%;
+  margin-right: 30px;
+  line-height: 50px;
+  float: right;
+}
+.count-down-text {
+  color: #fff;
+}
+.count-down-num {
+  padding: 3px;
+  border-radius: 5px;
+  background-color: #440106;
+  font-size: 26px;
+  font-weight: bold;
+  color: #f90013;
+}
+.count-down-point {
+  font-size: 26px;
+  font-weight: bold;
+  color: #440106;
+}
+
+.seckill-content {
+  width: 100%;
+  height: 280px;
+}
+.seckill-item {
+  width: 183px;
+  height: 250px;
+  margin-top: 15px;
+  margin-left: 15px;
+  box-shadow: 0px 0px 8px #ccc;
+  cursor: pointer;
+  float: left;
+}
+.seckill-item-img {
+  width: 160px;
+  height: 160px;
+  margin: 0px auto;
+  overflow: hidden;
+  border-bottom: 1px solid #ccc;
+  background-color: #fff;
+}
+.seckill-item-img img {
+  width: 130px;
+  height: 130px;
+  margin-left: 15px;
+  margin-top: 15px;
+  transition: margin-top 0.3s;
+}
+.seckill-item-img:hover img {
+  margin-top: 6px;
+  transition: margin-top 0.3s;
+}
+.seckill-item-info {
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 12px;
+  color: #009688;
+}
+.seckill-item-info i:first-child {
+  font-size: 14px;
+}
+.seckill-price {
+  margin-right: 5px;
+  font-size: 25px;
+  font-weight: bold;
+}
+/*****************************秒杀专栏结束*****************************/
+
+/*****************************商品专栏开始*****************************/
+.item-class {
+  width: 100%;
+  height: 470px;
+  margin-top: 15px;
+  background-color: #fff;
+}
+.item-class-head {
+  width: 100%;
+  height: 50px;
+  background-color: #4488a7;
+}
+.item-class-eat-head {
+  background-color: #ecb226;
+}
+.item-class-head ul {
+  list-style: none;
+  float: right;
+  margin-right: 30px;
+  line-height: 50px;
+}
+.item-class-head a {
+  padding: 6px;
+  margin-left: 15px;
+  font-size: 12px;
+  background-color: #6da6be;
+  border: 1px solid #6da6be;
+  text-decoration: none;
+  color: #fff;
+}
+.item-class-eat-head a {
+  background-color: #eeb955;
+  border: 1px solid #eeb955;
+}
+.item-class-head a:hover {
+  border: 1px solid #fff;
+}
+.item-class-head li {
+  float: left;
+}
+.item-class-title {
+  font-size: 25px;
+  line-height: 50px;
+  color: #fff;
+  margin-left: 15px;
+}
+.item-class-content {
+  width: 49%;
+  cursor: pointer;
+  border-right: 1px solid #ccc;
+  margin-left: 0.9%;
+  /*background-color: #cff;*/
+  float: left;
+}
+.item-class-content:nth-child(odd) {
+  border: none;
+}
+.item-content-top {
+  width: 100%;
+  height: 260px;
+}
+.item-big-img {
+  width: 180px;
+  height: 260px;
+  overflow: hidden;
+  float: left;
+}
+.item-big-img img {
+  margin-left: 0px;
+  transition: margin-left 0.3s;
+}
+.item-big-img:hover img {
+  margin-left: -15px;
+  transition: margin-left 0.3s;
+}
+.item-four-img {
+  width: 303px;
+  margin-left: 8px;
+  float: left;
+}
+.item-four-detail img {
+  margin-left: 0px;
+  transition: margin-left 0.3s;
+}
+.item-four-detail:hover img {
+  margin-left: -6px;
+  transition: margin-left 0.3s;
+}
+.item-four-detail {
+  width: 152px;
+  height: 130px;
+  margin-left: -1px;
+  float: left;
+}
+.item-four-detail:first-child {
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.item-four-detail:last-child {
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+.item-four-detail-text {
+  width: 50px;
+  margin-left: 5px;
+  margin-top: 15px;
+  float: left;
+}
+.item-four-detail-img {
+  width: 96px;
+  margin-top: 15px;
+  overflow: hidden;
+  float: left;
+}
+.item-four-detail-img img {
+  margin-left: 5px;
+  width: 90px;
+}
+.pt_bi_tit {
+  font-weight: bold;
+  font-size: 12px;
+  color: #4488a7;
+}
+.pt_bi_tit-eat {
+  color: #ecb127;
+}
+.pt_bi_promo {
+  color: #00695c;
+}
+.item-content-bottom {
+  width: 100%;
+  margin-top: 8px;
+}
+.item-content-bottom-img {
+  width: 156px;
+  margin-right: 8px;
+  overflow: hidden;
+  float: left;
+}
+.item-content-bottom-img img {
+  margin-left: 0px;
+  transition: margin-left 0.3s;
+}
+.item-content-bottom-img:hover img {
+  margin-left: -15px;
+  transition: margin-left 0.3s;
+}
+/*****************************商品专栏结束*****************************/
+
+/**************瀑布流*****************************/
+.prointro {
+  text-align: left;
+}
+.waterfallInfo{
+    cursor: pointer;
+    transition: all 0.5s; /* 所有的属性变化在0.5s的时间段内完成 */
+    opacity:0.9;
+}
+.waterfallInfo:hover{
+  transform: scale(1.02); /* 鼠标放到图片上的时候图片按比例放大1.5倍   */
+  opacity:1.0;
+
+}
+</style>

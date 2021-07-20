@@ -1,0 +1,210 @@
+import Vue from 'vue';
+import Router from 'vue-router';
+import Index from '@/components/Index';
+// import adminLogin from '@/components/adminLogin';
+const Login = resolve => require(['@/components/Login'], resolve);
+const SignUp = resolve => require(['@/components/SignUp'], resolve);
+const CheckPhone = resolve => require(['@/components/signUp/CheckPhone'], resolve);
+const InputInfo = resolve => require(['@/components/signUp/InputInfo'], resolve);
+const SignUpDone = resolve => require(['@/components/signUp/SignUpDone'], resolve);
+const GoodsList = resolve => require(['@/components/GoodsList'], resolve);
+const GoodsDetail = resolve => require(['@/components/GoodsDetail'], resolve);
+const ShoppingCart = resolve => require(['@/components/ShoppingCart'], resolve);
+const Order = resolve => require(['@/components/Order'], resolve);
+const Pay = resolve => require(['@/components/Pay'], resolve);
+const PayDone = resolve => require(['@/components/PayDone'], resolve);
+const Freeback = resolve => require(['@/components/Freeback'], resolve);
+const Home = resolve => require(['@/components/Home'], resolve);
+const MyAddress = resolve => require(['@/components/home/MyAddress'], resolve);
+const AddAddress = resolve => require(['@/components/home/AddAddress'], resolve);
+const MyOrder = resolve => require(['@/components/home/MyOrder'], resolve);
+const MyShoppingCart = resolve => require(['@/components/home/MyShoppingCart'], resolve);
+const ViewMyInfo = resolve => require(['@/components/home/viewMyInfo'], resolve);
+const AddMyGood = resolve => require(['@/components/home/addMyGood'], resolve);
+const ViewMyGood = resolve => require(['@/components/home/viewMyGood'], resolve);
+const ViewMyWant = resolve => require(['@/components/home/viewMyWant'], resolve);
+const AddMyWant = resolve => require(['@/components/home/addMyWant'], resolve);
+const MyFavorite = resolve => require(['@/components/home/myFavorite'], resolve);
+const MyMessage = resolve => require(['@/components/home/myMessage'], resolve);
+const Merchant = resolve => require(['@/components/Merchant'], resolve);
+const adminLogin = resolve => require(['@/components/adminLogin'], resolve);
+const adminHome = resolve => require(['@/components/adminOperator/home'], resolve);
+const UserInfo = resolve => require(['@/components/adminOperator/userInfo'], resolve);
+const GoodInfo = resolve => require(['@/components/adminOperator/goodInfo'], resolve);
+const GoodCategory = resolve => require(['@/components/adminOperator/goodCategory'],resolve);
+const NoticeInfo = resolve => require(['@/components/adminOperator/noticeInfo'], resolve);
+const AddNotice = resolve => require(['@/components/adminOperator/addNotice'], resolve);
+Vue.use(Router);
+
+export default new Router({
+  routes: [
+    {
+      path: '/', // 首页
+      name: 'Index',
+      component: Index,
+      meta: {
+        keepAlive: true // 需要被缓存
+      }
+    },
+    {
+      path: '/Login', // 登录
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/SignUp', // 注册
+      name: 'SignUp',
+      component: SignUp,
+      children: [
+        {
+          path: '/',
+          name: 'index',
+          component: CheckPhone
+        },
+        {
+          path: 'checkPhone',
+          name: 'CheckPhone',
+          component: CheckPhone
+        },
+        {
+          path: 'inputInfo',
+          name: 'InputInfo',
+          component: InputInfo
+        },
+        {
+          path: 'signUpDone',
+          name: 'SignUpDone',
+          component: SignUpDone
+        }
+      ]
+    },
+    {
+      path: '/goodsList', // 商品列表
+      name: 'GoodsList',
+      component: GoodsList
+    },
+    {
+      path: '/goodsDetail', // 商品详情
+      name: 'GoodsDetail',
+      component: GoodsDetail
+    },
+    {
+      path: '/shoppingCart', // 商品详情
+      name: 'ShoppingCart',
+      component: ShoppingCart
+    },
+    {
+      path: '/order', // 订单页面
+      name: 'Order',
+      component: Order
+    },
+    {
+      path: '/pay', // 支付页面
+      name: 'Pay',
+      component: Pay
+    },
+    {
+      path: '/payDone', // 支付成功页面
+      name: 'PayDone',
+      component: PayDone
+    },
+    {
+      path: '/freeback', // 反馈页面
+      name: 'Freeback',
+      component: Freeback
+    },
+    {
+      path: '/home',
+      // 主页
+      redirect:'/home/myOrder',
+      name: 'Home',
+      component: Home,
+      children: [
+        {
+          path: '/',
+          name: 'HomeIndex',
+          component: MyOrder
+        },
+        {
+          path: 'myAddress',
+          name: 'MyAddress',
+          component: MyAddress
+        },
+        {
+          path: 'addAddress',
+          name: 'AddAddress',
+          component: AddAddress
+        },
+        {
+          path: 'myOrder',
+          name: 'MyOrder',
+          component: MyOrder
+        },
+        {
+          path: 'myShoppingCart',
+          name: 'MyShoppingCart',
+          component: MyShoppingCart
+        },
+        {
+          path: 'viewMyInfo',
+          name: 'ViewMyInfo',
+          component: ViewMyInfo
+        },
+        {
+          path: 'addMyGood',
+          name: 'AddMyGood',
+          component: AddMyGood
+        },
+        {
+          path: 'viewMyGood',
+          name: 'ViewMyGood',
+          component: ViewMyGood
+        },
+        {
+          path: 'viewMyWant',
+          name: 'ViewMyWant',
+          component: ViewMyWant
+        },
+        {
+          path: 'addMyWant',
+          name: 'AddMyWant',
+          component: AddMyWant
+        },
+        {
+          path: 'myFavorite',
+          name: 'MyFavorite',
+          component: MyFavorite
+        },
+        {
+          path: 'myMessage',
+          name: 'MyMessage',
+          component: MyMessage
+        }
+      ]
+    },
+    {
+      path: '/merchant',
+      name: 'Merchant',
+      component: Merchant
+    },
+    {
+      path: '/adminLogin',
+      name: 'AdminLogin',
+      component: adminLogin
+    },
+    {
+      path: '/adminOperator',
+      redirect: '/adminOperator/userInfo',
+      name: 'AdminHome',
+      component: adminHome,
+      children: [
+        {path: 'userInfo', name: 'UserInfo', component: UserInfo},
+        {path: 'goodInfo', name: 'GoodInfo', component: GoodInfo},
+        {path: 'goodCategory',name:'GoodCategory',component:GoodCategory},
+        {path: 'noticeInfo', name: 'NoticeInfo', component: NoticeInfo},
+        {path: 'addNotice', name: 'AddNotice', component: AddNotice}
+      ]
+    },
+
+  ]
+});
