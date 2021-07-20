@@ -5,7 +5,9 @@
       <div class="shop-nav-container">
         <Breadcrumb separator="<b style=' color: #ff5500;padding: 0 5px;'>/</b>">
           <BreadcrumbItem to="/">首页</BreadcrumbItem>
-          <BreadcrumbItem to="/goodsList">{{this.$route.query.cname}}</BreadcrumbItem>
+          <BreadcrumbItem :to="{path:'/goodsList/',query:{
+            way:1,condition:this.$route.query.cname
+          }}">{{this.$route.query.cname}}</BreadcrumbItem>
           <BreadcrumbItem>{{this.$route.query.pname}}</BreadcrumbItem>
         </Breadcrumb>
       </div>

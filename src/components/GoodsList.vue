@@ -1,15 +1,19 @@
 <template>
   <div>
     <Search></Search>
-    <GoodsListNav></GoodsListNav>
     <div class="container">
       <div class="bread-crumb">
         <Breadcrumb>
           <BreadcrumbItem to="/">
             <Icon type="ios-home-outline"></Icon> 首页
           </BreadcrumbItem>
-          <BreadcrumbItem to="/goodsList?sreachData=">
-            <Icon type="bag"></Icon> {{searchItem}}
+          <BreadcrumbItem :to="{path:'/goodsList/',query:{
+            way:0
+          }}">
+
+            {{breadcrumbItem1}}
+          </BreadcrumbItem>
+          <BreadcrumbItem>{{breadcrumbItem2}}
           </BreadcrumbItem>
         </Breadcrumb>
       </div>
@@ -55,7 +59,6 @@
                   cname:item.cname,
                   pname:item.pname
                 }
-
                 }">
                   <img :src="'../../static/img/goodsList/'+item.pimg" style="width: 100%"/>
 
@@ -136,7 +139,26 @@ export default {
       query: {
         way:0,
         condition:''
+      },
+      breadcrumbItem1:'',
+      breadcrumbItem2:'',
+      wayData: {
+        '0': {
+          label: '全部商品'
+        },
+        '1': {
+          label: '按类别查询商品'
+        },
+        '2': {
+          label: '按价格范围查询商品'
+        },
+        '3':{
+          label:'按浏览量查询商品'
+        }
       }
+
+
+
     };
   },
 computed:{
@@ -187,6 +209,8 @@ computed:{
 
   created () {
     this.query.way=this.$route.query.way
+    this.breadcrumbItem1=this.wayData[this.query.way].label
+    this.breadcrumbItem2=this.$route.query.condition
     this.query.condition=this.$route.query.condition
     this.loadProductList()
     this.loadGoodsList();

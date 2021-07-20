@@ -48,7 +48,7 @@ import Moment from 'moment'
 import Search from '@/components/Search';
 import HomeNav from '@/components/nav/HomeNav';
 import store from '@/vuex/store';
-
+import GoodsListNav from './nav/GoodsListNav';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 import vueWaterfallEasy from 'vue-waterfall-easy'
 
@@ -98,7 +98,7 @@ export default {
         let arrnew = waterfall.map((item,index) => {
           return Object.assign({},{'src':'../../static/img/goodsList/'+item.pimg,
               'productInfo':item
-            
+
           }
           )
         })
@@ -121,7 +121,8 @@ export default {
   components: {
     Search,
     HomeNav,
-    vueWaterfallEasy
+    vueWaterfallEasy,
+    GoodsListNav
   },
   filters:{
     ellipsis:function (value){

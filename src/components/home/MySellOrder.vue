@@ -105,10 +105,9 @@
                 收货人地址:{{scope.row.receiverAddr}}</div>
               <el-button type="primary" @click="deliverProductDiag">确认发货</el-button>
               <el-button @click="confirmVisable=false">取消</el-button>
+
             </el-card>
-
             <img src="../../../static/img/2.jpg"  style="margin-left: 450px;width: 30%">
-
             </el-row>
           </el-dialog>
 
@@ -194,7 +193,6 @@ export default {
       let oid_send=this.tableDataNew[this.row_index].oid
       axios.get(api.path+"orderManage/confirmDeliverProduct/"+oid_send).then(function (resp){
         if(resp.data.code==200){
-          console.log(resp.data)
           _this.$message.success("您已确认发货，消息通知卖家")
           _this.confirmVisable=false
           window.location.reload()

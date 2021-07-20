@@ -10,22 +10,23 @@
             <p>{{username}}</p>
           </div>
           <Submenu name="1">
+
+
             <template slot="title">
-                <Icon type="location"></Icon>
-                <span>收货地址</span>
+              <Icon type="document-text"></Icon>
+              <span>个人信息</span>
+            </template>
+            <MenuItem name="viewMyInfo">查看信息</MenuItem>
+          </Submenu>
+          <Submenu name="2">
+
+
+            <template slot="title">
+              <Icon type="location"></Icon>
+              <span>收货地址</span>
             </template>
             <MenuItem name="myAddress">我的收货地址</MenuItem>
             <MenuItem name="addAddress">添加收货地址</MenuItem>
-          </Submenu>
-          <Submenu name="2">
-            <template slot="title">
-                <Icon type="clipboard"></Icon>
-                <span>订单管理</span>
-            </template>
-
-            <MenuItem name="myBuyOrder">我的购买订单</MenuItem>
-            <MenuItem name="mySellOrder">我的售出订单</MenuItem>
-
           </Submenu>
           <Submenu name="3">
             <template slot="title">
@@ -36,10 +37,11 @@
           </Submenu>
           <Submenu name="4">
             <template slot="title">
-              <Icon type="document-text"></Icon>
-              <span>个人信息</span>
+              <Icon type="clipboard"></Icon>
+              <span>订单管理</span>
             </template>
-            <MenuItem name="viewMyInfo">查看信息</MenuItem>
+            <MenuItem name="myBuyOrder">我的购买订单</MenuItem>
+            <MenuItem name="mySellOrder">我的售出订单</MenuItem>
           </Submenu>
           <Submenu name="5">
             <template slot="title">
@@ -89,8 +91,10 @@
 </template>
 
 <script>
+import GoodsListNav from './nav/GoodsListNav';
 export default {
   name: 'Home',
+  components: {GoodsListNav},
   data () {
     return {
       username:'',

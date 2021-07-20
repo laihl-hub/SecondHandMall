@@ -2,12 +2,18 @@
   <div>
     <div class="search-nav">
       <div class="search-nav-container">
+
         <ul>
-          <li>商品详情</li>
-          <li><router-link to="/">首页</router-link></li>
-          <li><router-link to="/">个人中心</router-link></li>
+          <li><router-link to="/" style="color:white">商城首页</router-link>
+          </li>
+          <li> <router-link
+            :to="{path:'/goodsList',query:{
+              way:0
+            }}">商品大全</router-link>
+          </li>
+          <li><router-link to="/home">个人中心</router-link></li>
           <li><router-link to="/">系统公告</router-link></li>
-          <li><router-link to="/">意见反馈</router-link></li>
+          <li><router-link to="/freeback">意见反馈</router-link></li>
         </ul>
       </div>
     </div>
