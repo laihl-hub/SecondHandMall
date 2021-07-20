@@ -18,7 +18,6 @@ const Home = resolve => require(['@/components/Home'], resolve);
 const MyAddress = resolve => require(['@/components/home/MyAddress'], resolve);
 const AddAddress = resolve => require(['@/components/home/AddAddress'], resolve);
 const MyOrder = resolve => require(['@/components/home/MyOrder'], resolve);
-const SaleOrder = resolve => require(['@/components/home/SaleOrder'],resolve)
 const MyShoppingCart = resolve => require(['@/components/home/MyShoppingCart'], resolve);
 const ViewMyInfo = resolve => require(['@/components/home/viewMyInfo'], resolve);
 const AddMyGood = resolve => require(['@/components/home/addMyGood'], resolve);
@@ -140,11 +139,6 @@ export default new Router({
           path: 'myOrder',
           name: 'MyOrder',
           component: MyOrder
-        },
-        {
-          path: 'saleOrder',
-          name: 'SaleOrder',
-          component: SaleOrder
         },
         {
           path: 'myShoppingCart',

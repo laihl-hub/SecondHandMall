@@ -31,7 +31,7 @@ export default {
           title: '图片',
           key: 'pimg',
           width: 270,
-         
+
           render: (h, params) => {
             return h('div', [
               h('img', {
@@ -42,7 +42,7 @@ export default {
             ]);
           },
           align: 'center'
-          
+
         },
         {
           title: '商品名',
@@ -69,7 +69,7 @@ export default {
           key: 'spAddTime',
           width: 300,
           align: 'center',
-          
+
         }
       ]
     };
