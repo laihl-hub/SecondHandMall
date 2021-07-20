@@ -79,7 +79,7 @@
               <span>商品价格:</span>
               <span class="item-in-card item-detail-express" >{{productInfo.pprice}}
                 <label style="font-size: small;color: #6e6568;padding-left: 2px" >RMB</label></span>
-              <span style="padding-left: 50px;text-decoration:line-through">入手价1000元</span>
+              <span style="padding-left: 50px;text-decoration:line-through">入手价:{{productInfo.pprePrice}}</span>
             </Row>
           </Col>
         </Card>
@@ -89,7 +89,7 @@
         <Row style="margin-bottom:5px ">
           <Col :span="5" >
             <span class="sp1" style="display: inline-block;margin: 10px 50px">
-              <Icon type="android-favorite" size="30" @click="addStoreBtn"  v-bind:class="{change:isClicked}"></Icon>
+              <Icon type="android-favorite" size="30" @click="addStoreBtn"  v-bind:class="{change:isClicked}" class="addStore"></Icon>
               <!--            <Button type="error" size="large" @click="addStoreBtn()">加入收藏</Button>-->
           </span>
           </Col>
@@ -97,21 +97,14 @@
             <span class="add-buy-car" style="display:inline-block;margin: 10px 10px">
               <Button-group shape="circle">
               <Button type="ghost" style="background-color: peachpuff" @click="addShoppingCartBtn ()">加入购物车</Button>
-              <Button type="ghost" style="background-color: lightsteelblue" >立即购买</Button>
+              <Button type="ghost" style="background-color: lightsteelblue" @click="buyProductBtn ()">立即购买</Button>
             </Button-group>
             </span>
 
           </Col>
 
         </Row>
-<!--            <Row>-->
-<!--          <span class="add-buy-car">-->
-<!--            <Button type="error" size="large" @click="addStoreBtn()">加入收藏</Button>-->
-<!--          </span>-->
-<!--          <span class="add-buy-car">-->
-<!--            <Button type="error" size="large" @click="addShoppingCartBtn()">加入购物车</Button>-->
-<!--          </span>-->
-<!--            </Row>-->
+
 
         </div>
       </div>
@@ -138,6 +131,7 @@ export default {
         pintro: "",
         pname: "",
         pprice: 0,
+        pprePrice:0,
         pviewNum: 0,
         uname:'',
         uphoneNum: '',
@@ -164,6 +158,7 @@ export default {
   },
   methods: {
     ...mapActions(['addShoppingCart']),
+
     addShoppingCartBtn () {
     let postData={
       pid:this.productInfo.pid,
@@ -194,10 +189,19 @@ export default {
       //   count: this.count,
       //   package: this.goodsInfo.setMeal[index1][index2]
       // };
+      const _this=this
       if(this.isClicked){
         this.$message.warning('取消收藏成功')
       }else {
-        this.$Message.success('收藏成功，你可以在你的个人中心查看你收藏的商品');
+        axios.post(api.path+'userStoreManage/addProductToStore',{pid:_this.productInfo.pid,uid:Cookies.get('userid')})
+        .then(function (response){
+          if(response.data.code===200){
+            _this.$Message.success('收藏成功，你可以在你的个人中心查看你收藏的商品');
+          }else {
+            _this.$Message.error('收藏失败')
+          }
+        })
+
       }
       this.isClicked=!this.isClicked
 
@@ -205,19 +209,9 @@ export default {
       // this.$router.push('/shoppingCart');
     },
     buyProductBtn () {
-      // const index1 = parseInt(this.selectBoxIndex / 3);
-      // const index2 = this.selectBoxIndex % 3;
-      // const date = new Date();
-      // const goodsId = date.getTime();
-      // const data = {
-      //   goods_id: goodsId,
-      //   title: this.goodsInfo.title,
-      //   count: this.count,
-      //   package: this.goodsInfo.setMeal[index1][index2]
-      // };
-      this.$Message.success('正在跳转支付页面');
-      // this.addShoppingCart(data);
-      // this.$router.push('/shoppingCart');
+      // console.log(this.productInfo.pid)
+      // const _this=this
+      this.$router.push({name:'Order',query:{pid:this.productInfo.pid}})
     }
   },
   mounted () {
@@ -289,7 +283,9 @@ export default {
   font-size: 12px;
   color: lightslategray;
 }
-
+.addStore:hover{
+  cursor: pointer;
+}
 
 
 .item-remarks-sum p {

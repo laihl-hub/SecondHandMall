@@ -20,6 +20,7 @@ export default {
     return {
       selectedSpId:null,
       hasSelected:false,
+      selectedPid:null,
       // tableData:null,
       columns: [
         {
@@ -88,7 +89,8 @@ export default {
   methods: {
     ...mapActions(['loadShoppingCart']),
     goTo () {
-      this.$router.push('/order');
+
+      this.$router.push({name:'Order',query:{pid:this.selectedPid}});
     },
     del () {
       const  _this=this;
@@ -119,11 +121,10 @@ export default {
       return Moment(data).format(format)},
     getClick(selection,row){
       console.log(row)
-
         this.selectedSpId=row.spId
+      this.selectedPid=row.pid
+      // console.log(this.selectedSpId)
         this.hasSelected=true
-
-
     }
   },
   store

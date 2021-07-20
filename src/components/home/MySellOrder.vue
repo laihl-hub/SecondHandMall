@@ -89,9 +89,10 @@
           <el-button  v-if="scope.row.ostate===0" type="danger" @click="deliverProduct(scope.$index)" >商品发货</el-button>
           <el-button   disabled type="primary" v-else-if="scope.row.ostate===1" >您已发货</el-button>
           <el-button disabled  v-else size="20" type="success" >已完成交易</el-button>
-          <el-dialog title="收货地址" :visible.sync="confirmVisable">
+          <el-dialog title="收货地址" :visible.sync="confirmVisable"style="width: 90%;">
             <el-row>
-            <el-card class="box-card" style="width: 60%">
+            <el-card class="box-card" style="background-image: url('../../../static/img/3.PNG');background-size: 100% 80%;
+            background-position: right;background-repeat: no-repeat;margin-left: 90px" >
               <div slot="header" class="clearfix">
                 <span>确认发货信息</span>
               </div>
@@ -103,11 +104,11 @@
                 收货人联系方式:{{scope.row.receiverPhone}}</div>
               <div  class="text item">
                 收货人地址:{{scope.row.receiverAddr}}</div>
-              <el-button type="primary" @click="deliverProductDiag">确认发货</el-button>
+              <el-button type="ghost" @click="deliverProductDiag" style="background-color: rgba(231,192,231,.5)">确认发货</el-button>
               <el-button @click="confirmVisable=false">取消</el-button>
 
             </el-card>
-            <img src="../../../static/img/2.jpg"  style="margin-left: 450px;width: 30%">
+<!--            <img src="../../../static/img/2.jpg"  style="margin-left: 450px;width: 30%">-->
             </el-row>
           </el-dialog>
 

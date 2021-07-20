@@ -52,7 +52,7 @@
           </div>
           <div class="goods-list">
 
-            <div class="goods-show-info" v-for="(item, index) in productInfo " :key="index">
+            <div class="goods-show-info" v-for="(item, index) in productInfo " :key="index" style="margin-right: 30px">
               <div class="goods-show-img"  >
                 <router-link :to="{path:'/goodsDetail',query:{
                   pid:item.pid,
@@ -339,7 +339,7 @@ computed:{
 .goods-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
 }
 
 .goods-show-info{

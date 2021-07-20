@@ -14,70 +14,94 @@
 <!--      <Table border ref="selection" :columns="columns" :data="shoppingCart" size="large" @on-selection-change="select" no-data-text="您的购物车没有商品，请先添加商品到购物车再点击购买"></Table>-->
       <Card style="height: 330px">
         <div style="height: 40px;border-bottom: 1px solid lightgray;" >
-          <Col :span="2"><Icon type="ios-location-outline" size="30" style="margin-left: 30px"></Icon></Col>
-          <Col :span="18"><span style="display: inline-block;width: 99%;height: 30px;border: 1px solid lightgray"></span></Col>
-          <Col :span="2"><Icon type="edit"  size="20" style="margin-top: 5px"></Icon></Col>
+          <Col :span="2">
+            <Dropdown  placement="bottom-start" style="width: 250px">
+              <a href="javascript:void(0)" style="color: #495060">
+                <Icon type="ios-location-outline" size="30" style="margin-left: 30px"></Icon>
+              </a>
+              <DropdownMenu slot="list">
+                <div  v-if="address==null">
+                  <span>你还没有收获地址噢</span><br>
+                  <span>快去添加一个地址叭</span>
+                </div>
+                <div class="address-list" v-show="address.length>0">
+                  <div class="address-box" v-for="(item, index) in address" :key="index">
+                    <div class="address-content" @click="selected(index)" style="cursor: default">
+                      <p><span class="address-content-title"> 收 货 人 :</span> {{item.rreceivername}}</p>
+                      <p><span class="address-content-title">收货地区:</span>{{item.rprovince}} {{item.rcity}} {{item.rarea}}</p>
+                      <p><span class="address-content-title">详细地址:</span>{{item.rreciveraddress}}</p>
+                      <p><span class="address-content-title">联系电话:</span> {{item.rreceiverphone}}</p>
+                    </div>
+                  </div>
+                </div>
+              </DropdownMenu>
+            </Dropdown>
+          </Col>
+          <Col :span="18"><span style="display: inline-block;width: 99%;height: 30px;border: 1px solid lightgray;line-height: 30px">{{selectedAdd}}
+<!--          {{selectedAdd.rreceiverphone}}-->
+          </span></Col>
+          <Col :span="2"><Icon type="ios-plus-outline" size="22" style="margin-top: 5px" @click="addAddress"></Icon>
+            <Modal v-model="isAdd" width="530">
+              <p slot="header">
+                <Icon type="edit"></Icon>
+                <span>添加地址</span>
+              </p>
+              <div>
+                <Form :model="formData" label-position="left" :label-width="100" >
+                  <FormItem label="收件人" >
+                    <i-input v-model="formData.rreceivername" size="large"></i-input>
+                  </FormItem>
+                  <FormItem label="收件地区" >
+                    <Distpicker :province="formData.province" :city="formData.rcity" :area="formData.rarea" @province="getProvince" @city="getCity" @area="getArea"></Distpicker>
+                  </FormItem >
+                  <FormItem label="详细地址" >
+                    <i-input v-model="formData.rreciveraddress" size="large"></i-input>
+                  </FormItem>
+                  <FormItem label="手机号码" >
+                    <i-input v-model="formData.rreceiverphone" size="large"></i-input>
+                  </FormItem>
+                </Form>
+              </div>
+              <div slot="footer">
+                <Button type="primary" size="large" long @click="submit">确认添加</Button>
+              </div>
+            </Modal>
+          </Col>
         </div>
         <div style="height: 220px;border-bottom: 1px solid lightgray">
           <Col :span="8">
-            <div ><img src="../../static/img/goodsList/1.jpg" width="200px" height="200px" style="margin-top: 10px;border: 1px solid lightgray">
+            <div ><img :src="'../../static/img/goodsList/'+goodInfo.pimg" width="200px" height="200px" style="margin-top: 10px;border: 1px solid lightgray">
               <span style="display: inline-block;margin-left: 5px" >x1</span>
             </div>
           </Col>
          <Col :span="7">
            <div style="height: 200px;margin-top: 15px;" >
-             <span style="display: inline-block;width: 100%;margin: 5px 10px"><h4 style="display: inline;padding-right: 5px">商&nbsp&nbsp品&nbsp&nbsp名:</h4><span>xixi</span></span>
-             <span style="display: inline-block;width: 100%;margin: 5px 10px"><h4 style="display: inline;padding-right: 5px">商品详情:</h4><span>sxhsuhsikz爱是苦瓜卡四季度是按时UI是否慈善法我我发按实际开除你</span></span>
-             <span style="display: inline-block;width: 100%;margin: 5px 10px"><h4 style="display: inline;padding-right: 5px">商品价格:</h4><Icon type="social-yen-outline" style="padding: 0 5px"></Icon><span>8</span></span>
-             <span style="display: inline-block;width: 100%;margin: 5px 10px"><h4 style="display: inline;padding-right: 5px">运&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp费:</h4><Icon type="social-yen-outline" style="padding: 0 5px"></Icon><span>8</span></span>
+             <span style="display: inline-block;width: 100%;margin: 5px 10px"><h4 style="display: inline;padding-right: 5px">商&nbsp&nbsp品&nbsp&nbsp名:</h4><span>{{goodInfo.pname}}</span></span>
+             <span style="display: inline-block;width: 100%;margin: 5px 10px"><h4 style="display: inline;padding-right: 5px">商品详情:</h4><span>{{goodInfo.pintro}}</span></span>
+             <span style="display: inline-block;width: 100%;margin: 5px 10px"><h4 style="display: inline;padding-right: 5px">商品价格:</h4><Icon type="social-yen-outline" style="padding: 0 5px"></Icon><span>{{goodInfo.pprice}}</span></span>
+             <span style="display: inline-block;width: 100%;margin: 5px 10px"><h4 style="display: inline;padding-right: 5px">运&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp费:</h4><Icon type="social-yen-outline" style="padding: 0 5px"></Icon><span>0</span></span>
            </div>
          </Col>
         </div>
         <div style="height: auto">
           <span style="display: block;width: 150px;height: 50px;position:relative;left: 70%;line-height: 50px">
-            <span><h4 style="display: inline">总金额:</h4></span><span style="font-size: 1.5em"><Icon type="social-yen-outline" style="padding: 0 5px" size="22"></Icon>16</span>
+            <span><h4 style="display: inline">总金额:</h4></span><span style="font-size: 1.5em"><Icon type="social-yen-outline" style="padding: 0 5px" size="22"></Icon>
+            {{goodInfo.pprice}}</span>
           </span>
         </div>
       </Card>
       <Card style="height: 120px;margin-top: 20px">
         <span style="display: inline-block"><h2>订单信息</h2></span>
         <div style="height: 50px;margin-top: 10px">
-          <span style="display: block;margin-bottom: 10px"><h4 style="display: inline">订单编号</h4><span style="margin-left: 50px">684215643</span></span>
-          <span style="display: block"><h4 style="display: inline">创建时间</h4><span style="margin-left: 50px">xxx-x--x-x-</span></span>
+          <span style="display: block;margin-bottom: 10px"><h4 style="display: inline">订单编号</h4><span style="margin-left: 50px">{{orderNum}}</span></span>
+          <span style="display: block"><h4 style="display: inline">创建时间</h4><span style="margin-left: 50px">{{time}}</span></span>
         </div>
       </Card>
-<!--      <div class="address-container">-->
-<!--        <h3>订单信息</h3>-->
-<!--        <div class="address-box">-->
-<!--          <div class="address-check">-->
-<!--            <div class="address-check-name">-->
-<!--              <span><Icon type="ios-checkmark-outline"></Icon> {{checkAddress.name}}</span>-->
-<!--            </div>-->
-<!--            <div class="address-detail">-->
-<!--              <p>{{checkAddress.address}}</p>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <Collapse>-->
-<!--            <Panel>-->
-<!--                选择地址-->
-<!--                <p slot="content">-->
-<!--                  <RadioGroup vertical size="large" @on-change="changeAddress">-->
-<!--                    <Radio :label="item.addressId" v-for="(item, index) in address" :key="index">-->
-<!--                      <span>{{item.name}} {{item.province}} {{item.city}} {{item.address}} {{item.phone}} {{item.postalcode}}</span>-->
-<!--                    </Radio>-->
-<!--                  </RadioGroup>-->
-<!--                </p>-->
-<!--            </Panel>-->
-<!--          </Collapse>-->
-<!--        </div>-->
-<!--      </div>-->
-
-
       <div class="pay-container">
         <div class="pay-box">
-          <p><span>订单总额：</span> <span class="money" style="color: darksalmon"><Icon type="social-yen"></Icon> {{totalPrice.toFixed(2)}}</span></p>
+          <p><span>订单总额：</span> <span class="money" style="color: darksalmon"><Icon type="social-yen"></Icon>{{goodInfo.pprice}}</span></p>
           <div class="pay-btn">
-            <router-link to="/pay"><Button type="ghost" size="large" style="background-color: lightblue">支付订单</Button></router-link>
+            <router-link to="/pay"><Button type="ghost" size="large" style="background-color: lightblue">提交订单</Button></router-link>
           </div>
         </div>
       </div>
@@ -90,104 +114,128 @@ import Search from '@/components/Search';
 import GoodsListNav from '@/components/nav/GoodsListNav';
 import store from '@/vuex/store';
 import { mapState, mapActions } from 'vuex';
+import axios from "axios";
+import api from "../../static/js/api";
+import Moment from "moment";
+import Distpicker from "v-distpicker";
 export default {
   name: 'Order',
-  beforeRouteEnter (to, from, next) {
-    window.scrollTo(0, 0);
-    next();
-  },
-  created () {
+  // beforeRouteEnter (to, from, next) {
+  //   window.scrollTo(0, 0);
+  //   next();
+  // },
+  async created() {
+    // this.loadAddress();
+    const _this=this
+    // console.log(this.$route.query.pid)
+    await axios.get(api.path+'productManage/lookUpProductDetailByPid/'+_this.$route.query.pid)
+    .then(function (response){
+      _this.goodInfo=response.data.data
+    })
+    _this.time=this.getCurrentTime()
+    _this.orderNum=Math.round(Math.random()*10000000000).toString()
     this.loadAddress();
+
   },
   data () {
     return {
-      goodsCheckList: [],
-      columns: [
-        {
-          type: 'selection',
-          width: 58,
-          align: 'center'
-        },
-        {
-          title: '图片',
-          key: 'img',
-          width: 86,
-          render: (h, params) => {
-            return h('div', [
-              h('img', {
-                attrs: {
-                  src: params.row.img
-                }
-              })
-            ]);
-          },
-          align: 'center'
-        },
-        {
-          title: '标题',
-          key: 'title',
-          align: 'center'
-        },
-        {
-          title: '套餐',
-          width: 198,
-          key: 'package',
-          align: 'center'
-        },
-        {
-          title: '数量',
-          key: 'count',
-          width: 68,
-          align: 'center'
-        },
-        {
-          title: '价格',
-          width: 68,
-          key: 'price',
-          align: 'center'
-        }
-      ],
-      checkAddress: {
-        name: '未选择',
-        address: '请选择地址'
-      },
-      remarks: ''
+      goodInfo:null,
+      time:'',
+      orderNum:'',
+      isAdd:false,
+      selectedAdd:null,
+      formData:{
+        rreceivername:'',
+        rreciveraddress:'',
+        rprovince:'',
+        rcity:'',
+        rarea:'',
+        rreceiverphone:'',
+        // 'raddrName':_this.formData.raddrName,
+        rflag:1,
+        uid:Cookies.get("userid")
+      }
     };
   },
   computed: {
-    ...mapState(['address', 'shoppingCart']),
-    totalPrice () {
-      let price = 0;
-      this.goodsCheckList.forEach(item => {
-        price += item.price * item.count;
-      });
-      return price;
-    }
+    // ...mapState(['address', 'shoppingCart']),
+    // totalPrice () {
+    //   let price = 0;
+    //   this.goodsCheckList.forEach(item => {
+    //     price += item.price * item.count;
+    //   });
+    //   return price;
+    // }
+    ...mapState(['address'])
   },
   methods: {
     ...mapActions(['loadAddress']),
-    select (selection, row) {
-      console.log(selection);
-      this.goodsCheckList = selection;
+    getCurrentTime() {
+      //获取当前时间并打印
+      // var _this = this;
+      var time
+      let yy = new Date().getFullYear();
+      let mm = new Date().getMonth()+1;
+      let dd = new Date().getDate();
+      let hh = new Date().getHours();
+      let mf = new Date().getMinutes()<10 ? '0'+new Date().getMinutes() : new Date().getMinutes();
+      let ss = new Date().getSeconds()<10 ? '0'+new Date().getSeconds() : new Date().getSeconds();
+      time = yy+'-'+mm+'-'+dd+' '+hh+':'+mf+':'+ss;
+      return time
     },
-    changeAddress (data) {
-      const father = this;
-      this.address.forEach(item => {
-        if (item.addressId === data) {
-          father.checkAddress.name = item.name;
-          father.checkAddress.address = `${item.name} ${item.province} ${item.city} ${item.address} ${item.phone} ${item.postalcode}`;
+    selected(index){
+      this.selectedAdd=this.address[index].rreceivername+'\xa0\xa0'+this.address[index].rprovince+'\xa0\xa0'+this.address[index].rcity
+      +'\xa0\xa0'+this.address[index].rarea+'\xa0\xa0'+this.address[index].rreciveraddress+'\xa0\xa0'+this.address[index].rreceiverphone
+    },
+    addAddress(){
+      this.isAdd=true
+    },
+    getProvince (data) {
+      this.formData.rprovince = data.value;
+    },
+    getCity (data) {
+      this.formData.rcity = data.value;
+    },
+    getArea (data) {
+      this.formData.rarea = data.value;
+    },
+    submit(){
+      const _this=this
+      // console.log(this.formData)
+      axios.post(api.path+'userAddrManage/addUserAddr',_this.formData).then(function (response){
+        if(response.data.code===200){
+          _this.$Message.success('添加成功')
+          _this.isAdd=false
+          window.location.reload()
+        }else {
+          _this.$Message.error('添加失败')
         }
-      });
+      })
     }
+    // ...mapActions(['loadAddress']),
+    // select (selection, row) {
+    //   console.log(selection);
+    //   this.goodsCheckList = selection;
+    // },
+    // changeAddress (data) {
+    //   const father = this;
+    //   this.address.forEach(item => {
+    //     if (item.addressId === data) {
+    //       father.checkAddress.name = item.name;
+    //       father.checkAddress.address = `${item.name} ${item.province} ${item.city} ${item.address} ${item.phone} ${item.postalcode}`;
+    //     }
+    //   });
+    // }
   },
   mounted () {
-    setTimeout(() => {
-      // this.$refs.selection.selectAll(true);
-    }, 500);
+    // setTimeout(() => {
+    //   // this.$refs.selection.selectAll(true);
+    // }, 500);
   },
   components: {
     Search,
-    GoodsListNav
+    GoodsListNav,
+    Distpicker
   },
   store
 };
@@ -211,30 +259,16 @@ export default {
   margin: 15px auto;
   width: 80%;
 }
-.tips-box {
-  margin-bottom: 15px;
-}
-.address-container {
-  margin-top: 15px;
+.add-box{
+  z-index: 1;
 }
 .address-box {
-  margin-top: 15px;
   padding: 15px;
-  border: 1px #ccc dotted;
+  margin: 15px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px #ccc;
 }
-.address-check {
-  margin: 15px 0px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-}
-.address-check-name {
-  width: 120px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  background-color: #ccc;
-}
+
 .address-check-name span {
   width: 120px;
   height: 36px;
@@ -243,17 +277,6 @@ export default {
   text-align: center;
   color: #fff;
   background-color: darksalmon;
-}
-.address-detail {
-  padding-left: 15px;
-  font-size: 14px;
-  color: #999999;
-}
-.remarks-container {
-  margin: 15px 0px;
-}
-.remarks-input {
-  margin-top: 15px;
 }
 .invoices-container p{
   font-size: 12px;
