@@ -36,7 +36,6 @@ export default {
   },
   created () {
     this.loadGoodsInfo();
-
   },
   data () {
     return {

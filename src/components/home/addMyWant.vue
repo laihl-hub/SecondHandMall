@@ -1,5 +1,8 @@
 <template>
   <div>
+<!--    <Header :style="{background: 'lightgrey'}">-->
+<!--      <h2>发布求购</h2>-->
+<!--    </Header>-->
     <div class="addWant-container">
       <div class="addWant-title">
         <h1>发布求购</h1>
@@ -21,7 +24,7 @@
 
             <!-- <div>
               <div slot="tip" class="el-upload__tip">请上传jpg/png文件</div>
-              <!-- action: 图片上传的API接口地址 -->
+              action: 图片上传的API接口地址 -->
               <!-- <el-upload
                 action="#"
                 list-type="picture-card"
@@ -38,7 +41,8 @@
         </Form>
       </div>
       <div class="addWant-submit">
-        <Button type="primary" @click="addMyWant">发布</Button>
+        <Button type="ghost" @click="addMyWant" style="background-color: #b2dfdb">发布</Button>
+        <Button type="ghost" @click="cancel" style="margin-left: 30px">取消</Button>
       </div>
     </div>
   </div>
@@ -108,9 +112,15 @@ export default {
         .then(function (response){
           if(response.data.code==200){
             _this.$Message.success('发布成功');
-            _this.$router.push('/home/viewMyWant')
+            // _this.$router.push('/home/viewMyWant')
+            window.location.reload()
+            // window.location.reload()
           }
         })
+    },
+    cancel(){
+      this.$message.success('取消成功');
+      window.location.reload()
     }
   },
   components: {

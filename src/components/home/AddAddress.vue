@@ -1,5 +1,8 @@
 <template>
   <div>
+<!--    <Header :style="{background: 'lightgrey'}">-->
+<!--      <h2>添加地址</h2>-->
+<!--    </Header>-->
     <div class="add-container">
       <div class="add-title">
         <h1>添加收货地址</h1>
@@ -22,7 +25,8 @@
         </Form>
       </div>
       <div class="add-submit">
-        <Button type="primary" @click="submit">添加地址</Button>
+        <Button type="ghost" @click="submit" style="background-color: #b2dfdb">添加地址</Button>
+        <Button type="ghost" @click="cancel" style="margin-left: 30px;background-color: ghostwhite">取  消</Button>
       </div>
     </div>
   </div>
@@ -87,9 +91,14 @@ export default {
         .then(function (response){
           if(response.data.code==200){
             _this.$Message.success('添加成功成功');
-            _this.$router.push('/home/myAddress')
+            // _this.$router.push('/home/myAddress')
+            window.location.reload()
           }
         })
+    },
+    cancel(){
+      this.$Message.success('取消成功')
+      window.location.reload()
     }
   },
   components: {

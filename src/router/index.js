@@ -114,7 +114,9 @@ export default new Router({
       component: Freeback
     },
     {
-      path: '/home', // 主页
+      path: '/home',
+      // 主页
+      redirect:'/home/myOrder',
       name: 'Home',
       component: Home,
       children: [

@@ -34,7 +34,7 @@
             <Row style="padding-bottom: 10px">
               <Col span="10" >
                 <Tooltip content="商品卖家" style="padding-right: 5px">
-                  <Icon type="ios-person" size="22"></Icon>
+                  <Icon type="social-snapchat-outline" size="22"></Icon>
                 </Tooltip>
                 <span class=" " style="">卖家名称:</span>
                 <span class=" " style="">{{productInfo.uname}}</span>
@@ -42,73 +42,76 @@
             </Row>
 
             <Row style="padding-bottom: 10px"> <Tooltip content="卖家地址" style="padding-right: 5px">
-              <Icon type="location" size="22" style="padding-left: 3px"></Icon>
+              <Icon type="ios-location-outline" size="22" style="padding-left: 3px;padding-right: 5px"></Icon>
             </Tooltip>
               <span>卖家学校:</span>
               <span class=" " style="">{{productInfo.uschool}}</span>
             </Row>
 
             <Row style="padding-bottom: 10px"> <Tooltip content="卖家联系方式" style="padding-right: 5px">
-              <Icon type="ios-chatbubble" size="20"></Icon>
+              <Icon type="iphone" size="22" style="padding-left: 5px;padding-right: 7px"></Icon>
             </Tooltip>
               <span>卖家联系方式:</span>
               <span class=" " style="">{{productInfo.uphoneNum}}</span>
             </Row>
 
             <Row style="padding-bottom: 10px"> <Tooltip content="商品标签" style="padding-right: 5px">
-              <Icon type="bookmark" size="22" style="padding-right: 10px;padding-left: 2px"></Icon>
-              <Tag color="red">99新</Tag>
-              <Tag color="red">卖家包邮</Tag>
-              <Tag color="red">正品保证</Tag>
+              <Icon type="ios-pricetags-outline" size="22" style="padding-right:9px"></Icon>
+              <el-tag type="success">标签二</el-tag>
+              <el-tag type="info">标签三</el-tag>
+              <el-tag type="warning">标签四</el-tag>
             </Tooltip>
 
 
             </Row>
 
             <Row style="padding-bottom: 10px"> <Tooltip content="商品描述" style="padding-right: 5px">
-              <Icon type="ios-information"  size="18"></Icon>
+              <Icon type="ios-paper-outline" size="22" style="padding-right: 5px"></Icon>
             </Tooltip>
               <span>商品描述:</span>
               <br>
-              <div style="margin-top: 5px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{productInfo.pintro}}</div>
+              <div style="margin-top: 5px;margin-left: 7px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{productInfo.pintro}}</div>
             </Row>
 
             <Row span="" style="padding-bottom: 10px"> <Tooltip content="商品现价" style="padding-right: 5px">
-              <Icon type="pricetags" size="18"></Icon>
+              <Icon type="social-yen-outline" size="18" style="padding-left: 5px;padding-right: 2px"></Icon>
             </Tooltip>
               <span>商品价格:</span>
-              <span class="item-in-card item-detail-express"  >{{productInfo.pprice}}元</span>
-              <span style="padding-left: 50px;text-decoration:line-through">入手价:&nbsp{{productInfo.pprePrice}}元</span>
-
+              <span class="item-in-card item-detail-express" >{{productInfo.pprice}}
+                <label style="font-size: small;color: #6e6568;padding-left: 2px" >RMB</label></span>
+              <span style="padding-left: 50px;text-decoration:line-through">入手价1000元</span>
             </Row>
-
-
           </Col>
-
-
-
-
-
         </Card>
         <br>
-
         <div class="add-buy-car-box">
-          <Col span="20">
-        <Row style="margin-bottom:5px ">
-          <span class="add-buy-car">
-            <Button type="error" size="large" @click="buyProductBtn()">购买</Button>
-          </span>
-        </Row>
-            <Row>
-          <span class="add-buy-car">
-            <Button type="error" size="large" @click="addStoreBtn()">加入收藏</Button>
-          </span>
 
-          <span class="add-buy-car">
-            <Button type="error" size="large" @click="addShoppingCartBtn()">加入购物车</Button>
+        <Row style="margin-bottom:5px ">
+          <Col :span="5" >
+            <span class="sp1" style="display: inline-block;margin: 10px 50px">
+              <Icon type="android-favorite" size="30" @click="addStoreBtn"  v-bind:class="{change:isClicked}"></Icon>
+              <!--            <Button type="error" size="large" @click="addStoreBtn()">加入收藏</Button>-->
           </span>
-            </Row>
           </Col>
+          <Col :span="15" >
+            <span class="add-buy-car" style="display:inline-block;margin: 10px 10px">
+              <Button-group shape="circle">
+              <Button type="ghost" style="background-color: peachpuff">加入购物车</Button>
+              <Button type="ghost" style="background-color: lightsteelblue">立即购买</Button>
+            </Button-group>
+            </span>
+
+          </Col>
+
+        </Row>
+<!--            <Row>-->
+<!--          <span class="add-buy-car">-->
+<!--            <Button type="error" size="large" @click="addStoreBtn()">加入收藏</Button>-->
+<!--          </span>-->
+<!--          <span class="add-buy-car">-->
+<!--            <Button type="error" size="large" @click="addShoppingCartBtn()">加入购物车</Button>-->
+<!--          </span>-->
+<!--            </Row>-->
 
         </div>
       </div>
@@ -126,6 +129,7 @@ export default {
   name: 'ShowGoods',
   data () {
     return {
+      isClicked:false,
       imgIndex: 0,
       isLoading:true,
       productInfo:{
@@ -138,8 +142,7 @@ export default {
         uname:'',
         uphoneNum: '',
         pid:0,
-        uid:0,
-        pprePrice:0
+        uid:0
       }
     };
   },
@@ -191,7 +194,13 @@ export default {
       //   count: this.count,
       //   package: this.goodsInfo.setMeal[index1][index2]
       // };
-      this.$Message.success('收藏成功，你可以在你的个人中心查看你收藏的商品');
+      if(this.isClicked){
+        this.$message.warning('取消收藏成功')
+      }else {
+        this.$Message.success('收藏成功，你可以在你的个人中心查看你收藏的商品');
+      }
+      this.isClicked=!this.isClicked
+
       // this.addShoppingCart(data);
       // this.$router.push('/shoppingCart');
     },
@@ -270,15 +279,15 @@ export default {
 }
 .item-detail-express {
   font-size: 14px;
-  padding: 2px 3px;
+  padding: 5px 5px;
   border-radius: 3px;
-  background-color: #e4393c;
-  color: #fff;
+  background-color: lavender;
+  color: black;
 }
 /*商品标签*/
 .item-detail-tag {
   font-size: 12px;
-  color: #e4393c;
+  color: lightslategray;
 }
 
 
@@ -310,6 +319,12 @@ export default {
 }
 .add-buy-car {
   margin-top: 15px;
+}
+.change{
+  color: lightpink;
+}
+.sp1{
+  color: #cccccc;
 }
 /******************商品图片及购买详情结束******************/
 </style>

@@ -43,6 +43,9 @@ export default new Vuex.Store({
       userid: ''
     },
     address:null,
+    wantProduct:null,
+    store:null,
+    goods:null,
     signUpStep: 0, // 登陆步骤
     marketing: { // 营销
       CarouselItems: [], // 轮播图

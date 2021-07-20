@@ -731,16 +731,15 @@ export const loadStore = ({ commit }) => {
 };
 
 export const loadShoppingCart = ({ commit }) => {
-  return new Promise((resolve, reject) => {
-    const data = [{
-      goods_id: null,
-      count: null,
-      img: '',
-      package: '',
-      price: null,
-      title: ''
-    }];
-    commit('SET_SHOPPING_CART', data);
+  return new Promise(async (resolve, reject) => {
+    await axios.get(api.path + 'userShoppingManage/lookUpShoppingCarByUserId/' + Cookies.get('userid'))
+      .then(function (response) {
+        let data = response.data.data;
+        console.log(response.data.data)
+        console.log(data)
+        // const address1=JSON.stringify(address)
+        commit('SET_SHOPPING_CART', data);
+      })
   });
 };
 
@@ -750,12 +749,13 @@ export const loadmyGood = ({ commit }) => {
 
     await axios.get(api.path + 'releaseProductManage/lookUpReleasedProductByUid/' + Cookies.get('userid'))
       .then(function (response) {
-        let address = response.data.data;
+        let goods = response.data.data;
         console.log(response.data.data)
-        console.log(address)
+        console.log(goods)
         // const address1=JSON.stringify(address)
-        commit('SET_USER_ADDRESS', address);
+        commit('SET_USER_GOODS', goods);
       })
+
   });
 };
 // 添加注册用户

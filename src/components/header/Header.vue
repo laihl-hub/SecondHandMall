@@ -71,8 +71,8 @@
           </Dropdown>
         </li>
         <li><router-link to="/">公告栏</router-link></li>
-        <li><router-link to="/freeback">意见反馈</router-link></li>
-        <li><router-link to="/">商城首页</router-link></li>
+        <li><router-link to="/freeback"><Icon type="paper-airplane"></Icon>意见反馈</router-link></li>
+        <li><router-link to="/"><Icon type="ios-home-outline" size="22" ></Icon>商城首页</router-link></li>
       </ul>
     </div>
   </div>
@@ -166,7 +166,7 @@ export default {
   border-left: none;
 }
 .nav a:hover {
-  color: #d9534f;
+  color: lightsteelblue;
 }
 .location {
   color: #999999;
@@ -190,11 +190,11 @@ export default {
   padding: 5px;
 }
 .city-item:hover {
-  color: #d9534f;
+  color: lightsteelblue;
 }
 .person-icon {
-  color: #d9534f;
-  background-color:  #f0cdb2;
+  color: #495060;
+  background-color: lightblue;
 }
 .username {
   color: #999999;

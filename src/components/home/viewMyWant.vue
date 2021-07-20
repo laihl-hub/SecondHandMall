@@ -1,5 +1,8 @@
 <template>
   <div>
+<!--    <Header :style="{background: 'lightgrey'}">-->
+<!--      <h2>我的求购</h2>-->
+<!--    </Header>-->
     <div class="want-box" v-for="(item, index) in wantProduct" :key="index">
       <div class="want-header">
         <span>{{item.buyProductName}}</span>
@@ -78,6 +81,7 @@ import moment from 'moment'
 
 export default {
   name: 'viewMyWant',
+  inject:['reload'],
   data () {
     return {
       modal: false,
@@ -105,7 +109,10 @@ export default {
       }
     };
   },
-  created () {
+  async created() {
+    await this.loadWantProduct();
+  },
+  mounted() {
     this.loadWantProduct();
   },
   computed: {
@@ -143,7 +150,7 @@ export default {
           _this.modal=false
           // _this.$router.push('/home/myAddress')
           // window.location.href=window.location.href;
-          // window.location.reload()
+          window.location.reload()
         }else {
           _this.$message.error('修改失败')
         }
@@ -160,7 +167,10 @@ export default {
           .then(function (response){
             if(response.data.code===200) {
               _this.$message.success('删除成功')
+              window.location.reload.bind(location)
+              // _this.$router.push('/home/viewMyWant')
               window.location.reload()
+              // _this.reload()
             }else {
               _this.$message.error('删除失败')
             }

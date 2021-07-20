@@ -2,12 +2,12 @@
   <div class="container">
     <Layout class="layout">
       <Sider class="side-bar" :style="{height: 'calc(100vh - 35px)', background: '#fff', overflow: 'auto'}" ref="side" :collapsed-width="78">
-        <Menu active-name="1-2" theme="light" width="auto" @on-select="onSelect">
+        <Menu active-name="1-2" theme="light" width="auto" @on-select="onSelect" accordion>
           <div class="user-icon">
             <div class="user-img">
               <img src="static/img/head.jpeg">
             </div>
-            <p>laihl</p>
+            <p>{{username}}</p>
           </div>
           <Submenu name="1">
             <template slot="title">
@@ -79,7 +79,7 @@
             <router-view></router-view>
           </transition>
         </Content>
-        <Footer class="layout-footer-center">2018 &copy; Gavin</Footer>
+        <Footer class="layout-footer-center">2021 &copy; {{username}}</Footer>
       </Layout>
     </Layout>
   </div>
@@ -90,7 +90,8 @@ export default {
   name: 'Home',
   data () {
     return {
-      activeTitle: '我的订单',
+      username:'',
+      activeTitle:'我的订单' ,
       bar: {
         'myAddress': '我的收货地址',
         'addAddress': '添加收货地址',
@@ -106,9 +107,17 @@ export default {
       }
     };
   },
+  created() {
+    let str=this.$route.path
+    let index=str.lastIndexOf('/')
+    let name=str.slice(index+1)
+    this.activeTitle=this.bar[name]
+    this.username=Cookies.get('username')
+  },
   methods: {
     onSelect (name) {
       this.activeTitle = this.bar[name];
+      // console.log(name)
       this.$router.push(`/home/${name}`);
     }
   }

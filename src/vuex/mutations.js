@@ -109,5 +109,8 @@ export const SET_USER_WANT = (state, data) => {
 export const SET_USER_STORE = (state, data) => {
   state.store = data;
 };
+export const SET_USER_GOODS = (state, data) => {
+  state.goods = data;
+};
 
 

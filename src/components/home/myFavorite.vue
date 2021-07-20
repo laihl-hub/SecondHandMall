@@ -1,5 +1,8 @@
 <template>
   <div>
+<!--    <Header :style="{background: 'lightgrey'}">-->
+<!--      <h2>我的收藏</h2>-->
+<!--    </Header>-->
     <div class="store-box" v-for="(item, index) in store" :key="index">
       <div class="store-header">
         <span>{{ item.pname }}</span>
@@ -21,7 +24,7 @@
             </div></el-col>
         </el-row>
       </div>
-    </div>    
+    </div>
   </div>
 </template>
 
@@ -34,8 +37,8 @@ import api from "../../../static/js/api";
 export default {
   name: "Mystore",
   data() {
-    return {   
-      
+    return {
+
     };
   },
   created() {
@@ -45,7 +48,7 @@ export default {
     ...mapState(["store"]),
   },
   methods: {
-    ...mapActions(["loadStore"]),    
+    ...mapActions(["loadStore"]),
     del(index) {
       const  _this=this;
       console.log(_this.store[index].storeId)
@@ -57,7 +60,8 @@ export default {
           .then(function (response){
             if(response.data.code===200) {
               _this.$message.success('删除成功')
-              _this.$router.push('/home/myFavorite')
+              // _this.$router.push('/home/myFavorite')
+              window.location.reload()
             }else {
               _this.$message.error('删除失败')
             }

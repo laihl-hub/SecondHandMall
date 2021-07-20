@@ -1,5 +1,8 @@
 <template>
   <div>
+<!--    <Header :style="{background: 'lightgrey'}">-->
+<!--      <h2>我的地址</h2>-->
+<!--    </Header>-->
     <div class="address-box" v-for="(item, index) in address" :key="index">
       <div class="address-header">
         <span>{{item.raddrName}}</span>
@@ -55,6 +58,7 @@ import axios from "axios";
 import api from "../../../static/js/api";
 export default {
   name: 'MyAddress',
+  inject:['reload'],
   data () {
     return {
       modal: false,
@@ -86,8 +90,8 @@ export default {
       }
     };
   },
-  created () {
-    this.loadAddress();
+  async created() {
+    await this.loadAddress();
 
   },
   computed: {
@@ -130,7 +134,7 @@ export default {
         "rreceiverphone": _this.formData.phone,
         "rreciveraddress": _this.formData.address,
         // "uid": Cookies.get('userid')
-        uid:1007
+        "uid":Cookies.get('userid')
       }
 
       // console.log(changeVo)
@@ -142,6 +146,7 @@ export default {
           // _this.$router.push('/home/myAddress')
           // window.location.href=window.location.href;
           window.location.reload()
+          _this.reload()
         }else {
           _this.$message.error('修改失败')
         }
