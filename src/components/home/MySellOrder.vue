@@ -178,7 +178,7 @@ export default {
   methods:{
     loadBuyOrder(){
       const _this=this
-      axios.get(api.path_local+"orderManage/lookUpSellOrder/"+Cookies.get("userid")).then(function (resp){
+      axios.get(api.path+"orderManage/lookUpSellOrder/"+Cookies.get("userid")).then(function (resp){
         console.log(resp.data.data)
         _this.tableDataNew=resp.data.data
         _this.isLoading=false
@@ -192,7 +192,7 @@ export default {
       const _this=this
       console.log(this.row_index)
       let oid_send=this.tableDataNew[this.row_index].oid
-      axios.get(api.path_local+"orderManage/confirmDeliverProduct/"+oid_send).then(function (resp){
+      axios.get(api.path+"orderManage/confirmDeliverProduct/"+oid_send).then(function (resp){
         if(resp.data.code==200){
           console.log(resp.data)
           _this.$message.success("您已确认发货，消息通知卖家")

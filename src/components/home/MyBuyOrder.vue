@@ -157,7 +157,7 @@ export default {
   methods:{
     loadBuyOrder(){
       const _this=this
-      axios.get(api.path_local+"orderManage/lookUpBuyOrder/"+Cookies.get("userid")).then(function (resp){
+      axios.get(api.path+"orderManage/lookUpBuyOrder/"+Cookies.get("userid")).then(function (resp){
         _this.tableDataNew=resp.data.data
         _this.isLoading=false
         console.log(resp.data.data)
@@ -167,7 +167,7 @@ export default {
       const _this=this
       console.log(this.row_index)
       let oid_send=this.tableDataNew[this.row_index].oid
-      axios.get(api.path_local+"orderManage/confirmReciveProduct/"+oid_send).then(function (resp){
+      axios.get(api.path+"orderManage/confirmReciveProduct/"+oid_send).then(function (resp){
         if(resp.data.code==200){
           console.log(resp.data)
           _this.confirmVisable=false
