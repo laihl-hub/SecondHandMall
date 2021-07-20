@@ -78,7 +78,7 @@
             </Tooltip>
               <span>商品价格:</span>
               <span class="item-in-card item-detail-express"  >{{productInfo.pprice}}元</span>
-              <span style="padding-left: 50px;text-decoration:line-through">原价1000元</span>
+              <span style="padding-left: 50px;text-decoration:line-through">入手价:&nbsp{{productInfo.pprePrice}}元</span>
 
             </Row>
 
@@ -138,7 +138,8 @@ export default {
         uname:'',
         uphoneNum: '',
         pid:0,
-        uid:0
+        uid:0,
+        pprePrice:0
       }
     };
   },

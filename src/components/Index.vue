@@ -93,14 +93,16 @@ export default {
 
     getData () {
       const _this=this
-      axios.get(api.path_local+'productManage/lookUpWaterfallProduct').then( function (resp) {
+      axios.get(api.path+'productManage/lookUpWaterfallProduct').then( function (resp) {
         let waterfall = resp.data.data
         let arrnew = waterfall.map((item,index) => {
           return Object.assign({},{'src':'../../static/img/goodsList/'+item.pimg,
               'productInfo':item
+            
           }
           )
         })
+
         _this.page += 1;
         if (_this.page == 5) {
           _this.$refs.waterfall.waterfallOver();

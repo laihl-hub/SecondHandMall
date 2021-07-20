@@ -8,15 +8,16 @@
 
         <ul>
           <li v-for="(item, index) in catogory":key="item.cid" >
-            <span class="nav-side-item">{{item.cname}}
+            <router-link :to="{path:'/goodsList',query:{ way:1,
+            condition:item.cname
+            }}">
+            <span class="nav-side-item" >{{item.cname}}
                  <Icon type="arrow-right-b" style=" float:right;padding-left: 50px  "></Icon>
             </span>
-
+            </router-link>
           </li>
-
         </ul>
       </div>
-
       <div class="nav-content">
         <!-- 幻灯片 -->
         <div>
@@ -41,43 +42,6 @@
     </div>
 
 
-
-<!--    <transition name="fade">-->
-<!--      <div class="detail-item-panel panel-1" :duration="{ enter: 100, leave: 100 }" v-show="panel1" @mouseenter="showDetail(1)" ref="itemPanel1" @mouseleave="hideDetail(1)">-->
-<!--        <div class="nav-detail-item">-->
-<!--          <span v-for="(item, index) in panelData1.navTags" :key="index">{{item}} > </span>-->
-<!--        </div>-->
-<!--        <ul>-->
-<!--          <li v-for="(items, index) in panelData1.classNav" :key="index" class="detail-item-row">-->
-<!--            <span class="detail-item-title">{{items.title}}-->
-<!--              <span class="glyphicon glyphicon-menu-right"></span>-->
-<!--            </span>-->
-<!--            <router-link :to="{path:'/goodsList',query:{-->
-<!--              way:0}}" v-for="(item, subIndex) in items.tags"  :key="subIndex">-->
-<!--              <span class="detail-item">{{item}}</span>-->
-<!--            </router-link>-->
-<!--          </li>-->
-<!--        </ul>-->
-<!--      </div>-->
-<!--    </transition>-->
-<!--    <transition name="fade">-->
-<!--      <div class="detail-item-panel panel-2" :duration="{ enter: 100, leave: 100 }" v-show="panel2" @mouseenter="showDetail(2)" ref="itemPanel2" @mouseleave="hideDetail(2)">-->
-<!--        <div class="nav-detail-item">-->
-<!--          <span v-for="(item, index) in panelData2.navTags" :key="index">{{item}} > </span>-->
-<!--        </div>-->
-<!--        <ul>-->
-<!--          <li v-for="(items, index) in panelData2.classNav" :key="index" class="detail-item-row">-->
-<!--            <span class="detail-item-title">{{items.title}}-->
-<!--              <span class="glyphicon glyphicon-menu-right"></span>-->
-<!--            </span>-->
-<!--            <router-link :to="{path:'/goodsList',query:{ way:0-->
-<!--            }}" v-for="(item, subIndex) in items.tags" :key="subIndex">-->
-<!--              <span class="detail-item">{{item}}</span>-->
-<!--            </router-link>-->
-<!--          </li>-->
-<!--        </ul>-->
-<!--      </div>-->
-<!--    </transition>-->
   </div>
 </template>
 
@@ -293,6 +257,10 @@ export default {
 }
 .nav-side li:hover {
   background: #999395;
+}
+
+.nav-side-item{
+  color: hsla(0,0%,100%,.6);
 }
 .nav-side-item:hover {
   cursor: pointer;

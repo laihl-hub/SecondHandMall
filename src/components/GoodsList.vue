@@ -162,19 +162,20 @@ computed:{
 
         })
       else if(this.query.way==1){
-        axios.get(api.path_local+"productManage/listProductByCname/"+this.query.condition).then(function (resp){
+        axios.get(api.path+"productManage/listProductByCname/"+this.query.condition).then(function (resp){
           _this.productInfo=resp.data.data
         })}
 
+
       else if(this.query.way==2){
-        axios.get(api.path_local+"productManage/listProductByPriceRange/"+this.query.condition).then(function (resp){
+        axios.get(api.path+"productManage/listProductByPriceRange/"+this.query.condition).then(function (resp){
           console.log(resp.data.data)
           _this.productInfo=resp.data.data
         })
       }
 
       else if(this.query.way==3){
-        axios.get(api.path_local+"/productManage/listProductByViewNumRange/"+this.query.condition).then(function (resp){
+        axios.get(api.path+"/productManage/listProductByViewNumRange/"+this.query.condition).then(function (resp){
           _this.productInfo=resp.data.data
         })
       }

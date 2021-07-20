@@ -34,14 +34,15 @@ export default {
   },
   methods:{
 
-    tagbtn(index,subIndex){
+    tagbtn(index,subIndex) {
+      console.log(index,subIndex)
+        this.$router.push({name:'GoodsList',query: {
+            way:index+1,
+            condition:this.tagsInfo[index].tags[subIndex]
+          }})
+        window.location.reload()
+      }
 
-      this.$router.push({name:'GoodsList',query: {
-          way:index+1,
-          condition:this.tagsInfo[index].tags[subIndex]
-        }})
-      window.location.reload()
-    }
   },
 
   data () {
