@@ -72,6 +72,7 @@ export default {
     await axios.get(api.path + 'boardManage/listAllBoard').then(function (response) {
       _this.tableData = response.data.data;
 
+
     })
     for(let i=0;i<_this.tableData.length;i++){
       _this.tableData[i].boardTime=_this.convertTime(_this.tableData[i].boardTime,'YYYY-MM-DD HH:MM:SS')

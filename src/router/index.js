@@ -17,7 +17,8 @@ const Freeback = resolve => require(['@/components/Freeback'], resolve);
 const Home = resolve => require(['@/components/Home'], resolve);
 const MyAddress = resolve => require(['@/components/home/MyAddress'], resolve);
 const AddAddress = resolve => require(['@/components/home/AddAddress'], resolve);
-const MyOrder = resolve => require(['@/components/home/MyOrder'], resolve);
+const MyBuyOrder = resolve => require(['@/components/home/MyBuyOrder'], resolve);
+const MySellOrder = resolve => require(['@/components/home/MySellOrder'], resolve);
 const MyShoppingCart = resolve => require(['@/components/home/MyShoppingCart'], resolve);
 const ViewMyInfo = resolve => require(['@/components/home/viewMyInfo'], resolve);
 const AddMyGood = resolve => require(['@/components/home/addMyGood'], resolve);
@@ -123,7 +124,7 @@ export default new Router({
         {
           path: '/',
           name: 'HomeIndex',
-          component: MyOrder
+          component: MyBuyOrder
         },
         {
           path: 'myAddress',
@@ -136,9 +137,20 @@ export default new Router({
           component: AddAddress
         },
         {
-          path: 'myOrder',
-          name: 'MyOrder',
-          component: MyOrder
+          path: 'myBuyOrder',
+          name: 'MyBuyOrder',
+          component: MyBuyOrder,
+          meta: {
+            keepAlive: true // 需要被缓存
+          }
+        },
+        {
+          path: 'mySellOrder',
+          name: 'MySellOrder',
+          component: MySellOrder,
+          meta: {
+            keepAlive: true // 需要被缓存
+          }
         },
         {
           path: 'myShoppingCart',

@@ -20,9 +20,12 @@
           <Submenu name="2">
             <template slot="title">
                 <Icon type="clipboard"></Icon>
-                <span>购物订单</span>
+                <span>订单管理</span>
             </template>
-            <MenuItem name="myOrder">我的订单</MenuItem>
+
+            <MenuItem name="myBuyOrder">我的购买订单</MenuItem>
+            <MenuItem name="mySellOrder">我的售出订单</MenuItem>
+
           </Submenu>
           <Submenu name="3">
             <template slot="title">
@@ -95,7 +98,7 @@ export default {
       bar: {
         'myAddress': '我的收货地址',
         'addAddress': '添加收货地址',
-        'myOrder': '我的订单',
+        'myOrder': '订单管理',
         'myShoppingCart': '我的购物车',
         'viewMyInfo': '查看信息',
         'addMyGood': '发布商品',
@@ -103,7 +106,10 @@ export default {
         'viewMyWant': '查看求购信息',
         'addMyWant': '发布求购信息',
         'myFavorite': '查看收藏',
-        'myMessage': '我的聊天'
+        'myMessage': '我的聊天',
+        'mySellOrder':'我的售出订单',
+        'myBuyOrder':'我的购买订单',
+
       }
     };
   },
