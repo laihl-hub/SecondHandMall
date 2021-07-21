@@ -92,7 +92,6 @@ export default {
   },
   async created() {
     await this.loadAddress();
-
   },
   computed: {
     ...mapState(['address'])

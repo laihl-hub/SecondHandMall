@@ -165,14 +165,6 @@ export default {
   padding: 5px 0px;
   float: left;
 }
-.link-item {
-  padding: 0px 8px;
-  cursor: pointer;
-  border-right: 1px solid #ccc;
-}
-.link-last-item {
-  border: none;
-}
 .copyright {
   width: 100%;
   color: #666;

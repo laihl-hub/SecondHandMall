@@ -79,28 +79,8 @@ export default {
       }
       return isJPG && isLt2M;
     },
-      // getCurTime(){
-      //   var _this = this;
-      //   let yy = new Date().getFullYear();
-      //   let mm = new Date().getMonth()+1;
-      //   let dd = new Date().getDate();
-      //   let hh = new Date().getHours();
-      //   let mf = new Date().getMinutes()<10 ? '0'+new Date().getMinutes() : new Date().getMinutes();
-      //   let ss = new Date().getSeconds()<10 ? '0'+new Date().getSeconds() : new Date().getSeconds();
-      //   _this.gettime = yy+'-'+mm+'-'+dd+' '+hh+':'+mf+':'+ss;
-      //   return _this.gettime
-      //   // console.log(_this.gettime)
-      // },
     submit(){
       const _this=this;
-      // _this.formData.boardTime=this.getCurTime()
-      // console.log(_this.formData)
-      // console.log(typeof _this.formData)
-      // var vo={
-      //   "aid":_this.formData.aid,
-      //   "boardTime":_this.formData.boardTime,
-      //   "boardText":_this.formData.boardText
-      // }
       _this.formData.aid=Cookies.get('adminId')
       axios.post(api.path+'boardManage/addBoard',_this.formData).then(function (response){
         if(response.data.code===200){

@@ -2,45 +2,8 @@
   <div class="container">
     <Search></Search>
     <HomeNav></HomeNav>
-
-    <div class="box">
-      <div class="waterfall">
-        <vue-waterfall-easy
-          ref="waterfall"
-          :imgsArr="imgsArr"
-          :maxCols="4"
-          @scrollReachBottom="getData"
-        @click="clickFn">
-
-          <div class="info  waterfallInfo" slot-scope="props">
-            <el-row  :gutter="20"  style="margin-top: 10px;margin-bottom: 20px;">
-              <el-col :span="20" style="font-size: 24px;;color: #2c2c2c; text-align: left">
-                {{props.value.productInfo.pname}}</el-col>
-            </el-row>
-            <el-row style="margin-bottom: 10px" :gutter="20">
-            <el-col :span="12" style="font-size: 12px;color: #6e6568;"
-            >发布于:{{props.value.productInfo.ptime|convertTime('YYYY-MM-DD')}}</el-col>
-              <el-col :span="10" :offset="0" style="font-size: 12px;color: #6e6568"
-              >浏览人数:{{props.value.productInfo.pviewNum}}</el-col>
-            </el-row>
-            <el-row style="margin-bottom:20px ">
-              <el-col :span="30" :offset="1" style="font-size: 15px;color: #2c2c2c;text-align: left">
-             {{props.value.productInfo.pintro |ellipsis}} </el-col>
-            </el-row>
-            <el-row :gutter="20">
-              <el-col :span="4" :offset="1" style="font-size: 15px;color: #e01222;">
-                <span style="">￥{{props.value.productInfo.pprice}}</span> </el-col>
-              <el-col :span="10" :offset="5" style="font-size: 15px;color: #2d8cf0;text-align: right;white-space: nowrap">
-                {{props.value.productInfo.uschool|ellipsis_uschool}} </el-col>
-            </el-row>
-        </div>
-        </vue-waterfall-easy>
-      </div>
-    </div>
-
+    <WaterList></WaterList>
   </div>
-
-
 </template>
 
 <script>
@@ -54,113 +17,30 @@ import vueWaterfallEasy from 'vue-waterfall-easy'
 
 import axios from 'axios';
 import api from '../../static/js/api';
+import WaterList from "./nav/WaterList";
 export default {
   name: 'Index',
-  mounted () {
-    this.getData()
-  },
    created () {
-    this.loadSeckillsInfo();
     this.loadCarouselItems();
-    this.loadComputer();
-    this.loadEat();
     this.loadShoppingCart();
    },
-
-
   data () {
     return {
       setIntervalObj: null,
-      page: 0,
-      imgsArr:[]
     };
   },
   methods: {
-    ...mapActions(['loadSeckillsInfo', 'loadCarouselItems', 'loadComputer', 'loadEat', 'loadShoppingCart',]),
-    ...mapMutations(['REDUCE_SECKILLS_TIME']),
-
-    clickFn(event, { index, value }) {
-      // 只有当点击到图片时才进行操作
-      if (event.target.tagName.toLowerCase() == 'img') {
-      }
-       this.$router.push({name:'GoodsDetail',query: {
-           pid:value.productInfo.pid,
-           cname:value.productInfo.cname,
-           pname:value.productInfo.pname
-         }})
-
-    },
-
-    getData () {
-      const _this=this
-      axios.get(api.path+'productManage/lookUpWaterfallProduct').then( function (resp) {
-        let waterfall = resp.data.data
-        let arrnew = waterfall.map((item,index) => {
-          return Object.assign({},{'src':'../../static/img/goodsList/'+item.pimg,
-              'productInfo':item
-
-          }
-          )
-        })
-
-        _this.page += 1;
-        if (_this.page == 5) {
-          _this.$refs.waterfall.waterfallOver();
-        } else {
-          _this.imgsArr = _this.imgsArr.concat(arrnew);
-        }
-      })}
-
-  },
-
-  computed: {
-    ...mapState([ 'seckills', 'computer', 'eat',]),
-    ...mapGetters([ 'seckillsHours', 'seckillsMinutes', 'seckillsSeconds', ])
+    ...mapActions([ 'loadCarouselItems', 'loadShoppingCart',]),
   },
 
   components: {
     Search,
     HomeNav,
-    vueWaterfallEasy,
-    GoodsListNav
+    GoodsListNav,
+    WaterList
   },
-  filters:{
-    ellipsis:function (value){
-      if(!value){
-        return ''
-      }
-      if (value.length>25){
-        return value.slice(0,25)+'...'
-      }
-      else {
-        return value
-      }
-    },
-    ellipsis_uschool(value){
-      if(!value){
-        return ''
-      }
-      if (value.length>8){
-        return value.slice(0,8)+'...'
-      }
-      else {
-        return value
-      }
-    },
-
-    //引入moment.js时间格式化库
-    convertTime: function (data, format) {
-      return Moment(data).format(format)}
-  },
-
   destroyed () {
     clearInterval(this.setIntervalObj);
-  },
-  watch:{
-    waterfall(newVal){
-      return newVal
-    }
-
   },
   store
 };

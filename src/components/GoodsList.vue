@@ -10,7 +10,6 @@
           <BreadcrumbItem :to="{path:'/goodsList/',query:{
             way:0
           }}">
-
             {{breadcrumbItem1}}
           </BreadcrumbItem>
           <BreadcrumbItem>{{breadcrumbItem2}}
@@ -21,29 +20,7 @@
       <GoodsClassNav></GoodsClassNav>
       <!-- 商品展示容器 -->
       <div class="goods-box">
-        <div class="as-box">
-          <div class="item-as-title">
-            <span>求购信息</span>
-            <span>求购</span>
-          </div>
-          <div class="item-as" v-for="(item,index) in wantsList" :key="index">
-            <div class="item-as-img">
-              <img src="static/img/want.jpg" style="width: 250px;height: 130px" alt="">
-            </div>
-            <div class="item-as-intro" style="font-size: 15px">
-              求购物品:<span style="color: #6da6be;">{{item.buyProductName}}</span>
-            </div>
-            <div class="item-as-selled" style="font-size: 15px">
-              学校:<span>{{item.buyBuyerSchool}}</span>
-            </div>
-            <div class="item-as-price" style="font-size: 15px">
-              <span>
-<!--                <Icon type="social-yen text-danger"></Icon>-->
-                call me:<span class="seckill-price text-danger">{{item.buyPhone}}</span>
-              </span>
-            </div>
-          </div>
-        </div>
+        <AllWants></AllWants>
         <div class="goods-list-box">
           <div class="goods-list-tool">
             <ul>
@@ -52,7 +29,7 @@
           </div>
           <div class="goods-list">
 
-            <div class="goods-show-info" v-for="(item, index) in productInfo " :key="index" style="margin-left: 20px">
+            <div class="goods-show-info" v-for="(item, index) in productInfo " :key="index" style="margin-left: 15px">
               <div class="goods-show-img"  >
                 <router-link :to="{path:'/goodsDetail',query:{
                   pid:item.pid,
@@ -85,10 +62,8 @@
                 <span>{{item.uname}}</span>
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
       <div class="goods-page">
         <Page :total="100" show-sizer></Page>
@@ -106,6 +81,7 @@ import store from '@/vuex/store';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 import axios from 'axios';
 import api from '../../static/js/api';
+import AllWants from "./nav/AllWants";
 export default {
   name: 'GoodsList',
   beforeRouteEnter (to, from, next) {
@@ -156,18 +132,13 @@ export default {
           label:'按浏览量查询商品'
         }
       }
-
-
-
     };
   },
 computed:{
-    // ...mapState(['asItems','isLoading'])
-  ...mapState(['wantsList','isLoading'])
+  // ...mapState(['wantsList','isLoading'])
 },
   methods: {
-    // ...mapActions(['loadGoodsList']),
-    ...mapActions(['loadAllWants']),
+    // ...mapActions(['loadAllWants']),
     ...mapMutations(['SET_GOODS_ORDER_BY']),
     orderBy (data, index) {
       this.icon = [ 'arrow-down-a', 'arrow-down-a', 'arrow-down-a' ];
@@ -183,30 +154,23 @@ computed:{
         axios.get(api.path+"productManage/lookUpProductDetail").then(function (resp){
           console.log(_this.productInfo)
             _this.productInfo=resp.data.data
-
         })
       else if(this.query.way==1){
         axios.get(api.path+"productManage/listProductByCname/"+this.query.condition).then(function (resp){
           _this.productInfo=resp.data.data
         })}
-
-
       else if(this.query.way==2){
         axios.get(api.path+"productManage/listProductByPriceRange/"+this.query.condition).then(function (resp){
           console.log(resp.data.data)
           _this.productInfo=resp.data.data
         })
       }
-
       else if(this.query.way==3){
         axios.get(api.path+"/productManage/listProductByViewNumRange/"+this.query.condition).then(function (resp){
           _this.productInfo=resp.data.data
         })
       }
-
-
     }
-
   },
 
   created () {
@@ -215,24 +179,18 @@ computed:{
     this.breadcrumbItem2=this.$route.query.condition
     this.query.condition=this.$route.query.condition
     this.loadProductList()
-    // this.loadGoodsList();
     this.loadAllWants()
-
   },
   updated () {
     this.$nextTick(function(){
-      //在下次 DOM 更新循环结束之后执行这个回调。在修改数据之后立即使用这个方法，获取更新后的DOM.
       this.loadProductList()
     })
-
-  },
-  mounted () {
-
   },
   components: {
     Search,
     GoodsListNav,
-    GoodsClassNav
+    GoodsClassNav,
+    AllWants
   },
   store
 };
@@ -249,26 +207,12 @@ computed:{
 }
 .seckill-price{
   margin-right: 5px;
-  /*font-size: 25px;*/
   font-weight: bold;
 }
 .goods-box {
   display: flex;
 }
 /* ---------------侧边广告栏开始------------------- */
-.as-box {
-  width: 280px;
-  border: 1px solid #ccc;
-  /*background-color: #eeeeee;*/
-
-}
-.item-as-title{
-  width: 100%;
-  height: 36px;
-  color: #B1191A;
-  line-height: 36px;
-  font-size: 18px;
-}
 .item-as-title span:first-child{
   margin-left: 20px;
 }
@@ -278,27 +222,8 @@ computed:{
   font-size: 10px;
   color: #ccc;
 }
-.item-as{
-  width: 260px;
-  margin: 30px auto;
-  border: 1px groove lightgray;
-  background-color: #e4f4fc;
-}
-.item-as-img{
-  width: 250px;
-  height: 130px;
-  margin: 0px auto;
-}
 .item-as-price span{
   font-size: 18px;
-}
-.item-as-intro{
-  margin-top: 5px;
-  font-size: 12px;
-}
-.item-as-selled{
-  margin-top: 5px;
-  font-size: 12px;
 }
 .item-as-selled span{
   color: #005AA0;

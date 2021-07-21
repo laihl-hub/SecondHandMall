@@ -21,10 +21,10 @@ export default {
   data () {
     return {
       isRouterAlive:true,
-      excludeRoutes: ['HomeIndex', 'MyAddress', 'AddAddress', 'MyOrder', 'MyShoppingCart', 'AdminLogin', 'AdminHome',
-        'ViewMyInfo', 'AddMyGood', 'ViewMyGood', 'ViewMyWant', 'AddMyWant', 'MyFavorite', 'MyMessage', 'UserInfo',
-        'GoodInfo', 'NoticeInfo', 'AddNotice','GoodCategory'],
-      adminHeader: ['AdminLogin', 'AdminHome', 'UserInfo', 'GoodInfo', 'NoticeInfo', 'AddNotice','GoodCategory']
+      excludeRoutes: ['HomeIndex', 'MyBuyOrder','MyAddress', 'AddAddress', 'MyShoppingCart', 'AdminLogin', 'AdminHome',
+        'ViewMyInfo', 'AddMyGood', 'ViewMyGood', 'ViewMyWant', 'AddMyWant', 'MyFavorite', 'UserInfo','MySellOrder',
+        'GoodInfo', 'NoticeInfo', 'AddNotice','GoodCategory','WaterList','AllWants','GoodsDetail'],
+      adminHeader: ['AdminLogin', 'AdminHome', 'UserInfo', 'GoodInfo', 'NoticeInfo', 'AddNotice','GoodCategory','WaterList','AllWants']
     };
   },
   methods:{

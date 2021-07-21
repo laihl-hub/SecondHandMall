@@ -19,23 +19,14 @@
             <p><span class="address-content-title">发布时间:</span> {{convertTime(item.ptime,'YYYY-MM-DD')}}</p>
         </div></el-col>
         </el-row>
-
-
-
-
       </div>
     </div>
-
-
     <Modal v-model="modal" width="530">
         <p slot="header">
           <Icon type="edit"></Icon>
           <span>修改商品</span>
         </p>
         <div>
-
-
-
           <Form :model="formData" label-position="left" :label-width="100" :rules="ruleInline">
             <FormItem label="商品名称" prop="pname" >
               <i-input v-model="formData.pname" size="large" placeholder="请输入商品名称"></i-input>
@@ -57,8 +48,6 @@
               <i-input v-model="formData.pprice" size="large"></i-input>
             </FormItem>
           </Form>
-
-
         </div>
         <div slot="footer">
             <Button type="primary" size="large" long @click="editAction">修改</Button>
@@ -70,7 +59,6 @@
 <script>
 import store from '@/vuex/store';
 import { mapState, mapActions } from 'vuex';
-import Distpicker from 'v-distpicker';
 import axios from 'axios';
 import api from '../../../static/js/api';
 import Moment from "moment";
@@ -115,7 +103,6 @@ export default {
     })
     _this.formData.uid=Cookies.get('userid')
   },
-
 
   computed: {
     ...mapState(['goods'])
@@ -193,7 +180,6 @@ export default {
     //   }
   },
   components: {
-    Distpicker
   },
   store
 };

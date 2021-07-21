@@ -74,7 +74,6 @@
 <script>
 import store from '@/vuex/store';
 import { mapState, mapActions } from 'vuex';
-import Distpicker from 'v-distpicker';
 import axios from "axios";
 import api from "../../../static/js/api";
 import Moment from "moment";
@@ -193,7 +192,6 @@ export default {
 
   },
   components: {
-    Distpicker
   },
   filters: {},
   store

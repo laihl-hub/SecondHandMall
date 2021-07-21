@@ -14,50 +14,46 @@
     </div>
     <!-- 商品信息展示 -->
     <ShowGoods></ShowGoods>
-    <!-- 商品详细展示 -->
-    <ShowGoodsDetail></ShowGoodsDetail>
 
+    <div class="bottom-box" style="width: 80%;position: relative;left: 10%;margin-top: 50px">
+      <span style="display: block;width: 100%;height: 50px;background-color: #6da6be;position: absolute;line-height: 50px"><h3 style="margin-left: 50px">其他商品</h3></span>
+      <div style="width: 20%;display: inline-block;position: absolute;top: 52px">
+        <AllWants></AllWants>
+      </div>
+      <div style="width: 80%;display: inline-block;position:absolute;left: 20%;top: 50px">
+        <WaterList></WaterList>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Search from '@/components/Search';
-import GoodsDetailNav from '@/components/nav/GoodsDetailNav';
-import ShopHeader from '@/components/header/ShopHeader';
 import ShowGoods from '@/components/goodsDetail/ShowGoods';
-import ShowGoodsDetail from '@/components/goodsDetail/ShowGoodsDetail';
 import store from '@/vuex/store';
-import { mapState, mapActions } from 'vuex';
 import axios from 'axios';
 import api from '../../static/js/api';
+import WaterList from "./nav/WaterList";
+import AllWants from "./nav/AllWants";
+import Footer from "./footer/Footer";
 export default {
   name: 'GoodsDetail',
   beforeRouteEnter (to, from, next) {
     window.scrollTo(0, 0);
     next();
   },
-  created () {
-    this.loadGoodsInfo();
-  },
   data () {
     return {
       tagsColor: [ 'blue', 'green', 'red', 'yellow' ],
       pid:0,
-
     };
-  },
-  methods: {
-    ...mapActions(['loadGoodsInfo'])
-  },
-  computed: {
-    ...mapState(['goodsInfo', 'isLoading'])
   },
   components: {
     Search,
-    ShopHeader,
-    GoodsDetailNav,
     ShowGoods,
-    ShowGoodsDetail
+    WaterList,
+    AllWants,
+    Footer
   },
   store
 };
@@ -65,15 +61,19 @@ export default {
 
 <style scoped>
 .shop-item-path {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
   height: 38px;
   background-color: rgb(236, 235, 235);
   line-height: 38px;
   color: #2c2c2c;
 }
 .shop-nav-container {
-  margin: 0px auto;
+  margin: 0px 10px;
   width: 80%;
 }
-
-
+.bottom-box{
+  display: flex;
+}
 </style>

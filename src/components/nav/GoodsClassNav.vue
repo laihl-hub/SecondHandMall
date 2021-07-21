@@ -1,10 +1,3 @@
-/*
- * @Author: Gavin
- * @Date: 2018-06-11 11:27:10
- * @Last Modified by: Gavin
- * @Last Modified time: 2018-06-11 12:23:40
- * @Describe: 搜索商品导航标签
- */
 <template>
   <div class="item-class-show">
     <Row class="item-class-group" v-for="(items, index) in tagsInfo" :key="index">
@@ -25,7 +18,6 @@ export default {
   created () {
     const  _this=this
     axios.get(api.path+"productManage/lookUpAllCatogory").then(function (resp) {
-//取对象中的某一个属性形成新数组
        let arrnew = resp.data.data.map(obj => {
             return obj.cname;
         })
@@ -33,7 +25,6 @@ export default {
     })
   },
   methods:{
-
     tagbtn(index,subIndex) {
       console.log(index,subIndex)
         this.$router.push({name:'GoodsList',query: {
@@ -42,9 +33,7 @@ export default {
           }})
         window.location.reload()
       }
-
   },
-
   data () {
     return {
       tagsInfo: [

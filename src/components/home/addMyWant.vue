@@ -48,7 +48,6 @@
 </template>
 
 <script>
-import Distpicker from 'v-distpicker';
 import axios from "axios";
 import api from "../../../static/js/api";
 export default {

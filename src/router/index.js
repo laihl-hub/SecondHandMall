@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Index from '@/components/Index';
-// import adminLogin from '@/components/adminLogin';
+
 const Login = resolve => require(['@/components/Login'], resolve);
 const SignUp = resolve => require(['@/components/SignUp'], resolve);
 const CheckPhone = resolve => require(['@/components/signUp/CheckPhone'], resolve);
@@ -9,9 +9,7 @@ const InputInfo = resolve => require(['@/components/signUp/InputInfo'], resolve)
 const SignUpDone = resolve => require(['@/components/signUp/SignUpDone'], resolve);
 const GoodsList = resolve => require(['@/components/GoodsList'], resolve);
 const GoodsDetail = resolve => require(['@/components/GoodsDetail'], resolve);
-const ShoppingCart = resolve => require(['@/components/ShoppingCart'], resolve);
 const Order = resolve => require(['@/components/Order'], resolve);
-const Pay = resolve => require(['@/components/Pay'], resolve);
 const PayDone = resolve => require(['@/components/PayDone'], resolve);
 const Freeback = resolve => require(['@/components/Freeback'], resolve);
 const Home = resolve => require(['@/components/Home'], resolve);
@@ -26,8 +24,6 @@ const ViewMyGood = resolve => require(['@/components/home/viewMyGood'], resolve)
 const ViewMyWant = resolve => require(['@/components/home/viewMyWant'], resolve);
 const AddMyWant = resolve => require(['@/components/home/addMyWant'], resolve);
 const MyFavorite = resolve => require(['@/components/home/myFavorite'], resolve);
-const MyMessage = resolve => require(['@/components/home/myMessage'], resolve);
-const Merchant = resolve => require(['@/components/Merchant'], resolve);
 const adminLogin = resolve => require(['@/components/adminLogin'], resolve);
 const adminHome = resolve => require(['@/components/adminOperator/home'], resolve);
 const UserInfo = resolve => require(['@/components/adminOperator/userInfo'], resolve);
@@ -35,6 +31,8 @@ const GoodInfo = resolve => require(['@/components/adminOperator/goodInfo'], res
 const GoodCategory = resolve => require(['@/components/adminOperator/goodCategory'],resolve);
 const NoticeInfo = resolve => require(['@/components/adminOperator/noticeInfo'], resolve);
 const AddNotice = resolve => require(['@/components/adminOperator/addNotice'], resolve);
+const WaterList = resolve => require(['@/components/nav/WaterList'], resolve);
+const AllWants = resolve => require(['@/components/nav/AllWants'], resolve);
 Vue.use(Router);
 
 export default new Router({
@@ -47,6 +45,12 @@ export default new Router({
         keepAlive: true // 需要被缓存
       }
     },
+    {path:'/waterList',
+      name:'WaterList',
+      component:WaterList},
+    {path:'/allWants',
+    name:'AllWants',
+    component:AllWants},
     {
       path: '/Login', // 登录
       name: 'Login',
@@ -84,25 +88,16 @@ export default new Router({
       name: 'GoodsList',
       component: GoodsList
     },
+
     {
       path: '/goodsDetail', // 商品详情
       name: 'GoodsDetail',
       component: GoodsDetail
     },
     {
-      path: '/shoppingCart', // 商品详情
-      name: 'ShoppingCart',
-      component: ShoppingCart
-    },
-    {
       path: '/order', // 订单页面
       name: 'Order',
       component: Order
-    },
-    {
-      path: '/pay', // 支付页面
-      name: 'Pay',
-      component: Pay
     },
     {
       path: '/payDone', // 支付成功页面
@@ -187,17 +182,7 @@ export default new Router({
           name: 'MyFavorite',
           component: MyFavorite
         },
-        {
-          path: 'myMessage',
-          name: 'MyMessage',
-          component: MyMessage
-        }
       ]
-    },
-    {
-      path: '/merchant',
-      name: 'Merchant',
-      component: Merchant
     },
     {
       path: '/adminLogin',

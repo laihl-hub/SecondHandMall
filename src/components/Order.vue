@@ -118,13 +118,8 @@ import { mapState, mapActions } from 'vuex';
 import axios from "axios";
 import api from "../../static/js/api";
 import Moment from "moment";
-import Distpicker from "v-distpicker";
 export default {
   name: 'Order',
-  // beforeRouteEnter (to, from, next) {
-  //   window.scrollTo(0, 0);
-  //   next();
-  // },
   async created() {
     // this.loadAddress();
     const _this=this
@@ -160,14 +155,6 @@ export default {
     };
   },
   computed: {
-    // ...mapState(['address', 'shoppingCart']),
-    // totalPrice () {
-    //   let price = 0;
-    //   this.goodsCheckList.forEach(item => {
-    //     price += item.price * item.count;
-    //   });
-    //   return price;
-    // }
     ...mapState(['address'])
   },
   methods: {
@@ -234,7 +221,7 @@ export default {
       if (this.selectedAddrId == null) {
         this.$message.error("请先选择您的收货的地址！")
       } else {
-        axios.get(api.path_local + 'order/alipay?outTradeNo=' + this.orderNum + "&subject=" + this.goodInfo.pname + "&totalAmount=" + this.goodInfo.pprice + "&body=" + this.goodInfo.pintro)
+        axios.get(api.path + 'order/alipay?outTradeNo=' + this.orderNum + "&subject=" + this.goodInfo.pname + "&totalAmount=" + this.goodInfo.pprice + "&body=" + this.goodInfo.pintro)
           .then(resp => {
             // 添加之前先删除一下，如果单页面，页面不刷新，添加进去的内容会一直保留在页面中，二次调用form表单会出错
             // const divForm = document.getElementsByTagName('div')
@@ -250,30 +237,12 @@ export default {
           })
       }
     }
-    // ...mapActions(['loadAddress']),
-    // select (selection, row) {
-    //   console.log(selection);
-    //   this.goodsCheckList = selection;
-    // },
-    // changeAddress (data) {
-    //   const father = this;
-    //   this.address.forEach(item => {
-    //     if (item.addressId === data) {
-    //       father.checkAddress.name = item.name;
-    //       father.checkAddress.address = `${item.name} ${item.province} ${item.city} ${item.address} ${item.phone} ${item.postalcode}`;
-    //     }
-    //   });
-    // }
   },
   mounted () {
-    // setTimeout(() => {
-    //   // this.$refs.selection.selectAll(true);
-    // }, 500);
   },
   components: {
     Search,
     GoodsListNav,
-    Distpicker
   },
   store
 };

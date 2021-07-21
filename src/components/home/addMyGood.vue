@@ -68,8 +68,6 @@ export default {
         pprice: '',
         cid:null,
         uid:null
-
-
       },
       value:'',
       options:null,
@@ -124,7 +122,6 @@ export default {
     },
     submit(){
       // console.log(this.value)
-
       // console.log(this.$refs.selRef.selectedIndex)
       let _this=this
       // let moment = required('moment')
@@ -151,7 +148,6 @@ export default {
       window.location.reload()
     }
   },
-
 };
 </script>
 

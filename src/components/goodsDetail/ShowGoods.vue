@@ -153,11 +153,11 @@ export default {
   },
 
   computed: {
-    ...mapState(['goodsInfo']),
+    // ...mapState(['goodsInfo']),
 
   },
   methods: {
-    ...mapActions(['addShoppingCart']),
+    // ...mapActions(['addShoppingCart']),
 
     addShoppingCartBtn () {
     let postData={
@@ -216,9 +216,9 @@ export default {
   },
   mounted () {
     const father = this;
-    setTimeout(() => {
-      father.price = father.goodsInfo.setMeal[0][0].price || 0;
-    }, 300);
+    // setTimeout(() => {
+    //   father.price = father.goodsInfo.setMeal[0][0].price || 0;
+    // }, 300);
   },
   store
 };

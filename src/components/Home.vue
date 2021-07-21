@@ -66,13 +66,6 @@
             </template>
             <MenuItem name="myFavorite">查看收藏</MenuItem>
           </Submenu>
-          <Submenu name="8">
-            <template slot="title">
-              <Icon type="chatboxes"></Icon>
-              <span>消息</span>
-            </template>
-            <MenuItem name="myMessage">我的聊天</MenuItem>
-          </Submenu>
         </Menu>
       </Sider>
       <Layout class="layout">
@@ -110,7 +103,6 @@ export default {
         'viewMyWant': '查看求购信息',
         'addMyWant': '发布求购信息',
         'myFavorite': '查看收藏',
-        'myMessage': '我的聊天',
         'mySellOrder':'我的售出订单',
         'myBuyOrder':'我的购买订单',
 

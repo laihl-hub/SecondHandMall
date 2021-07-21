@@ -61,11 +61,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="go-to-buy">
-                  <Button type="error" size="small" @click="goToPay">
-                    去结账
-                  </Button>
-                </div>
+
               </div>
             </DropdownMenu>
           </Dropdown>
@@ -83,15 +79,12 @@ import store from '@/vuex/store';
 import { mapState, mapActions } from 'vuex';
 import axios from 'axios';
 import api from '../../../static/js/api';
-
-
 export default {
   name: 'M-Header',
   created () {
     this.isLogin();
     this.loadShoppingCarData()
   },
-
   data () {
     return {
       shoppingCarInfo:[{
@@ -107,9 +100,6 @@ export default {
   },
   methods: {
     ...mapActions(['signOut', 'isLogin']),
-    goToPay () {
-      this.$router.push('/order');
-    },
     myInfo () {
       this.$router.push('/home');
     },

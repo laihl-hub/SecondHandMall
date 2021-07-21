@@ -51,15 +51,16 @@ import api from "../../../static/js/api";
 export default {
   data () {
     return {
-      // tableData: [{
-      //   id: null,
-      //   name: '',
-      //   pwd: '',
-      //   phone: '',
-      //   email: '',
-      //   head_img: 'x',
-      //   school: 'x'
-      // }],
+      testData: [{
+        password: "123",
+        name: "小",
+        uid: 11,
+        uphonenum: "1235",
+        uemail: "j",
+
+        uschool: "kjgiu"
+      }
+      ],//会把这里定义的东西给覆盖掉
       tableData:null,
       input: ''
     };
@@ -69,6 +70,8 @@ export default {
     axios.get(api.path+'userInfoManage/lookUpAllUser')
     .then((response)=>{
       _this.tableData=response.data.data;
+      _this.testData=response.data.data
+      console.log(_this.testData)
       // console.log(response);
     })
   },
