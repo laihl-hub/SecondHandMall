@@ -93,8 +93,12 @@
       <Card style="height: 120px;margin-top: 20px">
         <span style="display: inline-block"><h2>订单信息</h2></span>
         <div style="height: 50px;margin-top: 10px">
-          <span style="display: block;margin-bottom: 10px"><h4 style="display: inline">订单编号</h4><span style="margin-left: 50px">{{orderNum}}</span></span>
-          <span style="display: block"><h4 style="display: inline">创建时间</h4><span style="margin-left: 50px">{{time}}</span></span>
+          <span style="display: block;margin-bottom: 10px"><h4 style="display: inline">订单编号</h4>
+            <span v-if="selectedAddrId==null" style="margin-left: 45px;color: darksalmon">请选择地址，之后自动生成订单编号</span>
+            <span style="margin-left: 50px">{{orderNum}}</span></span>
+          <span style="display: block"><h4 style="display: inline">创建时间</h4>
+            <span v-if="selectedAddrId==null" style="margin-left: 45px;color: darksalmon">请选择地址，之后生成时间</span>
+            <span style="margin-left: 50px">{{time}}</span></span>
         </div>
       </Card>
       <div class="pay-container">
@@ -128,9 +132,9 @@ export default {
     .then(function (response){
       _this.goodInfo=response.data.data
     })
-    _this.time=this.getCurrentTime()
-    _this.orderNum=Math.round(Math.random()*10000000000).toString()
-    this.loadAddress();
+    // _this.time=this.getCurrentTime()
+    // _this.orderNum=Math.round(Math.random()*10000000000).toString()
+    await this.loadAddress();
 
   },
   data () {
@@ -139,7 +143,7 @@ export default {
       time:'',
       orderNum:'',
       isAdd:false,
-      selectedAdd:'点击左侧图标选择您的地址哦',
+      selectedAdd:'请选择收获地址',
       selectedAddrId:null,
       formData:{
         rreceivername:'',
@@ -178,6 +182,7 @@ export default {
       this.selectedAddrId=this.address[index].rid
 
       this.orderNum=this.goodInfo.pid+'a'+this.goodInfo.sellerId+'a'+Cookies.get("userid")+'a'+this.selectedAddrId
+      this.time=this.getCurrentTime()
       console.log(this.orderNum)
       // pid=this.goodInfo.pid
       // sellerid=this.goodInfo.sellerId
