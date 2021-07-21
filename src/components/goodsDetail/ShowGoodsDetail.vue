@@ -1,63 +1,63 @@
 <template>
   <div style="margin-top: 25px">
     <div class="item-intro-show">
-<!--      <div class="item-intro-recommend">-->
-<!--        <div class="item-recommend-title">-->
-<!--          <p>店铺热销</p>-->
-<!--        </div>-->
-<!--        <div class="item-intro-recommend-column">-->
-<!--          <div class="item-recommend-column" v-for="(item, index) in goodsInfo.hot" :key="index">-->
-<!--            <div class="item-recommend-img">-->
-<!--              <img :src="item.img" alt="">-->
-<!--            </div>-->
-<!--            <div class="item-recommend-intro">-->
-<!--              <span>-->
-<!--                <span class="item-recommend-top-num">{{index + 1}}</span> 热销{{item.sale}}件</span>-->
-<!--              <span class="item-recommend-price">￥{{item.price.toFixed(2)}}</span>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="item-intro-detail" ref="itemIntroDetail">-->
-<!--        <div class="item-intro-nav item-tabs">-->
-<!--          <Tabs>-->
-<!--            <TabPane label="商品评价">-->
-<!--              <div class="remarks-container">-->
-<!--                <div class="remarks-title">-->
-<!--                  <span>商品评价</span>-->
-<!--                </div>-->
-<!--                <div class="remarks-analyse-box">-->
-<!--                  <div class="remarks-analyse-goods">-->
-<!--                    <i-circle :percent="goodsInfo.remarks.goodAnalyse" stroke-color="#e4393c">-->
-<!--                      <span class="remarks-analyse-num">{{goodsInfo.remarks.goodAnalyse}}%</span>-->
-<!--                      <p class="remarks-analyse-title">好评率</p>-->
-<!--                    </i-circle>-->
-<!--                  </div>-->
-<!--                  <div class="remarks-analyse-tags">-->
-<!--                    <Tag checkable :color="tagsColor[index % 4]" v-for="(item,index) in goodsInfo.remarks.remarksTags" :key="index">{{item}}</Tag>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div class="remarks-bar">-->
-<!--                  <span>追评({{goodsInfo.remarks.remarksNumDetail[0]}})</span>-->
-<!--                  <span>好评({{goodsInfo.remarks.remarksNumDetail[1]}})</span>-->
-<!--                  <span>中评({{goodsInfo.remarks.remarksNumDetail[2]}})</span>-->
-<!--                  <span>差评({{goodsInfo.remarks.remarksNumDetail[3]}})</span>-->
-<!--                </div>-->
-<!--                <div class="remarks-box" v-for="(item,index) in goodsInfo.remarks.detail" :key="index">-->
-<!--                  <div class="remarks-user">-->
-<!--                    <Avatar icon="person" />-->
-<!--                    <span class="remarks-user-name">{{item.username}}</span>-->
-<!--                  </div>-->
-<!--                  <div class="remarks-content-box">-->
-<!--                    <p>-->
-<!--                      <Rate disabled :value="item.values" allow-half class="remarks-star"></Rate>-->
-<!--                    </p>-->
-<!--                    <p class="remarks-content">{{item.content}}</p>-->
-<!--                    <p class="remarks-sub">-->
-<!--                      <span class="remarks-item">{{item.goods}}</span>-->
-<!--                      <span class="remarks-time">{{item.time}}</span>-->
-<!--                    </p>-->
-<!--                  </div>-->
+      <div class="item-intro-recommend">
+        <div class="item-recommend-title">
+          <p>店铺热销</p>
+        </div>
+        <div class="item-intro-recommend-column">
+          <div class="item-recommend-column" v-for="(item, index) in goodsInfo.hot" :key="index">
+            <div class="item-recommend-img">
+              <img :src="item.img" alt="">
+            </div>
+            <div class="item-recommend-intro">
+              <span>
+                <span class="item-recommend-top-num">{{index + 1}}</span> 热销{{item.sale}}件</span>
+              <span class="item-recommend-price">￥{{item.price.toFixed(2)}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item-intro-detail" ref="itemIntroDetail">
+        <div class="item-intro-nav item-tabs">
+          <Tabs>
+            <TabPane label="商品评价">
+              <div class="remarks-container">
+                <div class="remarks-title">
+                  <span>商品评价</span>
+                </div>
+                <div class="remarks-analyse-box">
+                  <div class="remarks-analyse-goods">
+                    <i-circle :percent="goodsInfo.remarks.goodAnalyse" stroke-color="#e4393c">
+                      <span class="remarks-analyse-num">{{goodsInfo.remarks.goodAnalyse}}%</span>
+                      <p class="remarks-analyse-title">好评率</p>
+                    </i-circle>
+                  </div>
+                  <div class="remarks-analyse-tags">
+                    <Tag checkable :color="tagsColor[index % 4]" v-for="(item,index) in goodsInfo.remarks.remarksTags" :key="index">{{item}}</Tag>
+                  </div>
+                </div>
+                <div class="remarks-bar">
+                  <span>追评({{goodsInfo.remarks.remarksNumDetail[0]}})</span>
+                  <span>好评({{goodsInfo.remarks.remarksNumDetail[1]}})</span>
+                  <span>中评({{goodsInfo.remarks.remarksNumDetail[2]}})</span>
+                  <span>差评({{goodsInfo.remarks.remarksNumDetail[3]}})</span>
+                </div>
+                <div class="remarks-box" v-for="(item,index) in goodsInfo.remarks.detail" :key="index">
+                  <div class="remarks-user">
+                    <Avatar icon="person" />
+                    <span class="remarks-user-name">{{item.username}}</span>
+                  </div>
+                  <div class="remarks-content-box">
+                    <p>
+                      <Rate disabled :value="item.values" allow-half class="remarks-star"></Rate>
+                    </p>
+                    <p class="remarks-content">{{item.content}}</p>
+                    <p class="remarks-sub">
+                      <span class="remarks-item">{{item.goods}}</span>
+                      <span class="remarks-time">{{item.time}}</span>
+                    </p>
+                  </div>
                 </div>
                 <div class="remarks-page">
                   <Page :total="40" size="small" show-elevator show-sizer></Page>

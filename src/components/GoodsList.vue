@@ -23,24 +23,24 @@
       <div class="goods-box">
         <div class="as-box">
           <div class="item-as-title">
-            <span>商品精选</span>
-            <span>广告</span>
+            <span>求购信息</span>
+            <span>求购</span>
           </div>
-          <div class="item-as" v-for="(item,index) in asItems" :key="index">
+          <div class="item-as" v-for="(item,index) in wantsList" :key="index">
             <div class="item-as-img">
-              <img :src="item.img" alt="">
+              <img src="static/img/want.jpg" style="width: 250px;height: 130px" alt="">
             </div>
-            <div class="item-as-price">
+            <div class="item-as-intro" style="font-size: 15px">
+              求购物品:<span style="color: #6da6be;">{{item.buyProductName}}</span>
+            </div>
+            <div class="item-as-selled" style="font-size: 15px">
+              学校:<span>{{item.buyBuyerSchool}}</span>
+            </div>
+            <div class="item-as-price" style="font-size: 15px">
               <span>
-                <Icon type="social-yen text-danger"></Icon>
-                <span class="seckill-price text-danger">{{item.price}}</span>
+<!--                <Icon type="social-yen text-danger"></Icon>-->
+                call me:<span class="seckill-price text-danger">{{item.buyPhone}}</span>
               </span>
-            </div>
-            <div class="item-as-intro">
-              <span>{{item.intro}}</span>
-            </div>
-            <div class="item-as-selled">
-              已有<span>{{item.num}}</span>人浏览
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@
           </div>
           <div class="goods-list">
 
-            <div class="goods-show-info" v-for="(item, index) in productInfo " :key="index" style="margin-right: 30px">
+            <div class="goods-show-info" v-for="(item, index) in productInfo " :key="index" style="margin-left: 20px">
               <div class="goods-show-img"  >
                 <router-link :to="{path:'/goodsDetail',query:{
                   pid:item.pid,
@@ -162,10 +162,12 @@ export default {
     };
   },
 computed:{
-    ...mapState(['asItems','isLoading'])
+    // ...mapState(['asItems','isLoading'])
+  ...mapState(['wantsList','isLoading'])
 },
   methods: {
-    ...mapActions(['loadGoodsList']),
+    // ...mapActions(['loadGoodsList']),
+    ...mapActions(['loadAllWants']),
     ...mapMutations(['SET_GOODS_ORDER_BY']),
     orderBy (data, index) {
       this.icon = [ 'arrow-down-a', 'arrow-down-a', 'arrow-down-a' ];
@@ -213,7 +215,8 @@ computed:{
     this.breadcrumbItem2=this.$route.query.condition
     this.query.condition=this.$route.query.condition
     this.loadProductList()
-    this.loadGoodsList();
+    // this.loadGoodsList();
+    this.loadAllWants()
 
   },
   updated () {
@@ -242,11 +245,11 @@ computed:{
   min-width: 1000px;
 }
 .text-danger {
-  color: #A94442;
+  color: darksalmon;
 }
 .seckill-price{
   margin-right: 5px;
-  font-size: 25px;
+  /*font-size: 25px;*/
   font-weight: bold;
 }
 .goods-box {
@@ -254,8 +257,10 @@ computed:{
 }
 /* ---------------侧边广告栏开始------------------- */
 .as-box {
-  width: 200px;
+  width: 280px;
   border: 1px solid #ccc;
+  /*background-color: #eeeeee;*/
+
 }
 .item-as-title{
   width: 100%;
@@ -274,12 +279,14 @@ computed:{
   color: #ccc;
 }
 .item-as{
-  width: 160px;
-  margin: 18px auto;
+  width: 260px;
+  margin: 30px auto;
+  border: 1px groove lightgray;
+  background-color: #e4f4fc;
 }
 .item-as-img{
-  width: 160px;
-  height: 160px;
+  width: 250px;
+  height: 130px;
   margin: 0px auto;
 }
 .item-as-price span{

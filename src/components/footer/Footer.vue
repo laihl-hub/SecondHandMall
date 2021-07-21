@@ -1,44 +1,44 @@
 <template>
   <div>
     <footer class="footer">
-<!--      <div class="clearfix"></div>-->
-<!--      <div class="icon-row">-->
-<!--        <div class="footer-icon">-->
-<!--          <h5 class="footer-icon-child"></h5>-->
-<!--          <span class="footer-icon-text">品类齐全，轻松购物</span>-->
-<!--        </div>-->
-<!--        <div class="footer-icon">-->
-<!--          <h5 class="footer-icon-child footer-icon-child-2"></h5>-->
-<!--          <span class="footer-icon-text">多仓直发，极速配送</span>-->
-<!--        </div>-->
-<!--        <div class="footer-icon">-->
-<!--          <h5 class="footer-icon-child footer-icon-child-3"></h5>-->
-<!--          <span class="footer-icon-text">正品行货，精致服务</span>-->
-<!--        </div>-->
-<!--        <div class="footer-icon">-->
-<!--          <h5 class="footer-icon-child footer-icon-child-4"></h5>-->
-<!--          <span class="footer-icon-text">天天低价，畅选无忧</span>-->
-<!--        </div>-->
-<!--      </div>-->
+      <div class="clearfix"></div>
+      <div class="icon-row">
+        <div class="footer-icon">
+          <h5 class="footer-icon-child"></h5>
+          <span class="footer-icon-text">品类齐全，轻松购物</span>
+        </div>
+        <div class="footer-icon">
+          <h5 class="footer-icon-child footer-icon-child-2"></h5>
+          <span class="footer-icon-text">能挑擅找，变废为宝</span>
+        </div>
+        <div class="footer-icon">
+          <h5 class="footer-icon-child footer-icon-child-3"></h5>
+          <span class="footer-icon-text">人无我有，人有我优</span>
+        </div>
+        <div class="footer-icon">
+          <h5 class="footer-icon-child footer-icon-child-4"></h5>
+          <span class="footer-icon-text">天天低价，畅选无忧</span>
+        </div>
+      </div>
       <div class="service-intro">
-<!--        <div class="servece-type">-->
-<!--          <div class="servece-type-info" v-for="(guide, index) in guideArr" :key="index">-->
-<!--            <ul>-->
-<!--              <li v-for="(item, index) in guide" :key="index">{{item}}</li>-->
-<!--            </ul>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="clearfix"></div>-->
-<!--        <div class="friend-link">-->
-<!--          <div class="friend-link-item">-->
-<!--            <ul>-->
-<!--              <li v-for="(link, index) in moreLink" :key="index">-->
-<!--                <span :class="[linkItemClass, {'link-last-item': index === 9}]">{{link}}</span>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="clearfix"></div>-->
+        <div class="servece-type">
+          <div class="servece-type-info" v-for="(guide, index) in guideArr" :key="index">
+            <ul>
+              <li v-for="(item, index) in guide" :key="index">{{item}}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="friend-link">
+          <div class="friend-link-item">
+            <ul>
+              <li v-for="(link, index) in moreLink" :key="index">
+                <span :class="[linkItemClass, {'link-last-item': index === 9}]">{{link}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="clearfix"></div>
         <div class="copyright">
           <p>Copyright © 2021 by 飞虎队 <a href="https://github.com/PowerDos"><Icon type="social-github"></Icon></a> <span>本项目仅供学习参考</span></p>
         </div>
@@ -53,14 +53,14 @@ export default {
   data () {
     return {
       linkItemClass: 'link-item',
-      // guideArr: [
-      //   [ '购物指南', '购物流程', '会员介绍', '生活旅行', '常见问题', '大家电', '联系客服' ],
-      //   [ '配送方式', '上门自提', '211限时达', '配送服务查询', '收取标准', '海外配送' ],
-      //   [ '支付方式', '货到付款', '在线支付', '分期付款', '邮局汇款', '公司转账' ],
-      //   [ '售后服务', '售后政策', '价格保护', '退款说明', '返修/退换货', '取消订单' ]
-      // ],
+      guideArr: [
+        [ '购物指南', '购物流程', '闲置处理', '常见问题', '联系客服' ],
+        [ '配送方式', '上门自提', '送货上门', '配送服务查询' ],
+        [ '支付方式', '货到付款', '在线支付', '分期付款'],
+        [ '售后服务', '售后政策', '价格保护', '退款说明', '返修/退换货', '取消订单' ]
+      ],
       moreLink: [
-        '关于我们', '联系我们', '联系客服', '合作招商', '商家帮助', '营销中心', '销售联盟', '校园社区', '风险监测', '隐私政策'
+        '关于我们', '联系我们', '联系客服', '合作招商', '商家帮助', '校园社区', '风险监测', '隐私政策'
       ]
     };
   }
@@ -71,9 +71,9 @@ export default {
 /*****************************底 部 开 始*****************************/
 .footer {
   width: 100%;
-  height: 50px;
+  height: 390px;
   margin-top: 30px;
-  background-color: #eaeaea;
+  background-color: #f3e5f0;
 }
 .icon-row {
   margin: 15px auto;
@@ -92,17 +92,24 @@ export default {
   position: absolute;
   width: 36px;
   height: 42px;
-  background-image: url("../../../static/img/footer/ico_service.png");
+  background-size:100% 100%;
+  background-image: url("../../../static/img/footer/放大镜.png");
   text-indent: -999px;
 }
 .footer-icon-child-2 {
   background-position: 0 -43px;
+  background-size:100% 100%;
+  background-image:url("../../../static/img/footer/商店店铺.png");
 }
 .footer-icon-child-3 {
   background-position: 0 -86px;
+  background-size:100% 100%;
+  background-image:url("../../../static/img/footer/购物车.png");
 }
 .footer-icon-child-4 {
   background-position: 0 -129px;
+  background-size:100% 100%;
+  background-image:url("../../../static/img/footer/购物袋.png");
 }
 .footer-icon-text {
   margin-left: 45px;

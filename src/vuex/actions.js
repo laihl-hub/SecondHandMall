@@ -426,7 +426,20 @@ export const loadGoodsInfo = ({ commit }) => {
     }, 300);
   });
 };
-
+//获取所有求购列表
+export const loadAllWants=({commit})=>{
+  commit('SET_LOAD_STATUS',true)
+  return new Promise((resolve ,reject)=>{
+    setTimeout(async () => {
+      let data
+      await axios.get(api.path+'wantingInfoManage/lookUpAllBuyInfo').then(function (response){
+        data=response.data.data
+        commit('SET_WANTS_LIST', data);
+        commit('SET_LOAD_STATUS', false);
+      })
+    },300)
+  })
+}
 // 获取商品列表
 export const loadGoodsList = ({ commit }) => {
   commit('SET_LOAD_STATUS', true);
