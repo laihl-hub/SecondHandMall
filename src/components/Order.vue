@@ -122,6 +122,8 @@ import { mapState, mapActions } from 'vuex';
 import axios from "axios";
 import api from "../../static/js/api";
 import Moment from "moment";
+import Distpicker from 'v-distpicker';
+
 export default {
   name: 'Order',
   async created() {
@@ -248,6 +250,7 @@ export default {
   components: {
     Search,
     GoodsListNav,
+    Distpicker
   },
   store
 };

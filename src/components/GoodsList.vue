@@ -188,7 +188,7 @@ computed:{
     this.breadcrumbItem2=this.$route.query.condition
     this.query.condition=this.$route.query.condition
     this.loadProductList()
-    this.loadAllWants()
+    // this.loadAllWants()
   },
   updated () {
     this.$nextTick(function(){
