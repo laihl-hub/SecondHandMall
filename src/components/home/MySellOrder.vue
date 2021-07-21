@@ -104,7 +104,6 @@
                 收货人地址:{{scope.row.receiverAddr}}</div>
               <el-button type="ghost" @click="deliverProductDiag" style="background-color: rgba(231,192,231,.5)">确认发货</el-button>
               <el-button @click="confirmVisable=false">取消</el-button>
-
             </el-card>
 <!--            <img src="../../../static/img/2.jpg"  style="margin-left: 450px;width: 30%">-->
             </el-row>

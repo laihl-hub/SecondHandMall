@@ -37,7 +37,7 @@
               </DropdownMenu>
             </Dropdown>
           </Col>
-          <Col :span="18"><span style="display: inline-block;width: 99%;height: 30px;border: 1px solid lightgray;line-height: 30px">{{selectedAdd}}
+          <Col :span="18"><span style="display: inline-block;width: 99%;height: 30px;border: 1px solid lightgray;line-height: 30px;">&nbsp&nbsp{{selectedAdd}}
 <!--          {{selectedAdd.rreceiverphone}}-->
           </span></Col>
           <Col :span="2"><Icon type="ios-plus-outline" size="22" style="margin-top: 5px" @click="addAddress"></Icon>
@@ -63,7 +63,7 @@
                 </Form>
               </div>
               <div slot="footer">
-                <Button type="primary" size="large" long @click="submit">确认添加</Button>
+                <Button type="primary" size="large" long @click="submitAddr">确认添加</Button>
               </div>
             </Modal>
           </Col>
@@ -101,7 +101,8 @@
         <div class="pay-box">
           <p><span>订单总额：</span> <span class="money" style="color: darksalmon"><Icon type="social-yen"></Icon>{{goodInfo.pprice}}</span></p>
           <div class="pay-btn">
-            <router-link to="/pay"><Button type="ghost" size="large" style="background-color: lightblue">提交订单</Button></router-link>
+            <Button type="ghost" size="large" style="background-color: lightblue" @click="submitOrder">订单支付</Button>
+
           </div>
         </div>
       </div>
@@ -143,7 +144,8 @@ export default {
       time:'',
       orderNum:'',
       isAdd:false,
-      selectedAdd:null,
+      selectedAdd:'点击左侧图标选择您的地址哦',
+      selectedAddrId:null,
       formData:{
         rreceivername:'',
         rreciveraddress:'',
@@ -186,6 +188,14 @@ export default {
     selected(index){
       this.selectedAdd=this.address[index].rreceivername+'\xa0\xa0'+this.address[index].rprovince+'\xa0\xa0'+this.address[index].rcity
       +'\xa0\xa0'+this.address[index].rarea+'\xa0\xa0'+this.address[index].rreciveraddress+'\xa0\xa0'+this.address[index].rreceiverphone
+      this.selectedAddrId=this.address[index].rid
+
+      this.orderNum=this.goodInfo.pid+'a'+this.goodInfo.sellerId+'a'+Cookies.get("userid")+'a'+this.selectedAddrId
+      console.log(this.orderNum)
+      // pid=this.goodInfo.pid
+      // sellerid=this.goodInfo.sellerId
+      // buyerid=Cooking.get("userid")
+      // buyeraddrid=this.selectedAddrId
     },
     addAddress(){
       this.isAdd=true
@@ -199,7 +209,7 @@ export default {
     getArea (data) {
       this.formData.rarea = data.value;
     },
-    submit(){
+    submitAddr(){
       const _this=this
       // console.log(this.formData)
       axios.post(api.path+'userAddrManage/addUserAddr',_this.formData).then(function (response){
@@ -211,6 +221,34 @@ export default {
           _this.$Message.error('添加失败')
         }
       })
+    },
+
+    //按照指定方式生成订单号便于后端进行解析
+    //orderNum=pid+buyerid+sellerid+buyeraddrid
+    //pid=this.goodInfo.pid
+    //sellerid=this.goodInfo.sellerId
+    //buyerid=Cooking.get("userid")
+    //buyeraddrid=this.selectedAddrId
+    submitOrder() {
+
+      if (this.selectedAddrId == null) {
+        this.$message.error("请先选择您的收货的地址！")
+      } else {
+        axios.get(api.path_local + 'order/alipay?outTradeNo=' + this.orderNum + "&subject=" + this.goodInfo.pname + "&totalAmount=" + this.goodInfo.pprice + "&body=" + this.goodInfo.pintro)
+          .then(resp => {
+            // 添加之前先删除一下，如果单页面，页面不刷新，添加进去的内容会一直保留在页面中，二次调用form表单会出错
+            // const divForm = document.getElementsByTagName('div')
+            // if (divForm.length) {
+            //   document.body.removeChild(divForm[0])
+            // }
+            document.querySelector('body').innerHTML = resp
+            const div = document.createElement('div')
+            div.innerHTML = resp.data // data就是接口返回的form 表单字符串
+            // document.body.appendChild(div)
+            document.body.appendChild(div)
+            document.forms[0].submit()
+          })
+      }
     }
     // ...mapActions(['loadAddress']),
     // select (selection, row) {
