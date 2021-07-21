@@ -7,6 +7,7 @@
       <div class="store-header">
         <span>{{ item.pname }}</span>
         <div class="store-action">
+          <span @click="buy(index)"><Icon class="el-icon-shopping-bag-1"></Icon> 去购买</span>
           <span @click="del(index)"><Icon type="trash-a"></Icon> 删除收藏</span>
         </div>
       </div>
@@ -20,7 +21,7 @@
               <p><span class="store-content-title">商品价格:</span>{{ item.pprice }}</p>
               <p><span class="store-content-title">联系方式:</span>{{ item.phone }}</p>
               <p><span class="store-content-title">简介:</span> {{ item.pintro }}</p>
-              <p><span class="store-content-title">收藏时间:</span> {{ convertTime(item.storeTime,'YYYY-MM-DD HH:MM:SS')}}</p>
+              <p><span class="store-content-title">收藏时间:</span> {{ convertTime(item.storeTime,'YYYY-MM-DD')}}</p>
             </div></el-col>
         </el-row>
       </div>
@@ -50,6 +51,9 @@ export default {
   },
   methods: {
     ...mapActions(["loadStore"]),
+    buy (index) {
+      this.$router.push({name:'Order',query:{pid:this.store[index].pid}});
+    },
     convertTime: function (data, format) {
       return Moment(data).utcOffset(0).format(format)
     },

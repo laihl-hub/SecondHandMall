@@ -16,6 +16,7 @@
 <!--        <p><span class="address-content-title">商品分类:</span> {{item.cname}}</p>-->
         <p><span class="address-content-title">标价:</span> {{item.pprice}}元</p>
         <p><span class="address-content-title">简介:</span> {{item.pintro}}</p>
+            <p><span class="address-content-title">发布时间:</span> {{convertTime(item.ptime,'YYYY-MM-DD')}}</p>
         </div></el-col>
         </el-row>
 
@@ -72,6 +73,7 @@ import { mapState, mapActions } from 'vuex';
 import Distpicker from 'v-distpicker';
 import axios from 'axios';
 import api from '../../../static/js/api';
+import Moment from "moment";
 export default {
   name: 'MyAddress',
   data () {
@@ -150,11 +152,9 @@ export default {
           }
         })
     },
-    // editAction () {
-    //   this.modal = false;
-    //   this.$Message.success('修改成功');
-    // },
-
+    convertTime: function (data, format) {
+      return Moment(data).utcOffset(0).format(format)
+    },
     del (index) {
       const  _this=this;
       // console.log(_this.address[index].rid)

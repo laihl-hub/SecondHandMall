@@ -20,7 +20,7 @@
         <!-- <p><span class="want-content-title">可接受价格:</span> {{item.address}}</p> -->
         <p><span class="want-content-title">联系方式:</span> {{item.buyPhone}}</p>
         <p><span class="want-content-title">简介:</span> {{item.buyIntro}}</p>
-            <p><span class="want-content-title">发布时间:</span> {{convertTime(item.buyTime,'YYYY-MM-DD HH:MM:SS')}}</p>
+            <p><span class="want-content-title">发布时间:</span> {{convertTime(item.buyTime,'YYYY-MM-DD')}}</p>
 
           </div></el-col>
 
