@@ -8,14 +8,14 @@
         <h1>发布商品</h1>
       </div>
       <div class="add-box">
-        <Form :model="formData" label-position="left" :label-width="100" :rules="ruleInline">
-          <FormItem label="商品名称" prop="pname" >
-            <i-input v-model="formData.pname" size="large" placeholder="请输入商品名称"></i-input>
-          </FormItem>
-          <FormItem label="简介" prop="pintro">
-            <i-input v-model="formData.pintro" size="large" placeholder="请介绍介绍你的商品吧"></i-input>
-          </FormItem>
-           <FormItem label="商品分类" >
+        <el-form :model="formData" ref="ruleForm" label-position="left" :label-width="'100'" :rules="ruleInline">
+          <el-form-item label="商品名称" prop="pname" >
+            <el-input v-model="formData.pname" size="large" placeholder="请输入商品名称"></el-input>
+          </el-form-item>
+          <el-form-item label="简介" prop="pintro">
+            <el-input v-model="formData.pintro" size="large" placeholder="请介绍介绍你的商品吧"></el-input>
+          </el-form-item>
+           <el-form-item label="商品分类" >
                 <el-select v-model="value" placeholder="请选择"  v-on:change="select">
                     <el-option
                       v-for="(item,index) in options"
@@ -24,27 +24,34 @@
                       :value="index">
                     </el-option>
                 </el-select>
-          </FormItem>
-          <FormItem label="上传商品" prop="img">
-            <!--图片上传到的API地址-->
-            <el-upload class="upload-demo" action="http://127.0.0.1:8888/api/private/v1/upload" :on-preview="handlePreview"
-                  :on-remove="handleRemove" list-type="picture" :headers="headerObj">
-                  <el-button size="small" type="primary">点击上传</el-button>
-                  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-            </el-upload>
-          </FormItem>
+          </el-form-item>
 
-          <FormItem label="标价" prop="pprice">
-            <i-input v-model="formData.pprice" size="large"></i-input>
-          </FormItem>
-          <!-- <FormItem label="邮费" prop="postalcode">
-            <i-input v-model="formData.postalcode" size="large"></i-input>
-          </FormItem> -->
-<!--          <FormItem label="联系方式" prop="phone">-->
-<!--            <i-input v-model="formData.phone" size="large"></i-input>-->
-<!--          </FormItem>-->
+            <el-form-item label="上传图片" ref="uploadElement" prop="imageUrl">
+              <el-upload
+                class="avatar-uploader"
+                ref="upload"
+                method="post"
+                :show-file-list="false"
+                action="http://localhost:8080/uploadImage"
+                :before-upload="beforeUpload"
+                :on-change="handleChange"
+                :auto-upload="false"
+                name="image"
+                type="file"
+              >
+                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              </el-upload>
+            </el-form-item>
 
-        </Form>
+          <el-form-item label="标价" prop="pprice">
+            <el-input v-model="formData.pprice" size="large"></el-input>
+          </el-form-item>
+          <el-form-item label="入手价" prop="pprice">
+            <el-input v-model="formData.pprePrice" size="large"></el-input>
+          </el-form-item>
+
+        </el-form>
       </div>
       <div class="add-submit">
         <Button type="ghost" @click="submit" style="background-color: #b2dfdb">发布</Button>
@@ -58,6 +65,7 @@
 
 import axios from "axios";
 import api from "../../../static/js/api";
+import vm from 'vm';
 export default {
   name: 'addMyGood',
   data () {
@@ -67,11 +75,16 @@ export default {
         pintro: '',
         pprice: '',
         cid:null,
-        uid:null
+        sellerId:null,
+        pimg:null,
+        pprePrice:'',
+        uid:0
       },
       value:'',
       options:null,
       selectedIndex:null,
+      maxPid:0,
+      imageUrl:'',
       headerObj:{
         Authorization: window.sessionStorage.getItem('token')
       },
@@ -88,10 +101,7 @@ export default {
          value: [
           { required: true }
         ],
-        // phone: [
-        //   { required: true, message: '手机号不能为空', trigger: 'blur' },
-        //   { type: 'string', pattern: /^1[2|3|4|5|7|8|9][0-9]{9}$/, message: '手机号格式出错', trigger: 'blur' }
-        // ]
+
       }
     };
   },
@@ -99,55 +109,56 @@ export default {
     const _this = this
     await axios.get(api.path + 'productManage/lookUpAllCatogory').then(function (response) {
       _this.options = response.data.data;
-      // console.log(_this.options)
+    })
+
+    await axios.get(api.path + 'productManage/lookMaxIdInProduct').then(function (response) {
+      console.log(response.data.data)
+      _this.maxPid = response.data.data+1;
     })
     _this.formData.uid=Cookies.get('userid')
+
   },
   methods: {
-    // handleRemove(file, fileList) {
-    //     console.log(file, fileList);
-    // },
-    // handlePreview(file) {
-    //     console.log(file);
-    // },
-    //   handleExceed(files, fileList) {
-    //     this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-    //   },
-    //   beforeRemove(file, fileList) {
-    //     return this.$confirm(`确定移除${file.name}?`);
-    //     }
+
+
+    handleChange (file, fileList) {
+      this.imageUrl = URL.createObjectURL(file.raw);
+      this.formData.pimg= file.name
+    },
+
+
+    beforeUpload(file) {
+      return true;
+    },
+
+
     select(id){
-      // console.log(id)
       this.selectedIndex=id
     },
+
     submit(){
-      // console.log(this.value)
-      // console.log(this.$refs.selRef.selectedIndex)
+      this.$refs.upload.submit();
       let _this=this
-      // let moment = required('moment')
-      // let postData={
-      //   'pname':_this.formData.name,
-      //   'pintro':_this.formData.intro,
-      //   'pprice':_this.formData.price,
-      //   'cid':2,
-      //   'pstate':1,
-      //   'uid':Cookies.get("userid")
-      // }
       _this.formData.cid=_this.options[_this.selectedIndex].cid
+
+      // 发送两次post请求，第一次存储数据库，第二次存储图片
+
       axios.post(api.path+'releaseProductManage/releaseProduct',_this.formData)
         .then(function (response){
           if(response.data.code==200){
             _this.$Message.success('发布成功');
-            // _this.$router.push('/home/viewMyGood')
             window.location.reload()
           }
         })
+
     },
     cancel(){
       this.$message.success('取消成功')
       window.location.reload()
     }
-  },
+  }
+
+
 };
 </script>
 
@@ -165,4 +176,28 @@ export default {
   display: flex;
   justify-content: center;
 }
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+
 </style>

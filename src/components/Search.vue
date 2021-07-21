@@ -26,9 +26,16 @@ export default {
       this.sreachData = this.promotionTags[index];
     },
     sreach () {
-      this.$router.push({path: '/goodsList', query: { sreachData: this.sreachData }});
+      this.$router.push({path: '/goodsList', query: { condition:this.sreachData, way:4 }});
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      // 路由发生变化页面刷新
+      this.$router.go(0);
     }
   }
+
 };
 </script>
 

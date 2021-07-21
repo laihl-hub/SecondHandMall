@@ -130,16 +130,19 @@ export default {
         },
         '3':{
           label:'按浏览量查询商品'
+        },
+        '4':{
+          label:'按商品名称查询商品'
         }
       }
     };
   },
 computed:{
-  // ...mapState(['wantsList','isLoading'])
+  ...mapState(['isLoading'])
 },
   methods: {
     // ...mapActions(['loadAllWants']),
-    ...mapMutations(['SET_GOODS_ORDER_BY']),
+    // ...mapMutations(['SET_GOODS_ORDER_BY']),
     orderBy (data, index) {
       this.icon = [ 'arrow-down-a', 'arrow-down-a', 'arrow-down-a' ];
       this.isAction = [ false, false, false ];
@@ -170,6 +173,12 @@ computed:{
           _this.productInfo=resp.data.data
         })
       }
+      else if(this.query.way==4){
+        axios.get(api.path_local+"productManage/lookUpProductInfoByPname/"+this.query.condition).then(function (resp){
+          _this.productInfo=resp.data.data
+        })
+      }
+
     }
   },
 

@@ -80,6 +80,7 @@
         <Footer class="layout-footer-center">2021 &copy; {{username}}</Footer>
       </Layout>
     </Layout>
+
   </div>
 </template>
 
