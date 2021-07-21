@@ -25,7 +25,7 @@
               <CarouselItem  v-for="(item, index) in marketing.CarouselItems" :key="index">
                 <router-link :to="{path:'/goodsList',query:{ way:0
             }}">
-                  <img :src="item">
+                  <img :src="item"  display="block" width="100%" height="450">
                 </router-link>
               </CarouselItem>
           </Carousel>
@@ -34,7 +34,7 @@
           <div class="nav-show-img" v-for="(item, index) in marketing.activity" :key="index">
             <router-link :to="{path:'/goodsList',query:{ way:0
             }}">
-              <img :src="item">
+              <img :src="item" display="block" width="100%" height="450">
             </router-link>
           </div>
         </div>

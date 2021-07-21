@@ -25,21 +25,14 @@
                     </el-option>
                 </el-select>
           </FormItem>
-          <!-- <FormItem label="上传商品" prop="img">
-            <el-upload
-                  class="upload-demo"
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  :on-preview="handlePreview"
-                  :on-remove="handleRemove"
-                  :before-remove="beforeRemove"
-                    multiple
-                  :limit="3"
-                  :on-exceed="handleExceed"
-                  :file-list="fileList">
+          <FormItem label="上传商品" prop="img">
+            <!--图片上传到的API地址-->
+            <el-upload class="upload-demo" action="http://127.0.0.1:8888/api/private/v1/upload" :on-preview="handlePreview"
+                  :on-remove="handleRemove" list-type="picture" :headers="headerObj">
                   <el-button size="small" type="primary">点击上传</el-button>
                   <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
             </el-upload>
-          </FormItem> -->
+          </FormItem>
 
           <FormItem label="标价" prop="pprice">
             <i-input v-model="formData.pprice" size="large"></i-input>
@@ -76,15 +69,14 @@ export default {
         cid:null,
         uid:null
 
-        // fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
-        // phone: '',
-        // province: '重庆市',
-        // city: '重庆市',
-        // area: '高新区'
+
       },
       value:'',
       options:null,
       selectedIndex:null,
+      headerObj:{
+        Authorization: window.sessionStorage.getItem('token')
+      },
       ruleInline: {
         pname: [
           { required: true, message: '请输入姓名', trigger: 'blur' }
