@@ -31,11 +31,9 @@
             <el-form-item label="创建时间:">
               <span>{{ props.row.otime|convertTime('YYYY-MM-DD') }}</span>
             </el-form-item>
-
             <el-form-item label="订单状态:">
               <span> {{ props.row.ostate ? statusData[(props.row.ostate)].label : '未发货' }}</span>
             </el-form-item>
-
           </el-form>
         </template>
       </el-table-column>

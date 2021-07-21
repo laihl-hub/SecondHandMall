@@ -13,7 +13,6 @@
         <el-button icon="el-icon-search" circle @click="searchUser"></el-button>
       </div>
       <div class="layout-content-main">
-
         <el-table stripe style="width: 100%;border: 1px solid lightgray" :data="tableData">
           <el-table-column label="ID" width="auto" prop="uid"> </el-table-column>
           <el-table-column label="用户名" width="auto" prop="uname">
