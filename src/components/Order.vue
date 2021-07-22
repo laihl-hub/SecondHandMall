@@ -21,7 +21,7 @@
               </a>
               <DropdownMenu slot="list">
                 <div  v-if="address==null">
-                  <span>你还没有收获地址噢</span><br>
+                  <span>你还没有收货地址噢</span><br>
                   <span>快去添加一个地址叭</span>
                 </div>
                 <div class="address-list" v-show="address.length>0">
@@ -69,8 +69,8 @@
           </Col>
         </div>
         <div style="height: 220px;border-bottom: 1px solid lightgray">
-          <Col :span="8">
-            <div ><img :src="'../../static/img/goodsList/'+goodInfo.pimg" width="200px" height="200px" style="margin-top: 10px;border: 1px solid lightgray">
+          <Col :span="7">
+            <div style="margin-left: 80px"><img :src="'../../static/img/goodsList/'+goodInfo.pimg" width="200px" height="200px" style="margin-top: 10px;border: 1px solid lightgray">
               <span style="display: inline-block;margin-left: 5px" >x1</span>
             </div>
           </Col>
@@ -144,7 +144,7 @@ export default {
       time:'',
       orderNum:'',
       isAdd:false,
-      selectedAdd:'请选择收获地址',
+      selectedAdd:'请选择收货地址',
       selectedAddrId:null,
       formData:{
         rreceivername:'',

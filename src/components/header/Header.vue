@@ -31,14 +31,14 @@
             <a href="javascript:void(0)">
               <Icon type="ios-cart-outline"></Icon> 购物车
             </a>
-            <DropdownMenu slot="list">
+            <DropdownMenu slot="list" >
               <div class="shopping-cart-null" v-show="shoppingCarInfo.length <= 0">
                 <Icon type="ios-cart-outline" class="cart-null-icon"></Icon>
                 <span>你的购物车空空哦</span>
                 <span>赶快去添加商品吧~</span>
               </div>
               <div class="shopping-cart-list" v-show="shoppingCarInfo.length > 0">
-                <div class="shopping-cart-box" v-for="(item,index) in shoppingCarInfo" :key="index">
+                <div class="shopping-cart-box" v-for="(item,index) in shoppingCarInfo" :key="index" @click="gotoCart">
                   <div class="shopping-cart-img">
                     <img :src="'../../static/img/goodsList/'+item.pimg">
                   </div>
@@ -115,7 +115,9 @@ export default {
           _this.shoppingCarInfo = resp.data.data
         })
       }
-
+    },
+    gotoCart(){
+      this.$router.push('home/myShoppingCart')
     }
   },
   store

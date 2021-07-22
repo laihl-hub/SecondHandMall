@@ -181,6 +181,7 @@ export default {
       function (resp){
         if(resp.data.code==200){
           _this.$Message.success('加入购物车成功，你可以在你的个人中心查看你的购物车');
+          window.location.reload()
         }
         else{
           _this.$Message.error('添加购物车失败，请检查网络连接');
