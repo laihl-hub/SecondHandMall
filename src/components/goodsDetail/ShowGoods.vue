@@ -13,6 +13,7 @@
           </div>
         </div>
       </div>
+
       <div class="item-detail-right">
         <Card style="width:700px">
         <div class="item-detail-title" style="padding-bottom: 5px">
@@ -26,7 +27,10 @@
             <span>当天发货</span>
           </p>
         </div>
+
+
           <Col span="24">
+
             <Row style="padding-bottom: 10px">
               <Col span="10" >
                 <Tooltip content="商品卖家" style="padding-right: 5px">
@@ -50,13 +54,17 @@
               <span>卖家联系方式:</span>
               <span class=" " style="">{{productInfo.uphoneNum}}</span>
             </Row>
+
             <Row style="padding-bottom: 10px"> <Tooltip content="商品标签" style="padding-right: 5px">
               <Icon type="ios-pricetags-outline" size="22" style="padding-right:9px"></Icon>
               <el-tag type="success">价格实惠</el-tag>
               <el-tag type="info">质量保障</el-tag>
               <el-tag type="warning">值得信赖</el-tag>
             </Tooltip>
+
+
             </Row>
+
             <Row style="padding-bottom: 10px"> <Tooltip content="商品描述" style="padding-right: 5px">
               <Icon type="ios-paper-outline" size="22" style="padding-right: 5px"></Icon>
             </Tooltip>
@@ -92,8 +100,12 @@
               <Button type="ghost" style="background-color: lightsteelblue" @click="buyProductBtn ()">立即购买</Button>
             </Button-group>
             </span>
+
           </Col>
+
         </Row>
+
+
         </div>
       </div>
     </div>
@@ -139,12 +151,18 @@ export default {
     }
 
   },
+
   computed: {
     // ...mapState(['goodsInfo']),
+
   },
   methods: {
-    // ...mapActions(['addShoppingCart']),
     addShoppingCartBtn () {
+      if(Cookies.get('token')==null){
+        this.$message.error("请先登录！")
+        this.$router.push('/login')
+      }
+      else {
     let postData={
       pid:this.productInfo.pid,
       uid:Cookies.get('userid')
@@ -159,19 +177,16 @@ export default {
           _this.$Message.error('添加购物车失败，请检查网络连接');
         }
       }
-    )
+    )}
+
+
     },
     addStoreBtn () {
-      // const index1 = parseInt(this.selectBoxIndex / 3);
-      // const index2 = this.selectBoxIndex % 3;
-      // const date = new Date();
-      // const goodsId = date.getTime();
-      // const data = {
-      //   goods_id: goodsId,
-      //   title: this.goodsInfo.title,
-      //   count: this.count,
-      //   package: this.goodsInfo.setMeal[index1][index2]
-      // };
+      if(Cookies.get('token')==null){
+        this.$message.error("请先登录！")
+        this.$router.push('/login')
+      }
+      else{
       const _this=this
       if(this.isClicked){
         this.$message.warning('取消收藏成功')
@@ -186,15 +201,18 @@ export default {
         })
 
       }
-      this.isClicked=!this.isClicked
+      this.isClicked=!this.isClicked}
 
       // this.addShoppingCart(data);
       // this.$router.push('/shoppingCart');
     },
     buyProductBtn () {
-      // console.log(this.productInfo.pid)
-      // const _this=this
-      this.$router.push({name:'Order',query:{pid:this.productInfo.pid}})
+      if(Cookies.get('token')==null){
+        this.$message.error("请先登录！")
+        this.$router.push('/login')
+      }
+      else{
+      this.$router.push({name:'Order',query:{pid:this.productInfo.pid}})}
     }
   },
   mounted () {

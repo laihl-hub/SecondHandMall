@@ -10,8 +10,8 @@
           @click="clickFn">
           <div class="info  waterfallInfo" slot-scope="props" >
             <el-row  :gutter="20"  style="margin-top: 10px;margin-bottom: 20px;">
-              <el-col :span="20" style="font-size: 24px;;color: #2c2c2c; text-align: left">
-                {{props.value.productInfo.pname}}</el-col>
+              <el-col :span="20" style="font-size: 22px;;color: #2c2c2c; text-align: left;margin-left: 7px">
+                {{props.value.productInfo.pname|ellipsis_pname}}</el-col>
             </el-row>
             <el-row style="margin-bottom: 10px" :gutter="20">
               <el-col :span="12" style="font-size: 12px;color: #6e6568;"
@@ -104,6 +104,17 @@ export default {
         return ''
       }
       if (value.length>8){
+        return value.slice(0,8)+'...'
+      }
+      else {
+        return value
+      }
+    },
+    ellipsis_pname(value){
+      if(!value){
+        return ''
+      }
+      if (value.length>7){
         return value.slice(0,8)+'...'
       }
       else {

@@ -65,9 +65,17 @@
           </div>
         </div>
       </div>
-      <div class="goods-page">
-        <Page :total="100" show-sizer></Page>
-      </div>
+      <el-pagination v-if="query.way==0"
+        background
+        layout="prev, pager, next"
+        :page-size=8
+        :total="total"
+                     size="large"
+        @current-change="page"
+        style="margin-left: 700px"
+      >
+      </el-pagination>
+
     </div>
     <Spin size="large" fix v-if="isLoading"></Spin>
   </div>
@@ -90,6 +98,7 @@ export default {
   },
   data () {
     return {
+      total:0,
       searchItem: '',
       isAction: [ true, false, false ],
       icon: [ 'arrow-up-a', 'arrow-down-a', 'arrow-down-a' ],
@@ -143,6 +152,14 @@ computed:{
   methods: {
     // ...mapActions(['loadAllWants']),
     // ...mapMutations(['SET_GOODS_ORDER_BY']),
+    page(currentPage){
+      const _this=this
+      axios.get(api.path+"productManage/lookUpProductDetail/"+currentPage+"/"+8).then(function (resp){
+        _this.productInfo=resp.data.data
+      })
+
+
+    },
     orderBy (data, index) {
       this.icon = [ 'arrow-down-a', 'arrow-down-a', 'arrow-down-a' ];
       this.isAction = [ false, false, false ];
@@ -154,8 +171,9 @@ computed:{
       const _this=this
       //way=0:查询全部，way=1按类别，way=2按价格，way=3按浏览量
       if(this.query.way==0)
-        axios.get(api.path+"productManage/lookUpProductDetail").then(function (resp){
+        axios.get(api.path+"productManage/lookUpProductDetail/1/8").then(function (resp){
           console.log(_this.productInfo)
+          _this.total=parseInt(resp.data.msg)
             _this.productInfo=resp.data.data
         })
       else if(this.query.way==1){
@@ -188,12 +206,9 @@ computed:{
     this.breadcrumbItem2=this.$route.query.condition
     this.query.condition=this.$route.query.condition
     this.loadProductList()
-    // this.loadAllWants()
   },
   updated () {
-    this.$nextTick(function(){
-      this.loadProductList()
-    })
+
   },
   components: {
     Search,

@@ -25,6 +25,7 @@ import WaterList from "./nav/WaterList";
 export default {
   name: 'Index',
    created () {
+     console.log(Cookies.get('userimg'))
     this.loadCarouselItems();
     this.loadShoppingCart();
    },

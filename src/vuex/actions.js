@@ -127,14 +127,12 @@ export const login = ({ commit }, data) => {
     axios.get(api.path+"userLogin/login/"+data.username+"/"+data.password).then(
       function (resp){
         if(resp.data.code=="200"){
-          // setCookieValue('token',resp.data.msg)
-          // setCookieValue('username',resp.data.data[0].uname)
           Cookies.set('token',resp.data.msg);
           Cookies.set('username',resp.data.data[0].uname);
           Cookies.set('userid',resp.data.data[0].uid);
+          Cookies.set('userimg',resp.data.data[0].uhead);
           // setCook
           commit('SET_USER_LOGIN_INFO', data); // 数据上传
-
           resolve(true);
           return true
         }

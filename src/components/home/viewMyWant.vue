@@ -14,7 +14,6 @@
       <div class="want-content">
         <el-row>
           <!-- 图片 -->
-          <el-col :span="6"><img :src="'../../../static/img/goodsList/'+item.buyImg"  width="150px" height="150px"></el-col>
           <el-col :span="10"><div style="display:inline-block">
           <p><span class="want-content-title"> 商品名称 :</span> {{item.buyProductName}}</p>
         <!-- <p><span class="want-content-title">可接受价格:</span> {{item.address}}</p> -->
@@ -42,23 +41,6 @@
             <i-input v-model="formData.intro" size="large"></i-input>
           </FormItem>
 
-          <FormItem label="商品相似图片" prop="img">
-            <i-input v-model="formData.img" size="large"></i-input>
-            <!-- 上传图片 -->
-            <!-- <el-upload
-                  class="upload-demo"
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  :on-preview="handlePreview"
-                  :on-remove="handleRemove"
-                  :before-remove="beforeRemove"
-                    multiple
-                  :limit="3"
-                  :on-exceed="handleExceed"
-                  :file-list="fileList">
-                  <el-button size="small" type="primary">点击上传</el-button>
-                  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-            </el-upload> -->
-          </FormItem>
           <FormItem label="联系方式" prop="phone">
             <i-input v-model="formData.phone" size="large"></i-input>
           </FormItem>
@@ -136,7 +118,6 @@ export default {
       buyid=_this.editId;
       var changeVo={
         "buyProductName": _this.formData.name,
-        // "rflag": 0,
         "buyId": _this.wantProduct[buyid].buyId,
         "buyIntro": _this.formData.intro,
         "buyPhone": _this.formData.phone,

@@ -50,8 +50,6 @@ export default {
           width: 100,
           key: 'pname',
           align: 'center',
-          // className:'goods'
-          // size:"500"
         },
         {
           title: '商品简介',

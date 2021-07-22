@@ -40,7 +40,8 @@ export default new Vuex.Store({
 
     userInfo: { // 用户信息
       username: '',
-      userid: ''
+      userid: '',
+      userimg:''
     },
     address:null,
     wantProduct:null,

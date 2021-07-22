@@ -5,7 +5,7 @@
         <Menu active-name="1-2" theme="light" width="auto" @on-select="onSelect" accordion>
           <div class="user-icon">
             <div class="user-img">
-              <img src="static/img/head.jpeg" @click="changeHead">
+              <img :src="headimgsrc" @click="changeHead">
             </div>
             <p>{{username}}</p>
           </div>
@@ -20,7 +20,7 @@
             <div>
               <el-upload
                 class="avatar-uploader"
-                action=""
+                action="http://139.224.9.104:8182/uploadImage"
                 ref="upload"
                 :show-file-list="false"
                 method="post"
@@ -31,7 +31,7 @@
                 type="file"
                 style="border: 1px dotted lightgray;width: 300px;height: 300px;margin-left: 30px;margin-top: 20px"
                 >
-                <img v-if="imageUrl" :src="imageUrl" class="avatar" >
+                <img v-if="imageUrl" :src="imageUrl" class="avatar img_upload" >
                 <i v-else class="el-icon-plus avatar-uploader-icon" style="margin:auto auto;size: 100px" ></i>
               </el-upload>
             </div>
@@ -115,12 +115,15 @@
 
 <script>
 import GoodsListNav from './nav/GoodsListNav';
+import api from "../../static/js/api";
+import axios from 'axios';
 export default {
   name: 'Home',
   components: {GoodsListNav},
   data () {
     return {
       username:'',
+      headimgsrc:'',
       activeTitle:'我的订单' ,
       bar: {
         'myAddress': '我的收货地址',
@@ -138,14 +141,23 @@ export default {
       },
       isClickHeader:false,
       imageUrl:'',
+      imageName:''
     };
   },
   created() {
+
     let str=this.$route.path
     let index=str.lastIndexOf('/')
     let name=str.slice(index+1)
     this.activeTitle=this.bar[name]
     this.username=Cookies.get('username')
+    let _this=this
+    axios.get(api.path+"userInfoManage/lookUpUserInfoByUserId/"+Cookies.get('userid')).then(function (resp){
+       _this.headimgsrc='static/img/goodsList/'+resp.data.data[0].uhead
+
+    })
+
+
   },
   methods: {
     onSelect (name) {
@@ -158,13 +170,23 @@ export default {
     },
     handleChange (file, fileList) {
       this.imageUrl = URL.createObjectURL(file.raw);
-      this.formData.pimg= file.name
+      this.imageName=file.name;
     },
     beforeUpload(file) {
       return true;
     },
     submit(){
+      //第一传图片，第二更改数据库数据
+      this.$refs.upload.submit();
       this.isClickHeader=false
+      let user={
+        'uid':Cookies.get('userid'),
+        'uhead':this.imageName
+      }
+      const _this=this
+      axios.post(api.path+'userInfoManage/changeUserInfo',user).then(function (resp){
+        _this.$message.success("头像上传成功,刷新后查看！")
+      })
     },
     cancel(){
       this.isClickHeader=false
@@ -211,4 +233,9 @@ export default {
   text-align: center;
   line-height: 300px;
 }
+.img_upload{
+  width: 300px;
+  max-height:300px ;
+}
+
 </style>

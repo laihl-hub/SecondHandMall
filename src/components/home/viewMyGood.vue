@@ -8,6 +8,7 @@
           <span @click="del(index)"><Icon type="trash-a"></Icon> 删除</span>
         </div>
       </div>
+
       <div class="address-content">
         <el-row>
           <el-col :span="6"><img :src="'../../../static/img/goodsList/'+item.pimg" width="150px" height="150px"></el-col>

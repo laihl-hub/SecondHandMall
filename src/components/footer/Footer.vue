@@ -40,7 +40,7 @@
         </div>
         <div class="clearfix"></div>
         <div class="copyright">
-          <p>Copyright © 2021 by 飞虎队 <a href="https://github.com/PowerDos"><Icon type="social-github"></Icon></a> <span>本项目仅供学习参考</span></p>
+          <p>Copyright © 2021 by 飞虎队 <a href="https://github.com/PowerDos"><Icon type="social-github"></Icon></a> </p>
         </div>
       </div>
     </footer>

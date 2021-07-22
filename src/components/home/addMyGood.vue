@@ -7,6 +7,7 @@
       <div class="add-title">
         <h1>发布商品</h1>
       </div>
+
       <div class="add-box">
         <el-form :model="formData" ref="ruleForm" label-position="left" :label-width="'100'" :rules="ruleInline">
           <el-form-item label="商品名称" prop="pname" >
@@ -32,7 +33,7 @@
                 ref="upload"
                 method="post"
                 :show-file-list="false"
-                action="http://localhost:8080/uploadImage"
+                action="http://139.224.9.104:8182/uploadImage"
                 :before-upload="beforeUpload"
                 :on-change="handleChange"
                 :auto-upload="false"
@@ -48,7 +49,7 @@
           <el-form-item label="标价" prop="pprice">
             <el-input v-model="formData.pprice" size="large"></el-input>
           </el-form-item>
-          <el-form-item label="入手价" prop="pprice">
+          <el-form-item label="入手价" prop="pprePrice">
             <el-input v-model="formData.pprePrice" size="large"></el-input>
           </el-form-item>
 
@@ -78,8 +79,7 @@ export default {
         cid:null,
         sellerId:null,
         pimg:null,
-        pprePrice:'',
-        uid:0
+        pprePrice:null,
       },
       value:'',
       options:null,
@@ -113,14 +113,11 @@ export default {
     })
 
     await axios.get(api.path + 'productManage/lookMaxIdInProduct').then(function (response) {
-      console.log(response.data.data)
       _this.maxPid = response.data.data+1;
     })
-    _this.formData.uid=Cookies.get('userid')
 
   },
   methods: {
-
 
     handleChange (file, fileList) {
       this.imageUrl = URL.createObjectURL(file.raw);
@@ -141,16 +138,17 @@ export default {
       this.$refs.upload.submit();
       let _this=this
       _this.formData.cid=_this.options[_this.selectedIndex].cid
-
       // 发送两次post请求，第一次存储数据库，第二次存储图片
-
+      _this.formData.sellerId=Cookies.get('userid')
       axios.post(api.path+'releaseProductManage/releaseProduct',_this.formData)
         .then(function (response){
           if(response.data.code==200){
-            _this.$Message.success('发布成功');
             window.location.reload()
+            _this.$Message.success('发布成功');
+
           }
         })
+
 
     },
     cancel(){
