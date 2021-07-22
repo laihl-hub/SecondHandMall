@@ -74,11 +74,7 @@ export default {
   },
   created () {
     this.loadShoppingCart()
-    // this.tableData=this.shoppingCart
-    // for(let i=0;i<this.tableData.length;i++){
-    //   this.tableData[i].spAddTime=this.convertTime(this.tableData[i].spAddTime,'YYYY-MM-DD HH:MM:SS')
-    // }
-    // console.log(this.tableData)
+
   },
   computed: {
     ...mapState(['shoppingCart'])

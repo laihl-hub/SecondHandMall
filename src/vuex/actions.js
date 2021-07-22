@@ -7,14 +7,12 @@ import Moment from "moment";
 // 获取轮播(营销)图片
 export const loadCarouselItems = ({ commit }) => {
   return new Promise((resolve, reject) => {
-    const data = {
-      carouselItems: [
-        'static/img/nav/2.png',
-        'static/img/nav/3.jpg',
-        'static/img/nav/4.jpg',
-      ],
-    };
-    commit('SET_CAROUSELITEMS_INFO', data);
+    axios.get(api.path_local+"boardManage/listAllBoard").then(function (resp){
+      const data=resp.data.data
+      commit('SET_CAROUSELITEMS_INFO', data);
+    })
+
+
   });
 };
 

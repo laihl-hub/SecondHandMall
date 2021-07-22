@@ -10,6 +10,7 @@ export const SET_USER_LOGIN_INFO = (state, data) => {
   state.ifLogin=true;
   }
 
+
 };
 
 // 设置加载状态
@@ -18,9 +19,11 @@ export const SET_LOAD_STATUS = (state, status) => {
 };
 
 // 设置轮播(营销)图
-export const SET_CAROUSELITEMS_INFO = (state, { carouselItems, activity }) => {
-  state.marketing.CarouselItems = carouselItems;
-  state.marketing.activity = activity;
+export const SET_CAROUSELITEMS_INFO = (state, data) => {
+
+  state.marketing= data;
+
+
 };
 
 export const SET_WANTS_LIST=(state,data)=>{

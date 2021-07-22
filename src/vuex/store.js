@@ -48,10 +48,15 @@ export default new Vuex.Store({
     store:null,
     goods:null,
     signUpStep: 0, // 登陆步骤
-    marketing: { // 营销
-      CarouselItems: [], // 轮播图
-      // activity: [] // 活动
-    },
+    marketing:[{
+      // 营销
+      boardImg: '',
+      boardText:'',
+      boardTime:'',
+      aid:'',
+      boardId:''
+    }
+    ],
     // seckills: { // 秒杀
     //   deadline: {
     //     hours: 0,

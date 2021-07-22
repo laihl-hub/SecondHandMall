@@ -15,8 +15,7 @@
               用户管理
             </template>
             <Menu-item name="userInfo">用户信息</Menu-item>
-<!--            <Menu-item name="1-2">选项 2</Menu-item>-->
-<!--            <Menu-item name="1-3">选项 3</Menu-item>-->
+
           </Submenu>
           <Submenu name="2">
             <template slot="title">

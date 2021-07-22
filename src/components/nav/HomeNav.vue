@@ -11,10 +11,12 @@
             <router-link :to="{path:'/goodsList',query:{ way:1,
             condition:item.cname
             }}">
+
             <span class="nav-side-item" >{{item.cname}}
                  <Icon type="arrow-right-b" style=" float:right;padding-left: 50px  "></Icon>
             </span>
             </router-link>
+
           </li>
         </ul>
       </div>
@@ -22,22 +24,15 @@
         <!-- 幻灯片 -->
         <div>
           <Carousel autoplay loop>
-              <CarouselItem  v-for="(item, index) in marketing.CarouselItems" :key="index">
+              <CarouselItem  v-for="(item, index) in marketing" :key="index">
                 <router-link :to="{path:'/goodsList',query:{ way:0
             }}">
-                  <img :src="item"  display="block" width="100%" height="450">
+                  <img :src="'../../../static/img/goodsList/'+item.boanrdImg"  display="block" width="100%" height="450">
                 </router-link>
               </CarouselItem>
           </Carousel>
+
         </div>
-<!--        <div class="nav-show">-->
-<!--          <div class="nav-show-img" v-for="(item, index) in marketing.activity" :key="index">-->
-<!--            <router-link :to="{path:'/goodsList',query:{ way:0-->
-<!--            }}">-->
-<!--              <img :src="item" display="block" width="100%" height="450">-->
-<!--            </router-link>-->
-<!--          </div>-->
-<!--        </div>-->
       </div>
     </div>
   </div>
@@ -45,9 +40,10 @@
 
 <script>
 import store from '@/vuex/store';
-import { mapState } from 'vuex';
+import { mapState,mapActions } from 'vuex';
 import axios from 'axios';
 import api from '../../../static/js/api';
+import {loadCarouselItems} from '../../vuex/actions';
 export default {
   name: 'HomeNav',
   data () {
@@ -58,19 +54,25 @@ export default {
     };
   },
   computed: {
+
     ...mapState(['marketing'])
+
   },
   methods: {
+    ...mapActions(['loadCarouselItems']),
     //获取分类信息
     loadCatogory(){
       let _this=this
       axios.get(api.path+"productManage/lookUpAllCatogory").then(function (resp){
         _this.catogory=resp.data.data
       })
-    }
+
+    },
   },
   created () {
     this.loadCatogory()
+    this.loadCarouselItems()
+    console.log(this.marketing)
   },
   store
 };

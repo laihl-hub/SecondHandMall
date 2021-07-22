@@ -11,7 +11,7 @@
 
       <div class="address-content" >
         <el-row>
-          <el-col :span="5" style="margin-left: 100px"><img :src="'../../../static/img/goodsList/'+item.pimg" width="150px" height="150px;"></el-col>
+          <el-col :span="5" style="margin-left: 100px"><img :src="'../../../static/img/goodsList/'+item.pimg" width="100px" max-height="130px;"></el-col>
           <el-col :span="9"><div style="display:inline-block">
           <p><span class="address-content-title"> 商品名称 :</span> {{item.pname}}</p>
 <!--        <p><span class="address-content-title">商品分类:</span> {{item.cname}}</p>-->

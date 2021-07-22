@@ -13,7 +13,7 @@
         <Button type="ghost" icon="plus-round" @click="add"></Button>
       </div>
       <div class="layout-content-main">
-        <el-table stripe style="width: 50%;border: 1px solid lightgray" :data="tableData" >
+        <el-table stripe style="width: 50%;border: 1px solid lightgray" :data="tableData" width="200px" >
           <el-table-column label="ID" width="auto" prop="cid"> </el-table-column>
           <el-table-column label="类别名称" width="auto" prop="cname">
           </el-table-column>
@@ -64,5 +64,8 @@ export default {
 .layout-content{
   position: relative;
   top: 30px;
+}
+.layout-content-main{
+  overflow: scroll;
 }
 </style>

@@ -9,11 +9,13 @@
     </div>
     <div class="layout-content">
       <div style="margin-bottom: 20px">
+
         <el-input type="text" clearable v-model="input" style="width: 300px" placeholder="请输入商品名"></el-input>
         <el-button icon="el-icon-search" circle @click="searchGoods"></el-button>
+
       </div>
-      <div class="layout-content-main">
-        <el-table stripe style="width: 100%" :data="tableData">
+      <div class="layout-content-main" style="height: 800px">
+        <el-table stripe style="width: 100%" :data="tableData" >
           <el-table-column label="ID" width="70" prop="pid"> </el-table-column>
           <el-table-column label="商品名称" width="auto" prop="pname">
           </el-table-column>
@@ -40,26 +42,46 @@
             ></el-button></template
             ></el-table-column>
         </el-table>
+        <el-pagination
+          background
+          layout="prev, pager, next"
+          :page-size=6
+          :total="totalNum"
+          size="large"
+          @current-change="page"
+          style="margin-left: 500px;margin-top: 20px">
+        </el-pagination>
       </div>
+
     </div>
+
   </div>
+
 </template>
+
 
 <script>
 import axios from "axios";
 import api from "../../../static/js/api";
 import Moment from "moment";
 
+
 export default {
   data() {
     return {
 
       tableData: null,
-      input:''
+      input:'',
+      totalNum:null,
     };
   },
   async created() {
     const _this = this
+    axios.get(api.path+"productManage/lookUpProductDetail/1/6").then(function (resp){
+      _this.tableData = resp.data.data
+      _this.totalNum=parseInt(resp.data.msg)
+    })
+
     await axios.get(api.path + 'productManage/lookUpProductDetail').then(function (response) {
       _this.tableData = response.data.data
     })
@@ -78,6 +100,12 @@ export default {
       // const _this=this
       // axios.get()
       this.$message.error('删除失败')
+    },
+    page(currentPage){
+      const _this=this
+      axios.get(api.path+"productManage/lookUpProductDetail/"+currentPage+"/"+6).then(function (resp){
+        _this.tableData=resp.data.data
+      })
     }
   },
 

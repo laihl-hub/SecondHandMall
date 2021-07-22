@@ -72,20 +72,11 @@ export default {
       _this.tableData=response.data.data;
       _this.testData=response.data.data
       console.log(_this.testData)
-      // console.log(response);
     })
   },
   methods:{
     searchUser(){
-      // console.log(1)
-      // const _this=this
-      // axios.get(api.path+'userInfoManage/lookUpUserInfoByUserId/'+_this.input)
-      // .then((response)=>{
-      //   // _this.tableData=response.data.data
-      //   // console.log(this.tableData)
-      //   // console.log(_this.tableData)
-      //   console.log(response.data)
-      // })
+
     }
   }
 };

@@ -40,8 +40,12 @@
                 <FormItem label="公告描述：" prop="boardText">
                   <div style="width: 300px;height: 100px;border: 1px dotted lightgray">{{viewData.boardText}}</div>
                 </FormItem>
-                <FormItem label="照片：">
-                  <div style="width: 100px;height: 100px;border: 1px dotted lightgray"></div>
+                <FormItem label="照片：" prop="boardImg">
+                  <template slot-scope="scope">
+                    <div style="width: 100px;height: 100px;border: 1px dotted lightgray">
+                      <img slot="reference" :src="'../../../static/img/goodsList/'+viewData.boardImg" style="width: 300px;max-height: 300px">
+                    </div>
+                  </template>
                 </FormItem>
               </Form>
             </div>
@@ -55,6 +59,7 @@ import axios from "axios";
 import api from "../../../static/js/api";
 import Moment from "moment";
 
+import { mapState,mapActions } from 'vuex';
 export default {
   data () {
     return {
@@ -63,27 +68,31 @@ export default {
       isVisible:false,
       viewData:{
         boardTime:'',
-        boardText: ''
+        boardText: '',
+        boardImg:' '
       }
     };
   },
   async created() {
     const _this = this
-    await axios.get(api.path + 'boardManage/listAllBoard').then(function (response) {
+    // this.loadCarouselItems();
+    await axios.get(api.path_local + 'boardManage/listAllBoard').then(function (response) {
       _this.tableData = response.data.data;
-
 
     })
     for(let i=0;i<_this.tableData.length;i++){
       _this.tableData[i].boardTime=_this.convertTime(_this.tableData[i].boardTime,'YYYY-MM-DD HH:MM:SS')
     }
-    // console.log(_this.tableData)
 
-    // _this.tableData.boardTime=_this.filters.convertTime('YYYY-MM-DD HH:MM:SS')
-    // console.log(_this.tableData.boardTime)
-    // console.log(_this.filters)
+
+
+  },
+  computed:{
+
   },
   methods:{
+
+
     searchNotice(){
 
     },

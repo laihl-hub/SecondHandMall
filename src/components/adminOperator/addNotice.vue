@@ -15,12 +15,16 @@
           <FormItem   label="上传图片" :label-width="100"  >
             <el-upload
               class="avatar-uploader"
-              action="#"
+              action="http://139.224.9.104:8182/uploadImage"
               methos="post"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload">
-              <img v-if="formData.img_path" :src="formData.img_path" class="avatar">
+              :on-change="handleChange"
+              ref="upload"
+              type="file"
+              name="image"
+            >
+              <img v-if="img_path" :src="img_path" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </FormItem>
@@ -44,9 +48,12 @@ export default {
       formData: {
         aid: '',
         boardText: "",
+        boardImg: ''
         // boardTime: "",
         // img_path: ''
       },
+      img_path: '',
+      img_name:''
     };
   },
   components: {
@@ -55,19 +62,15 @@ export default {
     handleAvatarSuccess(res, file) {
       this.formData.img_path = URL.createObjectURL(file.raw);
     },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === 'image/jpeg';
-      const isLt2M = file.size / 1024 / 1024 < 2;
+    handleChange(file){
+      this.img_path = URL.createObjectURL(file.raw);
+      this.formData.boardImg= file.name
 
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!');
-      }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
-      }
-      return isJPG && isLt2M;
     },
+
     submit(){
+
+      this.$refs.upload.submit()
       const _this=this;
       _this.formData.aid=Cookies.get('adminId')
       axios.post(api.path+'boardManage/addBoard',_this.formData).then(function (response){

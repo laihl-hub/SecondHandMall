@@ -71,9 +71,11 @@ export default {
       axios.get(api.path+'productManage/lookUpWaterfallProduct').then( function (resp) {
         let waterfall = resp.data.data
         let arrnew = waterfall.map((item,index) => {
+
           return Object.assign({},{'src':'../../../static/img/goodsList/'+item.pimg,
               'productInfo':item
             }
+
           )
         })
         _this.page += 1;
