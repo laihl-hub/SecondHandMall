@@ -27,7 +27,7 @@
               <CarouselItem  v-for="(item, index) in marketing" :key="index">
                 <router-link :to="{path:'/goodsList',query:{ way:0
             }}">
-                  <img :src="'../../../static/img/goodsList/'+item.boanrdImg"  display="block" width="100%" height="450">
+                  <img :src="'../../../static/img/goodsList/'+item.boardImg"  display="block" width="100%" height="450">
                 </router-link>
               </CarouselItem>
           </Carousel>

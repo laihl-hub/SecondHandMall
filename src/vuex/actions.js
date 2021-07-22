@@ -7,7 +7,7 @@ import Moment from "moment";
 // 获取轮播(营销)图片
 export const loadCarouselItems = ({ commit }) => {
   return new Promise((resolve, reject) => {
-    axios.get(api.path_local+"boardManage/listAllBoard").then(function (resp){
+    axios.get(api.path+"boardManage/listAllBoard").then(function (resp){
       const data=resp.data.data
       commit('SET_CAROUSELITEMS_INFO', data);
     })
