@@ -5,7 +5,7 @@
       </ul>
       <ul class="detail">
         <li class="first" v-show="!userInfo.username">
-          你好，请<router-link to="/login">登录 <Icon type="person"></Icon></router-link> |<span class="text-color-red"><router-link to="/SignUp">免费注册 <Icon type="person-add"></Icon></router-link></span>
+          你好，请<router-link to="/login">登录 <Icon type="person"></Icon></router-link> |<span class="text-color-red" style="margin-left: 6px"><router-link to="/SignUp">免费注册 <Icon type="person-add"></Icon></router-link></span>
         </li>
         <li v-show="!!userInfo.username">
           <Dropdown>
@@ -126,7 +126,7 @@ export default {
 .box {
   width: 100%;
   height: 35px;
-  background-color: #e3e4e5;
+  background-color: #d8e3ee;
 }
 .nav {
   margin: 0% auto;
@@ -156,13 +156,10 @@ export default {
   border-left: none;
 }
 .nav a:hover {
-  color: lightsteelblue;
+  color: #435779;
 }
 .location {
   color: #999999;
-}
-.icon {
-  color: #d9534f;
 }
 .first {
   color: #999999;
@@ -170,17 +167,6 @@ export default {
 .first a:first-child {
   padding-left: 3px;
   border-left: none;
-}
-.city {
-  padding: 10px 15px;
-}
-.city-item {
-  font-weight: bold;
-  cursor: pointer;
-  padding: 5px;
-}
-.city-item:hover {
-  color: lightsteelblue;
 }
 .person-icon {
   color: #495060;
@@ -228,10 +214,6 @@ export default {
 }
 .shopping-cart-text {
   color: #ccc;
-}
-.go-to-buy {
-  display: flex;
-  justify-content: flex-end;
 }
 .shopping-cart-null {
   padding: 15px;

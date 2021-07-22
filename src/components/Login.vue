@@ -3,7 +3,7 @@
   <div>
     <Row class="container">
       <i-col span="13" offset="2" class="login-img-box">
-        <img src="static/img/1.jpg" alt="">
+        <img src="static/img/1.png" alt="">
         <Modal v-model="isVisible" width="530">
           <p slot="header">
             <Icon type="edit"></Icon>
@@ -193,9 +193,9 @@ export default {
 
 <style scoped>
 .container {
-  margin-top: 30px;
-  height: 485px;
-  background-color: #fff;
+  /*margin-top: 30px;*/
+  height: 600px;
+  background-color: rgba(215, 215, 236, 0.7);
 }
 .login-img-box {
   height: 485px;
@@ -216,7 +216,8 @@ export default {
 .login-container {
   width: 80%;
   height: 280px;
-  border: 1px solid lightslategrey;
+  border: 5px outset #ddd7e8;
+  background-color: white;
 }
 .login-header {
   height: 50px;

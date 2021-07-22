@@ -101,13 +101,13 @@ export default {
 }
 /*大的导航信息，包含导航，幻灯片等*/
 .nav-body {
-  width: 1020px;
+  width: 1070px;
   height: 485px;
   margin: 0px auto;
 }
 .nav-side {
-  width: 200px;
-  height: 100%;
+  width: 240px;
+  height: 94%;
   padding: 0px;
   color: hsla(0,0%,100%,.6);
   float: left;
@@ -147,7 +147,7 @@ export default {
 /*导航内容*/
 .nav-content {
   width: 792px;
-  margin-left: 15px;
+  margin-left: 10px;
   overflow: hidden;
   float: left;
 }

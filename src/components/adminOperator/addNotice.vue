@@ -5,23 +5,24 @@
         <h1>发布公告</h1>
       </div>
       <div class="add-box">
-        <Form :model="formData" label-position="left" :label-width="100" :rules="ruleInline">
+        <Form :model="formData" label-position="left" :label-width="100" >
 <!--          <FormItem label="公告标题" prop="name">-->
 <!--            <i-input v-model="formData.name" size="large"></i-input>-->
 <!--          </FormItem>-->
           <FormItem  label="公告描述" prop="boardText">
             <i-input v-model="formData.boardText" size="large" type="textarea"></i-input>
           </FormItem>
-          <FormItem   >
-<!--            <el-upload-->
-<!--              class="avatar-uploader"-->
-<!--              action="#"-->
-<!--              :show-file-list="false"-->
-<!--              :on-success="handleAvatarSuccess"-->
-<!--              :before-upload="beforeAvatarUpload">-->
-<!--              <img v-if="formData.img_path" :src="formData.img_path" class="avatar">-->
-<!--              <i v-else class="el-icon-plus avatar-uploader-icon"></i>-->
-<!--            </el-upload>-->
+          <FormItem   label="上传图片" :label-width="100"  >
+            <el-upload
+              class="avatar-uploader"
+              action="#"
+              methos="post"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload">
+              <img v-if="formData.img_path" :src="formData.img_path" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
           </FormItem>
         </Form>
       </div>
@@ -34,7 +35,6 @@
 </template>
 
 <script>
-import Distpicker from 'v-distpicker';
 import axios from "axios";
 import api from "../../../static/js/api";
 export default {
@@ -47,21 +47,9 @@ export default {
         // boardTime: "",
         // img_path: ''
       },
-      ruleInline: {
-        // name: [
-        //   { required: true, message: '请输入公告标题', trigger: 'blur' }
-        // ],
-        boardText: [
-          { required: true, message: '请输入公告描述', trigger: 'blur' }
-        ],
-        // img_path: [
-        //   { required: true, message: '请插入图片', trigger: 'blur' }
-        // ]
-      }
     };
   },
   components: {
-    Distpicker
   },
   methods:{
     handleAvatarSuccess(res, file) {

@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div class="box">
-      <div class="waterfall">
+    <div class="box" >
+      <div class="waterfall" style="background-color: rgba(234,234,234,0.64)">
         <vue-waterfall-easy
           ref="waterfall"
           :imgsArr="imgsArr"
           :maxCols="4"
           @scrollReachBottom="getData"
           @click="clickFn">
-          <div class="info  waterfallInfo" slot-scope="props">
+          <div class="info  waterfallInfo" slot-scope="props" >
             <el-row  :gutter="20"  style="margin-top: 10px;margin-bottom: 20px;">
               <el-col :span="20" style="font-size: 24px;;color: #2c2c2c; text-align: left">
                 {{props.value.productInfo.pname}}</el-col>

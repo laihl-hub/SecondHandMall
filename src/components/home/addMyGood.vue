@@ -10,7 +10,7 @@
       <div class="add-box">
         <el-form :model="formData" ref="ruleForm" label-position="left" :label-width="'100'" :rules="ruleInline">
           <el-form-item label="商品名称" prop="pname" >
-            <el-input v-model="formData.pname" size="large" placeholder="请输入商品名称"></el-input>
+            <el-input v-model="formData.pname"  placeholder="请输入商品名称"></el-input>
           </el-form-item>
           <el-form-item label="简介" prop="pintro">
             <el-input v-model="formData.pintro" size="large" placeholder="请介绍介绍你的商品吧"></el-input>
@@ -26,7 +26,7 @@
                 </el-select>
           </el-form-item>
 
-            <el-form-item label="上传图片" ref="uploadElement" prop="imageUrl">
+            <el-form-item label="请上传图片" ref="uploadElement" prop="imageUrl">
               <el-upload
                 class="avatar-uploader"
                 ref="upload"
@@ -38,9 +38,10 @@
                 :auto-upload="false"
                 name="image"
                 type="file"
+                style="border: 1px dotted lightgray;margin-left: 70px;margin-top:40px;width: 200px;height: 200px"
               >
-                <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                <img v-if="imageUrl" :src="imageUrl" class="avatar" >
+                <i v-else class="el-icon-plus avatar-uploader-icon" style="margin:5px 5px"></i>
               </el-upload>
             </el-form-item>
 

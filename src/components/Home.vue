@@ -5,13 +5,42 @@
         <Menu active-name="1-2" theme="light" width="auto" @on-select="onSelect" accordion>
           <div class="user-icon">
             <div class="user-img">
-              <img src="static/img/head.jpeg">
+              <img src="static/img/head.jpeg" @click="changeHead">
             </div>
             <p>{{username}}</p>
           </div>
+          <Modal
+            v-model="isClickHeader"
+            width="400px"
+          >
+          <p slot="header">
+            <Icon type="edit"></Icon>
+            <span>上传头像</span>
+          </p>
+            <div>
+              <el-upload
+                class="avatar-uploader"
+                action=""
+                ref="upload"
+                :show-file-list="false"
+                method="post"
+                :before-upload="beforeUpload"
+                :on-change="handleChange"
+                :auto-upload="false"
+                name="image"
+                type="file"
+                style="border: 1px dotted lightgray;width: 300px;height: 300px;margin-left: 30px;margin-top: 20px"
+                >
+                <img v-if="imageUrl" :src="imageUrl" class="avatar" >
+                <i v-else class="el-icon-plus avatar-uploader-icon" style="margin:auto auto;size: 100px" ></i>
+              </el-upload>
+            </div>
+            <div slot="footer">
+              <Button type="ghost" @click="submit">确认上传</Button>
+              <Button type="ghost" @click="cancel">取消</Button>
+            </div>
+          </Modal>
           <Submenu name="1">
-
-
             <template slot="title">
               <Icon type="document-text"></Icon>
               <span>个人信息</span>
@@ -106,8 +135,9 @@ export default {
         'myFavorite': '查看收藏',
         'mySellOrder':'我的售出订单',
         'myBuyOrder':'我的购买订单',
-
-      }
+      },
+      isClickHeader:false,
+      imageUrl:'',
     };
   },
   created() {
@@ -122,6 +152,22 @@ export default {
       this.activeTitle = this.bar[name];
       // console.log(name)
       this.$router.push(`/home/${name}`);
+    },
+    changeHead(){
+      this.isClickHeader=true
+    },
+    handleChange (file, fileList) {
+      this.imageUrl = URL.createObjectURL(file.raw);
+      this.formData.pimg= file.name
+    },
+    beforeUpload(file) {
+      return true;
+    },
+    submit(){
+      this.isClickHeader=false
+    },
+    cancel(){
+      this.isClickHeader=false
     }
   }
 };
@@ -160,5 +206,9 @@ export default {
   padding: 0px 15px;
   padding-bottom: 15px;
   text-align: center;
+}
+.avatar-uploader{
+  text-align: center;
+  line-height: 300px;
 }
 </style>

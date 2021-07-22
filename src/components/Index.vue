@@ -2,7 +2,11 @@
   <div class="container">
     <Search></Search>
     <HomeNav></HomeNav>
-    <WaterList></WaterList>
+    <div style="width: 63%;margin-left: 305px">
+      <WaterList></WaterList>
+    </div>
+
+
   </div>
 </template>
 
@@ -49,7 +53,8 @@ export default {
 
 <style lang="less" scoped>
 .container {
-  background-color: #F6F6F6;
+  background-color: rgba(216, 252, 247, 0.98);
+
 }
 .content {
   width: 1008px;

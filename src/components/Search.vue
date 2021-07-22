@@ -15,16 +15,16 @@ export default {
   data () {
     return {
       sreachData: '',
-      promotionTags: ['买2免1', '领200神券', '199减100', '母婴5折抢', '充100送20']
+      // promotionTags: ['买2免1', '领200神券', '199减100', '母婴5折抢', '充100送20']
     };
   },
   methods: {
-    closeTags (index) {
-      this.promotionTags.splice(index, 1);
-    },
-    selectTags (index) {
-      this.sreachData = this.promotionTags[index];
-    },
+    // closeTags (index) {
+    //   this.promotionTags.splice(index, 1);
+    // },
+    // selectTags (index) {
+    //   this.sreachData = this.promotionTags[index];
+    // },
     sreach () {
       this.$router.push({path: '/goodsList', query: { condition:this.sreachData, way:4 }});
     }
@@ -41,8 +41,8 @@ export default {
 
 <style scoped>
 .container {
-  padding-top: 15px;
-  margin: 0px auto;
+  padding-top: 35px;
+  margin: 0 auto;
   margin-bottom: 15px;
   width: 460px;
 }

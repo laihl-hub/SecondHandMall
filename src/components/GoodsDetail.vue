@@ -20,7 +20,7 @@
       <div style="width: 20%;display: inline-block;position: absolute;top: 52px">
         <AllWants></AllWants>
       </div>
-      <div style="width: 80%;display: inline-block;position:absolute;left: 20%;top: 50px">
+      <div style="width: 79%;display: inline-block;position:absolute;left:21%;top: 50px">
         <WaterList></WaterList>
       </div>
     </div>

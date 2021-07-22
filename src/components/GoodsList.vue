@@ -174,7 +174,7 @@ computed:{
         })
       }
       else if(this.query.way==4){
-        axios.get(api.path_local+"productManage/lookUpProductInfoByPname/"+this.query.condition).then(function (resp){
+        axios.get(api.path+"productManage/lookUpProductInfoByPname/"+this.query.condition).then(function (resp){
           _this.productInfo=resp.data.data
         })
       }
