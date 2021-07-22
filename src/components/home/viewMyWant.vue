@@ -14,8 +14,8 @@
       <div class="want-content">
         <el-row>
           <!-- 图片 -->
-          <el-col :span="5" style="margin-left: 100px"><img :src="'../../../static/img/goodsList/'+item.buyImg"  width="150px" height="150px"></el-col>
-          <el-col :span="9"><div style="display:inline-block">
+<!--          <el-col :span="5" style="margin-left: 100px"><img :src="'../../../static/img/goodsList/'+item.buyImg"  width="150px" height="150px"></el-col>-->
+          <el-col :span="9"><div style="display:inline-block;margin-left: 100px">
           <p><span class="want-content-title"> 商品名称 :</span> {{item.buyProductName}}</p>
         <!-- <p><span class="want-content-title">可接受价格:</span> {{item.address}}</p> -->
         <p><span class="want-content-title">联系方式:</span> {{item.buyPhone}}</p>
@@ -42,8 +42,8 @@
             <i-input v-model="formData.intro" size="large"></i-input>
           </FormItem>
 
-          <FormItem label="商品相似图片" prop="img">
-            <i-input v-model="formData.img" size="large"></i-input>
+<!--          <FormItem label="商品相似图片" prop="img">-->
+<!--            <i-input v-model="formData.img" size="large"></i-input>-->
             <!-- 上传图片 -->
             <!-- <el-upload
                   class="upload-demo"
@@ -58,7 +58,7 @@
                   <el-button size="small" type="primary">点击上传</el-button>
                   <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
             </el-upload> -->
-          </FormItem>
+<!--          </FormItem>-->
           <FormItem label="联系方式" prop="phone">
             <i-input v-model="formData.phone" size="large"></i-input>
           </FormItem>

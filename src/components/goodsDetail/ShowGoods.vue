@@ -9,7 +9,7 @@
 <!--        -->
         <div class="item-detail-img-row">
           <div class="item-detail-img-small">
-            <img :src="'../../static/img/goodsList/'+productInfo.pimg" alt="">
+            <img :src="'../../static/img/goodsList/'+productInfo.pimg" alt="" style="max-height: 100px">
           </div>
         </div>
       </div>
@@ -72,7 +72,6 @@
               <br>
               <div style="margin-top: 5px;margin-left: 7px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{productInfo.pintro}}</div>
             </Row>
-
             <Row span="" style="padding-bottom: 10px"> <Tooltip content="商品现价" style="padding-right: 5px">
               <Icon type="social-yen-outline" size="18" style="padding-left: 5px;padding-right: 2px"></Icon>
             </Tooltip>
@@ -85,24 +84,25 @@
         </Card>
         <br>
         <div class="add-buy-car-box">
-
         <Row style="margin-bottom:5px ">
-          <Col :span="5" >
-            <span class="sp1" style="display: inline-block;margin: 10px 50px">
+          <Col :span="6">
+            <span style="display: inline-block;font-size: 15px;margin-top: 25px;margin-left: 25px" >商品状态:
+              <span style="margin-left: 10px;font-size: 17px;color: #d5a8d5">{{state}}</span></span>
+          </Col>
+          <Col :span="4" >
+            <span class="sp1" style="display: inline-block;margin: 25px 50px">
               <Icon type="android-favorite" size="30" @click="addStoreBtn"  v-bind:class="{change:isClicked}" class="addStore"></Icon>
               <!--            <Button type="error" size="large" @click="addStoreBtn()">加入收藏</Button>-->
           </span>
           </Col>
-          <Col :span="15" >
-            <span class="add-buy-car" style="display:inline-block;margin: 10px 10px">
-              <Button-group shape="circle">
-              <Button type="ghost" style="background-color: peachpuff" @click="addShoppingCartBtn ()">加入购物车</Button>
-              <Button type="ghost" style="background-color: lightsteelblue" @click="buyProductBtn ()">立即购买</Button>
+          <Col :span="10" >
+            <span class="add-buy-car" style="display:inline-block;margin: 25px 10px">
+              <Button-group shape="circle" >
+              <Button type="ghost" style="background-color: peachpuff" @click="addShoppingCartBtn ()" :disabled="isSold">加入购物车</Button>
+              <Button type="ghost" style="background-color: lightsteelblue" @click="buyProductBtn ()" :disabled="isSold">立即购买</Button>
             </Button-group>
             </span>
-
           </Col>
-
         </Row>
 
 
@@ -125,6 +125,8 @@ export default {
       isClicked:false,
       imgIndex: 0,
       isLoading:true,
+      state:'',
+      isSold:false,
       productInfo:{
         cname: "",
         pimg: "",
@@ -136,7 +138,8 @@ export default {
         uname:'',
         uphoneNum: '',
         pid:0,
-        uid:0
+        uid:0,
+        pstate:null,
       }
     };
   },
@@ -146,6 +149,12 @@ export default {
       axios.get(api.path + 'productManage/lookUpProductDetailByPid/' + _this.$route.query.pid).
       then(function (resp){
         _this.productInfo=resp.data.data
+        if(_this.productInfo.pstate===0){
+          _this.state='未售出'
+        }else {
+          _this.state='已售出'
+          _this.isSold=true
+        }
         _this.isLoading=false;
       })
     }
@@ -229,6 +238,7 @@ export default {
 /******************商品图片及购买详情开始******************/
 .item-detail-show {
   width: 80%;
+  height: 465px;
   margin: 15px auto;
   display: flex;
   flex-direction: row;

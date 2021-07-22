@@ -8,7 +8,7 @@
         <h1>添加收货地址</h1>
       </div>
       <div class="add-box">
-        <Form :model="formData" label-position="left" :label-width="70" :rules="ruleInline">
+        <Form :model="formData" label-position="left" :label-width="100" :rules="ruleInline">
           <FormItem label="收件人" prop="name">
             <i-input v-model="formData.name" size="large"></i-input>
           </FormItem>
