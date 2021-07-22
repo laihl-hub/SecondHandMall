@@ -15,6 +15,8 @@ export default {
 .container {
   width: 100%;
   text-align: center;
+  background-color: white;
+  height: 200px;
 }
 .container p {
   font-size: 90px;

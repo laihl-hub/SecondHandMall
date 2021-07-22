@@ -88,5 +88,7 @@ export default {
   width: 350px;
   display: flex;
   align-items: center;
+  /*height: 50px;*/
+  /*background-color: white;*/
 }
 </style>
