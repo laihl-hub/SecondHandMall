@@ -2,7 +2,7 @@
   <div class="item-class-show">
     <Row class="item-class-group" v-for="(items, index) in tagsInfo" :key="index">
       <i-col class="item-class-name" span="4" style="text-align: center">{{ items.tagName }} : </i-col>
-      <i-col class="item-class-select" span="20">
+      <i-col class="item-class-select" span="20" >
         <span class="condition-item" v-for="(item, subIndex) in items.tags" :key="subIndex" @click="tagbtn(index,subIndex)">{{ item }}</span>
       </i-col>
     </Row>
@@ -86,6 +86,6 @@ export default {
   cursor: pointer;
 }
 .condition-item:hover{
-  color: red;
+  color: #e888c5;
 }
 </style>

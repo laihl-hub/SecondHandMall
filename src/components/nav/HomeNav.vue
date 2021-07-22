@@ -4,7 +4,7 @@
     </div>
     <div class="nav-body">
       <!-- 侧边导航 -->
-      <div class="nav-side" ref="navSide">
+      <div class="nav-side" ref="navSide" >
 
         <ul>
           <li v-for="(item, index) in catogory":key="item.cid" >

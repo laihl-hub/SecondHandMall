@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
 <!--    <Search></Search>-->
 <!--    <GoodsListNav></GoodsListNav>-->
     <div class="order-header">
@@ -12,7 +12,7 @@
 <!--        <template slot="desc">请点击商品前的选择框，选择购物车中的商品，点击付款即可。</template>-->
 <!--      </Alert>-->
 <!--      <Table border ref="selection" :columns="columns" :data="shoppingCart" size="large" @on-selection-change="select" no-data-text="您的购物车没有商品，请先添加商品到购物车再点击购买"></Table>-->
-      <Card style="height: 330px">
+      <Card style="height: 330px;background-color: rgba(223, 237, 245, 0.73);">
         <div style="height: 40px;border-bottom: 1px solid lightgray;" >
           <Col :span="2">
             <Dropdown  placement="bottom-start" style="width: 250px">
@@ -90,7 +90,7 @@
           </span>
         </div>
       </Card>
-      <Card style="height: 120px;margin-top: 20px">
+      <Card style="height: 120px;margin-top: 20px;background-color: rgba(223, 237, 245, 0.73);">
         <span style="display: inline-block"><h2>订单信息</h2></span>
         <div style="height: 50px;margin-top: 10px">
           <span style="display: block;margin-bottom: 10px"><h4 style="display: inline">订单编号</h4>
@@ -106,7 +106,6 @@
           <p><span>订单总额：</span> <span class="money" style="color: darksalmon"><Icon type="social-yen"></Icon>{{goodInfo.pprice}}</span></p>
           <div class="pay-btn">
             <Button type="ghost" size="large" style="background-color: lightblue" @click="submitOrder">订单支付</Button>
-
           </div>
         </div>
       </div>
@@ -257,6 +256,10 @@ export default {
 </script>
 
 <style scoped>
+.container{
+  background-color: rgba(223, 237, 245, 0.73);
+  /*height: 600px;*/
+}
 .order-header{
   position: relative;
   left: 10%;
@@ -272,18 +275,21 @@ export default {
 }
 .goods-list-container {
   margin: 15px auto;
+  margin-bottom: 0;
   width: 80%;
+  height: 100%;
+  /*background-color: rgba(223, 237, 245, 0.73);*/
 }
-.add-box{
-  z-index: 1;
-}
+
 .address-box {
   padding: 15px;
   margin: 15px;
   border-radius: 5px;
   box-shadow: 0px 0px 5px #ccc;
 }
-
+.address-box:hover{
+  background-color: rgba(245, 239, 239, 0.64);
+}
 .address-check-name span {
   width: 120px;
   height: 36px;
@@ -299,7 +305,7 @@ export default {
   color: #999;
 }
 .pay-container {
-  margin: 15px;
+  margin-top: 15px;
   display: flex;
   justify-content: flex-end;
 }
@@ -317,4 +323,5 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
+
 </style>

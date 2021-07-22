@@ -48,8 +48,6 @@
             <MenuItem name="viewMyInfo">查看信息</MenuItem>
           </Submenu>
           <Submenu name="2">
-
-
             <template slot="title">
               <Icon type="location"></Icon>
               <span>收货地址</span>

@@ -4,12 +4,12 @@
       <FormItem label="手机号" prop="phone">
           <i-input v-model="formValidate.phone" clearable size="large"  placeholder="请输入手机号"></i-input>
       </FormItem>
-      <FormItem label="验证码" prop="checkNum">
+      <FormItem label="验证码" prop="checkNum" style="margin-top: 30px">
           <i-input v-model="formValidate.checkNum" size="large"  placeholder="请输入验证码">
             <Button slot="append" @click="getcheckNum">获取验证码</Button>
           </i-input>
       </FormItem>
-      <Button type="error" size="large" long @click="handleSubmit('formValidate')" style="background-color: #6da6be">验证手机号</Button>
+      <Button type="ghost" size="large" long @click="handleSubmit('formValidate')" style="background-color: #a5d4e8;margin-top: 30px">验证手机号</Button>
     </Form>
   </div>
 </template>

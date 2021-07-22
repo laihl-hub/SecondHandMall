@@ -5,7 +5,7 @@
 <!--    </Header>-->
     <div class="store-box" v-for="(item, index) in store" :key="index">
       <div class="store-header">
-        <span>{{ item.pname }}</span>
+        <span>&nbsp</span>
         <div class="store-action">
           <span @click="buy(index)"><Icon class="el-icon-shopping-bag-1"></Icon> 去购买</span>
           <span @click="del(index)"><Icon type="trash-a"></Icon> 删除收藏</span>
@@ -13,10 +13,10 @@
       </div>
       <div class="store-content">
         <el-row>
-          <el-col :span="6"
+          <el-col :span="5" style="margin-left: 100px"
             ><img :src="'../../../static/img/goodsList/'+item.pimg" width="150px" height="150px"
           /></el-col>
-          <el-col :span="10"><div style="display: inline-block">
+          <el-col :span="9"><div style="display: inline-block">
               <p><span class="store-content-title"> 商品名称 :</span>{{ item.pname }}</p>
               <p><span class="store-content-title">商品价格:</span>{{ item.pprice }}</p>
               <p><span class="store-content-title">联系方式:</span>{{ item.phone }}</p>
@@ -101,8 +101,8 @@ export default {
   font-size: 18px;
 }
 .store-content {
-  font-size: 20px;
-  font-family: "楷体";
+  font-size: 16px;
+  /*font-family: "楷体";*/
 }
 
 .store-content-title {

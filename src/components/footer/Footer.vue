@@ -70,6 +70,8 @@ export default {
 <style scoped>
 /*****************************底 部 开 始*****************************/
 .footer {
+  /*font-family: "楷体";*/
+  /*font-size: 40px;*/
   width: 100%;
   height: 390px;
   /*margin-top: 30px;*/

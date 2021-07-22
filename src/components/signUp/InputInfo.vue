@@ -13,7 +13,7 @@
         <FormItem label="确认密码" prop="urepassword">
             <i-input type="password" v-model="formValidate.urepassword" clearable size="large" placeholder="请再次输入你的密码"></i-input>
         </FormItem>
-        <Button type="error" size="large" long @click="handleSubmit('formValidate')" style="background-color: #6da6be">注册</Button>
+        <Button type="ghost" size="large" long @click="handleSubmit('formValidate')" style="background-color: #a5d4e8">注册</Button>
     </Form>
   </div>
 </template>

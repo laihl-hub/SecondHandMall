@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="container1">
     <Search></Search>
     <div class="container">
-      <div class="bread-crumb">
+      <div class="bread-crumb" style="background-color: rgba(90,140,167,0.49);height: 50px;line-height: 50px;font-size: 30px">
         <Breadcrumb>
           <BreadcrumbItem to="/">
             <Icon type="ios-home-outline"></Icon> 首页
@@ -22,15 +22,15 @@
       <div class="goods-box">
         <AllWants></AllWants>
         <div class="goods-list-box">
-          <div class="goods-list-tool">
+          <div class="goods-list-tool" style="background-color: rgba(90,140,167,0.49);">
             <ul>
               <li v-for="(item,index) in goodsTool" :key="index" @click="orderBy(item.en, index)"><span :class="{ 'goods-list-tool-active': isAction[index]}">{{item.title}} <Icon :type="icon[index]"></Icon></span></li>
             </ul>
           </div>
           <div class="goods-list">
 
-            <div class="goods-show-info" v-for="(item, index) in productInfo " :key="index" style="margin-left: 15px">
-              <div class="goods-show-img"  >
+            <div class="goods-show-info" v-for="(item, index) in productInfo " :key="index" style="margin-left: 15px;background-color: #eaeaea">
+              <div class="goods-show-img">
                 <router-link :to="{path:'/goodsDetail',query:{
                   pid:item.pid,
                   cname:item.cname,
@@ -41,24 +41,24 @@
 
                 </router-link>
               </div>
-              <div class="goods-show-name">
+              <div class="goods-show-name" style="margin-left: 20px;margin-top: 10px">
                 <span>
-                  <span class="goods-show-pname">{{item.pname}}</span>
+                  <span class="goods-show-pname" >{{item.pname}}</span>
                 </span>
               </div>
-              <div class="goods-show-price">
+              <div class="goods-show-price" style="margin-left: 20px">
                 <span>
                   <Icon type="social-yen text-danger"></Icon>
                   <span class="seckill-price text-danger">{{item.pprice}}</span>
                 </span>
               </div>
-              <div class="goods-show-detail">
+              <div class="goods-show-detail" style="margin-left: 20px">
                 <span>{{item.pintro}}</span>
               </div>
-              <div class="goods-show-num">
+              <div class="goods-show-num" style="margin-left: 20px">
                 已有<span>{{item.pviewNum}}</span>人浏览
               </div>
-              <div class="goods-show-seller">
+              <div class="goods-show-seller" style="margin-left: 20px">
                 <span>{{item.uname}}</span>
               </div>
             </div>
@@ -221,10 +221,15 @@ computed:{
 </script>
 
 <style scoped>
+.container1{
+  background-color: rgba(223, 237, 245, 0.73);
+}
 .container {
   margin: 15px auto;
   width: 93%;
   min-width: 1000px;
+  /*width: 100%;*/
+  /*background-color: rgba(223, 237, 245, 0.73);*/
 }
 .text-danger {
   color: darksalmon;
@@ -281,15 +286,15 @@ computed:{
   background-color: #fff;
 }
 .goods-list-tool span:hover{
-  border: 1px solid #E4393C;
+  border: 1px solid #868181;
 }
 .goods-list-tool i:hover{
-  color: #E4393C;
+  color: #3e3c3c;
 }
 .goods-list-tool-active {
   color: #fff;
   border-left: 1px solid #ccc;
-  background-color: #E4393C !important;
+  background-color: rgba(61, 91, 111, 0.54) !important;
 }
 
 .goods-list {
@@ -300,9 +305,9 @@ computed:{
 
 .goods-show-info{
   width: 300px;
-  padding: 10px;
+  /*padding: 10px;*/
   margin: 15px 0px;
-  border: 1px solid #fff;
+  border: 2px solid lightgray;
   cursor: pointer;
 }
 

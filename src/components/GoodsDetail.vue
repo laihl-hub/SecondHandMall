@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <Search></Search>
     <div class="shop-item-path">
       <div class="shop-nav-container">
@@ -15,7 +15,7 @@
     <!-- 商品信息展示 -->
     <ShowGoods></ShowGoods>
 
-    <div class="bottom-box" style="width: 80%;position: relative;left: 10%;margin-top: 50px">
+    <div class="bottom-box" style="width: 80%;position: relative;left: 10%;margin-top: 50px;">
       <span style="display: block;width: 100%;height: 50px;background-color: #6da6be;position: absolute;line-height: 50px"><h3 style="margin-left: 50px">其他商品</h3></span>
       <div style="width: 20%;display: inline-block;position: absolute;top: 52px">
         <AllWants></AllWants>
@@ -60,12 +60,16 @@ export default {
 </script>
 
 <style scoped>
+.container{
+  background-color: rgba(223, 237, 245, 0.73);
+  height: 1700px;
+}
 .shop-item-path {
   margin-left: auto;
   margin-right: auto;
   width: 80%;
   height: 38px;
-  background-color: rgb(236, 235, 235);
+  background-color: rgba(90,140,167,0.49);
   line-height: 38px;
   color: #2c2c2c;
 }

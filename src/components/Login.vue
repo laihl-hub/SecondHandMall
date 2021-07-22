@@ -30,7 +30,7 @@
             </Form>
           </div>
           <div slot="footer">
-            <Button type="primary" size="large" long @click="submit">修改</Button>
+            <Button type="ghost" size="large" long @click="submit" style="background-color: #dcd8f6">修改</Button>
           </div>
         </Modal>
       </i-col>
@@ -52,7 +52,7 @@
                   </i-input>
               </FormItem>
               <FormItem>
-                  <Button type="primary"  @click="handleSubmit('formInline')" style="background-color: #6da6be;margin-left: 50px;width: 70px">登录</Button>
+                  <Button type="ghost"  @click="handleSubmit('formInline')" style="background-color: #dcd8f6;margin-left: 50px;width: 70px">登录</Button>
                 <Button type="ghost" style="margin-left: 30px" @click="find">找回密码</Button>
               </FormItem>
           </Form>

@@ -8,23 +8,23 @@
           :maxCols="4"
           @scrollReachBottom="getData"
           @click="clickFn">
-          <div class="info  waterfallInfo" slot-scope="props" >
-            <el-row  :gutter="20"  style="margin-top: 10px;margin-bottom: 20px;">
-              <el-col :span="20" style="font-size: 22px;;color: #2c2c2c; text-align: left;margin-left: 7px">
-                {{props.value.productInfo.pname|ellipsis_pname}}</el-col>
+          <div class="info  waterfallInfo" slot-scope="props" style="background-color: #eaeaea">
+            <el-row  :gutter="20"  style="margin-bottom: 20px;">
+              <el-col :span="20" style="font-size: 22px;color: #2c2c2c;margin-top: 10px">
+                <span style="margin-left: 20px;">{{props.value.productInfo.pname|ellipsis_pname}}</span></el-col>
             </el-row>
             <el-row style="margin-bottom: 10px" :gutter="20">
-              <el-col :span="12" style="font-size: 12px;color: #6e6568;"
-              >发布于:{{props.value.productInfo.ptime|convertTime('YYYY-MM-DD')}}</el-col>
-              <el-col :span="10" :offset="0" style="font-size: 12px;color: #6e6568"
+              <el-col :span="13" style="font-size: 12px;color: #6e6568;"
+              ><span style="margin-left: 20px">发布于:</span>{{props.value.productInfo.ptime|convertTime('YYYY-MM-DD')}}</el-col>
+              <el-col :span="9" :offset="0" style="font-size: 12px;color: #6e6568"
               >浏览人数:{{props.value.productInfo.pviewNum}}</el-col>
             </el-row>
             <el-row style="margin-bottom:20px ">
-              <el-col :span="30" :offset="1" style="font-size: 15px;color: #2c2c2c;text-align: left">
+              <el-col :span="30" :offset="1" style="font-size: 15px;color: #2c2c2c;text-align: left;margin-left: 20px">
                 {{props.value.productInfo.pintro |ellipsis}} </el-col>
             </el-row>
             <el-row :gutter="20">
-              <el-col :span="4" :offset="1" style="font-size: 15px;color: #e01222;">
+              <el-col :span="4" :offset="1" style="font-size: 15px;color: #e01222;margin-left: 16px">
                 <span style="">￥{{props.value.productInfo.pprice}}</span> </el-col>
               <el-col :span="10" :offset="5" style="font-size: 15px;color: #2d8cf0;text-align: right;white-space: nowrap">
                 {{props.value.productInfo.uschool|ellipsis_uschool}} </el-col>

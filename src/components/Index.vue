@@ -54,8 +54,9 @@ export default {
 
 <style lang="less" scoped>
 .container {
-  background-color: rgba(216, 252, 247, 0.98);
-
+  background-color: rgba(215, 245, 241, 0.98);
+  //font-family: "楷体";
+  //font-size: 20px;
 }
 .content {
   width: 1008px;

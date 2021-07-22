@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="item-detail-show">
+    <div class="item-detail-show" style="background-color: rgba(214,234,245,0.73);">
       <div class="item-detail-left">
 <!--        大照片显示-->
         <div class="item-detail-big-img">
@@ -15,7 +15,7 @@
       </div>
 
       <div class="item-detail-right">
-        <Card style="width:700px">
+        <Card style="width:700px;background-color: rgba(217,234,245,0.73);">
         <div class="item-detail-title" style="padding-bottom: 5px">
           <p>
             <span class="item-detail-express">官方担保交易</span> {{productInfo.pname}}</p>
@@ -77,8 +77,8 @@
               <Icon type="social-yen-outline" size="18" style="padding-left: 5px;padding-right: 2px"></Icon>
             </Tooltip>
               <span>商品价格:</span>
-              <span class="item-in-card item-detail-express" >{{productInfo.pprice}}
-                <label style="font-size: small;color: #6e6568;padding-left: 2px" >RMB</label></span>
+              <span class="item-in-card item-detail-express" style="background-color: rgba(214,234,245,0.73)">{{productInfo.pprice}}
+                <label style="font-size: small;color: #6e6568;padding-left: 1px;font-size: 16px" >RMB</label></span>
               <span style="padding-left: 50px;text-decoration:line-through">入手价:{{productInfo.pprePrice}}</span>
             </Row>
           </Col>

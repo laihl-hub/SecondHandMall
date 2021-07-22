@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <p><Icon type="ios-checkmark-outline"></Icon></p>
-    <router-link to="/login"><Button type="success" size="large" long class="btn-success" style="background-color: #6da6be">注册成功</Button></router-link>
+    <router-link to="/login"><Button type="ghost" size="large" long class="btn-success" style="background-color: #a5d4e8">注册成功</Button></router-link>
   </div>
 </template>
 

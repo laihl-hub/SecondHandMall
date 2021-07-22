@@ -3,7 +3,7 @@
 <!--    <Header :style="{background: 'lightgrey'}">-->
 <!--      <h2>我的地址</h2>-->
 <!--    </Header>-->
-    <div class="address-box" v-for="(item, index) in address" :key="index">
+    <div class="address-box" v-for="(item, index) in address" :key="index" >
       <div class="address-header">
         <span>{{item.raddrName}}</span>
         <div class="address-action">
@@ -11,11 +11,11 @@
           <span @click="del(index)"><Icon type="trash-a"></Icon> 删除</span>
         </div>
       </div>
-      <div class="address-content">
-        <p><span class="address-content-title"> 收 货 人 :</span> {{item.rreceivername}}</p>
-        <p><span class="address-content-title">收货地区:</span>{{item.rprovince}} {{item.rcity}} {{item.rarea}}</p>
-        <p><span class="address-content-title">详细地址:</span>{{item.rreciveraddress}}</p>
-        <p><span class="address-content-title">联系电话:</span> {{item.rreceiverphone}}</p>
+      <div class="address-content" style="margin-left: 70px;font-size: 16px">
+        <p><span class="address-content-title"> 收 货 人 :&nbsp</span> {{item.rreceivername}}</p>
+        <p><span class="address-content-title">收货地区:&nbsp</span>{{item.rprovince}} {{item.rcity}} {{item.rarea}}</p>
+        <p><span class="address-content-title">详细地址:&nbsp</span>{{item.rreciveraddress}}</p>
+        <p><span class="address-content-title">联系电话:&nbsp</span> {{item.rreceiverphone}}</p>
       </div>
     </div>
     <Modal v-model="modal" width="530">
